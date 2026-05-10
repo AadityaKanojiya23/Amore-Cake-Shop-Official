@@ -63,7 +63,7 @@ function GlobalLayout({ children }) {
     <div className={`${theme === 'dark' ? 'dark' : ''} min-h-screen flex flex-col relative bg-background text-foreground`}>
       
       {/* UPPERMOST ANNOUNCEMENT BAR */}
-      <div className="bg-navy text-background text-xs py-2 px-4 text-center font-medium tracking-wider flex justify-between items-center z-50 print:hidden">
+      <div className="bg-navy text-background text-xs py-2 px-4 text-center font-medium tracking-wider flex md:justify-between justify-center items-center z-50 print:hidden flex-wrap gap-2">
         <div className="flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-gold animate-bounce" />
           <span>CELEBRATE WITH <b className="text-gold uppercase tracking-widest font-black">AMORE CAKES</b>: GET 15% OFF! USE CODE: <b className="text-gold bg-background/10 px-2 py-0.5 rounded">WELCOME15</b></span>
@@ -132,10 +132,10 @@ function GlobalLayout({ children }) {
 
           {/* Right Nav Action Panel */}
           <div className="flex items-center gap-3 md:gap-5 shrink-0">
-            {/* Theme Toggle */}
+            {/* Theme Toggle (Desktop/Tablet only) */}
             <button 
               onClick={toggleTheme} 
-              className="p-2 hover:bg-cream rounded-full text-navy transition-all hover:scale-105"
+              className="p-2 hover:bg-cream rounded-full text-navy transition-all hover:scale-105 hidden sm:block"
               title="Toggle Light/Dark Theme"
             >
               {theme === 'dark' ? <Sun className="w-5 h-5 text-gold" /> : <Moon className="w-5 h-5" />}
@@ -193,8 +193,8 @@ function GlobalLayout({ children }) {
               )}
             </div>
 
-            {/* Wishlist Icon */}
-            <Link href="/dashboard?tab=wishlist" className="relative p-2 hover:bg-cream rounded-full text-navy transition-colors" title="Wishlist">
+            {/* Wishlist Icon (Desktop/Tablet only) */}
+            <Link href="/dashboard?tab=wishlist" className="relative p-2 hover:bg-cream rounded-full text-navy transition-colors hidden sm:block" title="Wishlist">
               <Heart className="w-5 h-5" />
               {wishlist.length > 0 && (
                 <span className="absolute top-0.5 right-0.5 bg-red-500 text-white font-extrabold text-[10px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse">
@@ -436,6 +436,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <title>Amore Cakes - Premium Artisanal Cake Shop & Delivery</title>
