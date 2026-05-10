@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
+
+
+:root {
+  /* Brand Theme Colors */
+  --background: #FFF9F2; /* Soft Cream White */
+  --foreground: #0D2A6B; /* Deep Navy Blue */
+  
+  --primary-orange: #F5821F; /* Primary Brand Orange */
+  --button-hover-orange: #E56F00; /* Button Hover Orange */
+  --primary-cream: #FFF3DD; /* Warm Cream */
+  --soft-beige: #F5E6C8; /* Soft Beige */
+  --border-light: #E8D8B9; /* Border Color */
+  
+  --primary-chocolate: #6B3E26; /* Chocolate Brown */
+  --secondary-chocolate: #6B3E26; /* Chocolate Brown */
+  
+  --accent-gold: #E2B847; /* Premium Golden Yellow */
+  --light-gold: #F4D06F; /* Light Golden Accent */
+  --accent-gold-glow: rgba(245, 130, 31, 0.18); /* Hover Glow */
+  --dark-navy: #081B4B; /* Premium Dark Navy */
+  --light-gray: #F8F8F8; /* Light Background Gray */
+  --success-green: #2E9E5B; /* Success Green */
+  
+  --card-bg: #FFFFFF;
+  --soft-shadow: rgba(13, 42, 107, 0.08); /* Soft Shadow */
+  --accent-light: rgba(226, 184, 71, 0.12);
+}
+
+.dark {
+  --background: #081B4B; /* Premium Dark Navy */
+  --foreground: #FFF9F2; /* Soft Cream White */
+  
+  --primary-orange: #F5821F;
+  --button-hover-orange: #E56F00;
+  --primary-cream: #0D2A6B; /* Deep Navy Blue */
+  --soft-beige: #0D2A6B;
+  --border-light: rgba(232, 216, 185, 0.15);
+  
+  --primary-chocolate: #F5E6C8; /* Soft Beige */
+  --secondary-chocolate: #FFF3DD;
+  
+  --accent-gold: #E2B847;
+  --light-gold: #F4D06F;
+  --accent-gold-glow: rgba(245, 130, 31, 0.25);
+  --dark-navy: #040F2D;
+  --light-gray: #0D2A6B;
+  --success-green: #2E9E5B;
+  
+  --card-bg: #0D2A6B; /* Deep Navy Blue */
+  --soft-shadow: rgba(4, 15, 45, 0.3);
+  --accent-light: rgba(245, 130, 31, 0.15);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-cream: var(--primary-cream);
+  --color-cream-light: #FFF9F2;
+  --color-chocolate: var(--primary-chocolate);
+  --color-chocolate-dark: #6B3E26;
+  --color-chocolate-light: var(--secondary-chocolate);
+  --color-gold: var(--accent-gold);
+  --color-gold-light: var(--light-gold);
+  --color-navy: var(--foreground);
+  --color-navy-dark: var(--dark-navy);
+  --color-orange: var(--primary-orange);
+  --color-orange-hover: var(--button-hover-orange);
+  --color-card-bg: var(--card-bg);
+  --color-border-color: var(--border-light);
+  --color-success: var(--success-green);
+  --color-beige: var(--soft-beige);
+}
+
+/* Base Body settings */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Poppins', 'Nunito', -apple-system, sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-orange);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* Beautiful custom Amore Cards and buttons */
+.amore-btn-primary {
+  background-color: var(--primary-orange);
+  color: #FFFFFF;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.75rem 1.75rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(245, 130, 31, 0.2);
+}
+.amore-btn-primary:hover {
+  background-color: var(--button-hover-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 130, 31, 0.35);
+}
+
+.amore-btn-secondary {
+  background-color: transparent;
+  color: var(--foreground);
+  font-weight: 700;
+  border: 2px solid var(--border-light);
+  border-radius: 9999px;
+  padding: 0.75rem 1.75rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.amore-btn-secondary:hover {
+  border-color: var(--primary-orange);
+  color: var(--primary-orange);
+  transform: translateY(-2px);
+  background-color: rgba(245, 130, 31, 0.04);
+}
+
+.amore-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  box-shadow: 0 8px 30px var(--soft-shadow);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+.amore-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px var(--accent-gold-glow);
+  border-color: var(--primary-orange);
+}
+
+/* Glassmorphism Styles */
+.glass {
+  background: rgba(255, 249, 242, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
+}
+
+.dark .glass {
+  background: rgba(8, 27, 75, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 216, 185, 0.1);
+}
+
+/* Gold card hover glow effect */
+.gold-glow {
+  box-shadow: 0 4px 20px -2px var(--accent-gold-glow);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.gold-glow:hover {
+  box-shadow: 0 12px 30px var(--accent-gold-glow);
+  transform: translateY(-4px);
+}
+
+/* Continuous smooth floating keyframes */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Horizontal Hide-Scrollbar utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Zoom Image Magnifier styling */
+.zoom-container {
+  overflow: hidden;
+  position: relative;
+}
+.zoom-image {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.zoom-container:hover .zoom-image {
+  transform: scale(1.1);
+}
+
+/* Luxury gradients */
+.premium-gradient {
+  background: linear-gradient(135deg, #0D2A6B 0%, #081B4B 100%);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(to right, #F4D06F 0%, #E2B847 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
