@@ -20,7 +20,16 @@ function GlobalLayout({ children }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [voiceActive, setVoiceActive] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Voice Search Mock Trigger
   const handleVoiceSearch = () => {
@@ -74,168 +83,186 @@ function GlobalLayout({ children }) {
         </div>
       </div>
 
-      {/* STICKY MAIN NAVBAR */}
-      <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b border-border-color shadow-sm transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
-          
-          {/* Logo on Left */}
-          <div className="flex items-center gap-4">
-            <button 
-              className="lg:hidden p-1.5 hover:bg-cream rounded-full text-navy transition-all duration-200"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-            <Link href="/" className="flex items-center gap-2 group">
-              <span className="text-2xl font-black tracking-tight text-navy font-serif flex items-center gap-1 transition-transform group-hover:scale-102">
-                Amore<span className="text-orange">Cakes</span>
-                <span className="text-[10px] bg-orange/15 text-orange font-sans uppercase px-2 py-0.5 rounded-full font-black tracking-wider ml-1">Boutique</span>
-              </span>
-            </Link>
-          </div>
-
-          {/* Location Picker */}
-          <div className="hidden md:flex items-center gap-1 text-xs font-semibold hover:text-orange cursor-pointer py-1.5 px-3 rounded-full bg-cream/40 border border-border-color transition-all hover:border-orange/50 shadow-sm">
-            <MapPin className="w-4 h-4 text-orange" />
-            <select 
-              value={selectedLocation} 
-              onChange={(e) => setSelectedLocation(e.target.value)}
-              className="bg-transparent border-none text-navy font-bold focus:outline-none cursor-pointer text-xs"
-            >
-              <option value="Mumbai, MH">Mumbai, MH</option>
-              <option value="Delhi, DL">Delhi NCR</option>
-              <option value="Bangalore, KA">Bangalore, KA</option>
-              <option value="Pune, MH">Pune, MH</option>
-              <option value="Kolkata, WB">Kolkata, WB</option>
-            </select>
-          </div>
-
-          {/* Central Search Bar */}
-          <form onSubmit={handleSearchSubmit} className="flex-1 max-w-lg relative hidden sm:flex items-center border border-border-color bg-cream/20 rounded-full py-1.5 px-4 focus-within:ring-2 focus-within:ring-orange/50 focus-within:border-transparent transition-all shadow-inner">
-            <Search className="w-4 h-4 text-navy/45 mr-2 shrink-0" />
-            <input 
-              type="text" 
-              placeholder="Search for eggless cakes, gourmet cupcakes, pastries..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent border-none outline-none text-sm text-navy placeholder-navy/45 font-medium"
-            />
-            <button 
-              type="button" 
-              onClick={handleVoiceSearch}
-              className={`p-1 hover:bg-cream rounded-full transition-colors ${voiceActive ? 'text-red-500 animate-pulse' : 'text-navy/60'}`}
-              title="Voice Search"
-            >
-              <Mic className="w-4 h-4" />
-            </button>
-          </form>
-
-          {/* Right Nav Action Panel */}
-          <div className="flex items-center gap-3 md:gap-5 shrink-0">
-            {/* Theme Toggle (Desktop/Tablet only) */}
-            <button 
-              onClick={toggleTheme} 
-              className="p-2 hover:bg-cream rounded-full text-navy transition-all hover:scale-105 hidden sm:block"
-              title="Toggle Light/Dark Theme"
-            >
-              {theme === 'dark' ? <Sun className="w-5 h-5 text-gold" /> : <Moon className="w-5 h-5" />}
-            </button>
-
-            {/* Profile Menu Dropdown */}
-            <div className="relative">
-              {user ? (
-                <div className="relative">
-                  <button 
-                    onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                    className="flex items-center gap-1.5 text-sm font-semibold hover:text-orange cursor-pointer py-1.5 px-3 rounded-full hover:bg-cream transition-all border border-transparent hover:border-border-color"
-                  >
-                    <img 
-                      src={user.avatar} 
-                      alt="avatar" 
-                      className="w-7 h-7 rounded-full border border-orange object-cover"
-                    />
-                    <span className="hidden md:block max-w-[80px] truncate text-navy font-bold">{user.name.split(' ')[0]}</span>
-                    <ChevronDown className="w-3.5 h-3.5 text-navy/60" />
-                  </button>
-                  {profileDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-52 bg-card-bg border border-border-color rounded-2xl shadow-xl py-2 z-50 animate-float">
-                      <div className="px-4 py-2 border-b border-border-color text-xs text-navy/60">
-                        Logged in as <b className="text-navy block truncate font-bold">{user.email}</b>
-                      </div>
-                      <Link href="/dashboard" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-navy transition-colors font-semibold">
-                        User Dashboard
-                      </Link>
-                      {user.role === 'admin' && (
-                        <Link href="/admin" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-orange transition-colors font-bold flex items-center gap-1">
-                          <Sparkles className="w-4 h-4 text-orange" /> Admin Dashboard
-                        </Link>
-                      )}
-                      <Link href="/dashboard?tab=orders" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-navy transition-colors font-semibold">
-                        Order History
-                      </Link>
-                      <button 
-                        onClick={() => { setProfileDropdownOpen(false); logout(); }}
-                        className="w-full text-left px-4 py-2.5 text-sm hover:bg-red-50 text-red-500 transition-colors font-bold"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <button 
-                  onClick={loginWithGoogle}
-                  className="flex items-center gap-1.5 text-xs font-bold bg-orange hover:bg-orange-hover text-white transition-all py-2 px-4 rounded-full shadow-sm"
-                >
-                  <User className="w-4 h-4" />
-                  <span>Google Login</span>
-                </button>
-              )}
+      {/* STICKY HEADER & NAVIGATION CONTAINER */}
+      <div className={`w-full transition-all duration-300 ${
+        isScrolled 
+          ? 'fixed top-0 left-0 right-0 z-40 shadow-lg backdrop-blur-md bg-background/80 border-b border-border-color/40 animate-slide-down' 
+          : 'relative z-40'
+      }`}>
+        {/* STICKY MAIN NAVBAR */}
+        <header className={`transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-transparent border-b border-transparent shadow-none backdrop-blur-none' 
+            : 'bg-background/95 backdrop-blur-sm border-b border-border-color shadow-sm'
+        }`}>
+          <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 transition-all duration-300 ${
+            isScrolled ? 'py-1.5' : 'py-3'
+          }`}>
+            
+            {/* Logo on Left */}
+            <div className="flex items-center gap-4">
+              <button 
+                className="lg:hidden p-1.5 hover:bg-cream rounded-full text-navy transition-all duration-200"
+                onClick={() => setMobileMenuOpen(true)}
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+              <Link href="/" className="flex items-center gap-2 group">
+                <span className="text-2xl font-black tracking-tight text-navy font-serif flex items-center gap-1 transition-transform group-hover:scale-102">
+                  Amore<span className="text-orange">Cakes</span>
+                  <span className="text-[10px] bg-orange/15 text-orange font-sans uppercase px-2 py-0.5 rounded-full font-black tracking-wider ml-1">Boutique</span>
+                </span>
+              </Link>
             </div>
 
-            {/* Wishlist Icon (Desktop/Tablet only) */}
-            <Link href="/dashboard?tab=wishlist" className="relative p-2 hover:bg-cream rounded-full text-navy transition-colors hidden sm:block" title="Wishlist">
-              <Heart className="w-5 h-5" />
-              {wishlist.length > 0 && (
-                <span className="absolute top-0.5 right-0.5 bg-red-500 text-white font-extrabold text-[10px] w-4 h-4 rounded-full flex items-center justify-center animate-pulse">
-                  {wishlist.length}
-                </span>
-              )}
-            </Link>
+            {/* Location Picker */}
+            <div className="hidden md:flex items-center gap-1 text-xs font-semibold hover:text-orange cursor-pointer py-1.5 px-3 rounded-full bg-cream/40 border border-border-color transition-all hover:border-orange/50 shadow-sm">
+              <MapPin className="w-4 h-4 text-orange" />
+              <select 
+                value={selectedLocation} 
+                onChange={(e) => setSelectedLocation(e.target.value)}
+                className="bg-transparent border-none text-navy font-bold focus:outline-none cursor-pointer text-xs"
+              >
+                <option value="Mumbai, MH">Mumbai, MH</option>
+                <option value="Delhi, DL">Delhi NCR</option>
+                <option value="Bangalore, KA">Bangalore, KA</option>
+                <option value="Pune, MH">Pune, MH</option>
+                <option value="Kolkata, WB">Kolkata, WB</option>
+              </select>
+            </div>
 
-            {/* Cart Icon */}
-            <Link href="/cart" className="relative p-2 hover:bg-cream rounded-full text-navy transition-colors" title="Cart Drawer">
-              <ShoppingBag className="w-5 h-5" />
-              {cart.length > 0 && (
-                <span className="absolute top-0.5 right-0.5 bg-orange text-white font-black text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center border border-card-bg shadow-sm">
-                  {cart.reduce((total, item) => total + item.quantity, 0)}
-                </span>
-              )}
+            {/* Central Search Bar */}
+            <form onSubmit={handleSearchSubmit} className="flex-1 max-w-lg relative hidden sm:flex items-center border border-border-color bg-cream/20 rounded-full py-1.5 px-4 focus-within:ring-2 focus-within:ring-orange/50 focus-within:border-transparent transition-all shadow-inner">
+              <Search className="w-4 h-4 text-navy/45 mr-2 shrink-0" />
+              <input 
+                type="text" 
+                placeholder="Search for eggless cakes, gourmet cupcakes, pastries..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-transparent border-none outline-none text-sm text-navy placeholder-navy/45 font-medium"
+              />
+              <button 
+                type="button" 
+                onClick={handleVoiceSearch}
+                className={`p-1 hover:bg-cream rounded-full transition-colors ${voiceActive ? 'text-red-500 animate-pulse' : 'text-navy/60'}`}
+                title="Voice Search"
+              >
+                <Mic className="w-4 h-4" />
+              </button>
+            </form>
+
+            {/* Right Nav Action Panel */}
+            <div className="flex items-center gap-3 md:gap-5 shrink-0">
+              {/* Theme Toggle (Desktop/Tablet only) */}
+              <button 
+                onClick={toggleTheme} 
+                className="p-2 hover:bg-cream rounded-full text-navy transition-all hover:scale-105 hidden sm:block"
+                title="Toggle Light/Dark Theme"
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5 text-gold" /> : <Moon className="w-5 h-5" />}
+              </button>
+
+              {/* Profile Menu Dropdown */}
+              <div className="relative">
+                {user ? (
+                  <div className="relative">
+                    <button 
+                      onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                      className="flex items-center gap-1.5 text-sm font-semibold hover:text-orange cursor-pointer py-1.5 px-3 rounded-full hover:bg-cream transition-all border border-transparent hover:border-border-color"
+                    >
+                      <img 
+                        src={user.avatar} 
+                        alt="avatar" 
+                        className="w-7 h-7 rounded-full border border-orange object-cover"
+                      />
+                      <span className="hidden md:block max-w-[80px] truncate text-navy font-bold">{user.name.split(' ')[0]}</span>
+                      <ChevronDown className="w-3.5 h-3.5 text-navy/60" />
+                    </button>
+                    {profileDropdownOpen && (
+                      <div className="absolute right-0 mt-2 w-52 bg-card-bg border border-border-color rounded-2xl shadow-xl py-2 z-50 animate-float">
+                        <div className="px-4 py-2 border-b border-border-color text-xs text-navy/60">
+                          Logged in as <b className="text-navy block truncate font-bold">{user.email}</b>
+                        </div>
+                        <Link href="/dashboard" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-navy transition-colors font-semibold">
+                          User Dashboard
+                        </Link>
+                        {user.role === 'admin' && (
+                          <Link href="/admin" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-orange transition-colors font-bold flex items-center gap-1">
+                            <Sparkles className="w-4 h-4 text-orange" /> Admin Dashboard
+                          </Link>
+                        )}
+                        <Link href="/dashboard?tab=orders" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-navy transition-colors font-semibold">
+                          Order History
+                        </Link>
+                        <button 
+                          onClick={() => { setProfileDropdownOpen(false); logout(); }}
+                          className="w-full text-left px-4 py-2.5 text-sm hover:bg-red-50 text-red-500 transition-colors font-bold"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button 
+                    onClick={loginWithGoogle}
+                    className="flex items-center gap-1.5 text-xs font-bold bg-orange hover:bg-orange-hover text-white transition-all py-2 px-4 rounded-full shadow-sm"
+                  >
+                    <User className="w-4 h-4" />
+                    <span>Google Login</span>
+                  </button>
+                )}
+              </div>
+
+              {/* Wishlist Icon (Desktop/Tablet only) */}
+              <Link href="/dashboard?tab=wishlist" className="relative p-2 hover:bg-cream rounded-full text-navy transition-colors hidden sm:block" title="Wishlist">
+                <Heart className="w-5 h-5" />
+                {wishlist.length > 0 && (
+                  <span className="absolute top-0.5 right-0.5 bg-red-500 text-white font-extrabold text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center animate-pulse">
+                    {wishlist.length}
+                  </span>
+                )}
+              </Link>
+
+              {/* Cart Icon */}
+              <Link href="/cart" className="relative p-2 hover:bg-cream rounded-full text-navy transition-colors" title="Cart Drawer">
+                <ShoppingBag className="w-5 h-5" />
+                {cart.length > 0 && (
+                  <span className="absolute top-0.5 right-0.5 bg-orange text-white font-black text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center border border-card-bg shadow-sm">
+                    {cart.reduce((total, item) => total + item.quantity, 0)}
+                  </span>
+                )}
+              </Link>
+            </div>
+          </div>
+        </header>
+
+        {/* SECONDARY CATEGORY NAVBAR */}
+        <nav className={`text-navy font-semibold overflow-x-auto no-scrollbar px-4 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-cream/40 py-1.5 shadow-sm border-b border-border-color/30 backdrop-blur-sm' 
+            : 'bg-cream border-b border-border-color py-2.5 shadow-sm'
+        }`}>
+          <div className="max-w-7xl mx-auto flex items-center gap-6 text-xs tracking-wide uppercase font-black whitespace-nowrap">
+            <Link href="/category/all" className="hover:text-orange transition-all pb-1 border-b-2 border-transparent hover:border-orange">
+              Shop All
+            </Link>
+            {categories.map((cat) => (
+              <Link 
+                key={cat.slug} 
+                href={`/category/${cat.slug}`} 
+                className="hover:text-orange transition-all pb-1 border-b-2 border-transparent hover:border-orange flex items-center gap-1"
+              >
+                {cat.name}
+              </Link>
+            ))}
+            <Link href="/about" className="hover:text-orange text-orange font-black tracking-widest pb-1 border-b-2 border-transparent hover:border-orange">
+              Our Story / Contact
             </Link>
           </div>
-        </div>
-      </header>
-
-      {/* SECONDARY CATEGORY NAVBAR */}
-      <nav className="bg-cream border-b border-border-color text-navy font-semibold overflow-x-auto no-scrollbar py-2.5 px-4 sticky top-[61px] z-30 shadow-sm backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto flex items-center gap-6 text-xs tracking-wide uppercase font-black whitespace-nowrap">
-          <Link href="/category/all" className="hover:text-orange transition-all pb-1 border-b-2 border-transparent hover:border-orange">
-            Shop All
-          </Link>
-          {categories.map((cat) => (
-            <Link 
-              key={cat.slug} 
-              href={`/category/${cat.slug}`} 
-              className="hover:text-orange transition-all pb-1 border-b-2 border-transparent hover:border-orange flex items-center gap-1"
-            >
-              {cat.name}
-            </Link>
-          ))}
-          <Link href="/about" className="hover:text-orange text-orange font-black tracking-widest pb-1 border-b-2 border-transparent hover:border-orange">
-            Our Story / Contact
-          </Link>
-        </div>
-      </nav>
+        </nav>
+      </div>
+      {isScrolled && <div className="h-[105px] md:h-[120px] print:hidden" />}
 
       {/* MAIN WEBSITE CONTENT PAGES */}
       <main className="flex-grow flex flex-col">
