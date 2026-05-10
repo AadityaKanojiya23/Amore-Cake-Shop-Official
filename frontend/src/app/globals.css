@@ -219,7 +219,6 @@ body {
 @media print {
   /* Hide all interactive, structural, and global website components */
   header,
-  footer,
   nav,
   section,
   .print\:hidden,
@@ -275,6 +274,49 @@ body {
   
   .border-b {
     border-bottom: 1px solid #e8d8b9 !important;
+  }
+
+  /* 🧾 Custom Print-Optimized Footer Theme (Corporate Letterhead Format) */
+  footer {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #0d2a6b !important;
+    border-top: 3px solid #f5821f !important; /* Premium Brand Orange Border */
+    padding: 2rem 0 !important;
+    margin-top: 3rem !important;
+    page-break-before: auto !important;
+  }
+
+  footer *, 
+  footer h3, 
+  footer h4, 
+  footer span, 
+  footer p, 
+  footer li, 
+  footer a {
+    color: #0d2a6b !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  /* Format footer columns layout beautifully on standard A4/Letter size paper */
+  footer .grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  footer a {
+    text-decoration: none !important;
+  }
+
+  footer svg {
+    display: inline-block !important;
+    color: #f5821f !important;
   }
 
   /* Avoid cutting lines/items across page breaks */
