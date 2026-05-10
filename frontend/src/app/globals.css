@@ -212,3 +212,73 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* ==============================================================================
+ * 🖨️ PREMIUM PRINT & PDF GENERATOR STYLING - INVOICE RECEIPTS
+ * ============================================================================== */
+@media print {
+  /* Hide all interactive, structural, and global website components */
+  header,
+  footer,
+  nav,
+  section,
+  .print\:hidden,
+  .announcement-bar,
+  input,
+  button,
+  .fixed,
+  iframe {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Reset body and page canvas for full-fidelity printer output */
+  body, 
+  html, 
+  main {
+    background: #ffffff !important;
+    color: #0d2a6b !important;
+    background-color: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Expand the invoice card container to fill the page cleanly */
+  .max-w-3xl, 
+  .max-w-7xl,
+  main > div {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Force display of borders and rich branding elements in PDF */
+  .border-double {
+    border-style: double !important;
+    border-width: 6px !important;
+    border-color: #0d2a6b !important;
+    padding: 2.5rem !important;
+    border-radius: 16px !important;
+  }
+  
+  .border-b {
+    border-bottom: 1px solid #e8d8b9 !important;
+  }
+
+  /* Avoid cutting lines/items across page breaks */
+  tr, p, div {
+    page-break-inside: avoid !important;
+  }
+}

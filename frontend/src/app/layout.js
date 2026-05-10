@@ -63,7 +63,7 @@ function GlobalLayout({ children }) {
     <div className={`${theme === 'dark' ? 'dark' : ''} min-h-screen flex flex-col relative bg-background text-foreground`}>
       
       {/* UPPERMOST ANNOUNCEMENT BAR */}
-      <div className="bg-navy text-background text-xs py-2 px-4 text-center font-medium tracking-wider flex justify-between items-center z-50">
+      <div className="bg-navy text-background text-xs py-2 px-4 text-center font-medium tracking-wider flex justify-between items-center z-50 print:hidden">
         <div className="flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-gold animate-bounce" />
           <span>CELEBRATE WITH <b className="text-gold uppercase tracking-widest font-black">AMORE CAKES</b>: GET 15% OFF! USE CODE: <b className="text-gold bg-background/10 px-2 py-0.5 rounded">WELCOME15</b></span>

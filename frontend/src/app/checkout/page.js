@@ -1,19 +1,21 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   CreditCard, ShieldCheck, Check, Info, MapPin, 
   ArrowLeft, ArrowRight, Truck, QrCode, Phone, Download, Printer, Home
 } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const { 
-    cart, user, token, placeOrder, addAddress, showToast, loginWithGoogle, isBackendOnline 
+    cart, user, token, placeOrder, addAddress, showToast, loginWithGoogle, isBackendOnline, orders 
   } = useApp();
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const invoiceParam = searchParams.get('invoice');
 
   // Step state: 1 = Address, 2 = Payment, 3 = Success
   const [step, setStep] = useState(1);
@@ -43,9 +45,19 @@ export default function CheckoutPage() {
   const [checkoutCoupon, setCheckoutCoupon] = useState(null);
   const [submittingOrder, setSubmittingOrder] = useState(false);
 
-  // Load customizations and addresses
+  // Load customizations, addresses, and query invoice parameter
   useEffect(() => {
-    if (cart.length === 0 && step !== 3) {
+    if (invoiceParam && orders && orders.length > 0) {
+      const matched = orders.find(o => o.invoiceNumber === invoiceParam);
+      if (matched) {
+        setPlacedOrder(matched);
+        setStep(3);
+        setIsInitialized(true);
+        return;
+      }
+    }
+
+    if (cart.length === 0 && step !== 3 && !invoiceParam) {
       router.push('/cart');
       return;
     }
@@ -645,5 +657,18 @@ export default function CheckoutPage() {
       )}
 
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex-grow flex items-center justify-center py-24 bg-background text-navy gap-3">
+        <div className="w-12 h-12 border-t-2 border-b-2 border-orange rounded-full animate-spin"></div>
+        <span className="font-sans font-black animate-pulse uppercase tracking-wider text-xs">Loading Invoice...</span>
+      </div>
+    }>
+      <CheckoutContent />
+    </Suspense>
   );
 }
