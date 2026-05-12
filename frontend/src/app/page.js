@@ -3,10 +3,246 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { 
   Sparkles, Heart, ShoppingBag, Eye, Star, ChevronLeft, ChevronRight, 
-  Clock, Award, Flame, Quote, Send, ArrowRight, ShieldCheck, HelpCircle, X
+  Clock, Award, Flame, Quote, Send, ArrowRight, ShieldCheck, HelpCircle, X,
+  Play, Pause, Volume2, VolumeX, Smartphone, Tv, CheckCircle, Lightbulb, Code
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
+// Special Moments & Shorts Data (Amore Cakes)
+const shortVideos = [
+  {
+    id: 'wedding-cake',
+    title: 'Dream Wedding Cake',
+    desc: 'A beautiful moment from Riya & Arjun\'s big day!',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-confectioner-decorating-a-wedding-cake-with-flowers-40847-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1535254973040-607b474cb50d?auto=format&fit=crop&q=80&w=600',
+    duration: '0:30',
+    isFeatured: true,
+    likes: 342,
+    views: '4.8k'
+  },
+  {
+    id: 'cake-decorating',
+    title: 'Cake Decoration',
+    desc: 'Behind the scenes of our floral cake magic',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-chef-putting-frosting-on-a-cake-40846-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&q=80&w=600',
+    duration: '0:25',
+    isFeatured: false,
+    likes: 189,
+    views: '2.5k'
+  },
+  {
+    id: 'chocolate-showcase',
+    title: 'Chocolate Bliss',
+    desc: 'One of our bestsellers - pure chocolate indulgence!',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-pouring-melted-chocolate-on-a-cake-40852-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=600',
+    duration: '0:28',
+    isFeatured: false,
+    likes: 275,
+    views: '3.1k'
+  },
+  {
+    id: 'baker-working',
+    title: 'Baker\'s Magic',
+    desc: 'Handmade with love by our expert baker',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-decorating-a-chocolate-cake-with-fruits-40849-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1605697040000-a01bd9ca2884?auto=format&fit=crop&q=80&w=600',
+    duration: '0:22',
+    isFeatured: false,
+    likes: 154,
+    views: '1.9k'
+  },
+  {
+    id: 'birthday-candles',
+    title: 'Customer Celebration',
+    desc: 'Happy smiles, happy memories!',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-blowing-out-birthday-candles-on-a-cake-40851-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1533782654613-826a072dd6f3?auto=format&fit=crop&q=80&w=600',
+    duration: '0:20',
+    isFeatured: false,
+    likes: 421,
+    views: '5.2k'
+  },
+  {
+    id: 'rose-piping',
+    title: 'Rose Piping Art',
+    desc: 'Delicate buttercream piping process.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-chef-putting-frosting-on-a-cake-40846-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&q=80&w=600',
+    duration: '0:18',
+    isFeatured: false,
+    likes: 132,
+    views: '1.4k'
+  },
+  {
+    id: 'gold-leaf',
+    title: 'Gold Leaf Touch',
+    desc: 'Placing edible 24k gold flakes.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-confectioner-decorating-a-wedding-cake-with-flowers-40847-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=600',
+    duration: '0:15',
+    isFeatured: false,
+    likes: 98,
+    views: '890'
+  },
+  {
+    id: 'meringue-whisk',
+    title: 'Cream Whisking',
+    desc: 'Whipped cream beating to stiff peaks.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-chef-putting-frosting-on-a-cake-40846-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=600',
+    duration: '0:25',
+    isFeatured: false,
+    likes: 215,
+    views: '2.1k'
+  },
+  {
+    id: 'icing-drizzle',
+    title: 'Glaze Drizzling',
+    desc: 'Pouring hot white chocolate syrup.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-pouring-melted-chocolate-on-a-cake-40852-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?auto=format&fit=crop&q=80&w=600',
+    duration: '0:19',
+    isFeatured: false,
+    likes: 310,
+    views: '3.6k'
+  },
+  {
+    id: 'dough-craft',
+    title: 'Baker\'s Dough',
+    desc: 'Kneading artisanal yeast puff dough.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-decorating-a-chocolate-cake-with-fruits-40849-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=600',
+    duration: '0:21',
+    isFeatured: false,
+    likes: 112,
+    views: '1.2k'
+  },
+  {
+    id: 'cupcake-swirl',
+    title: 'Cupcake Swirls',
+    desc: 'Perfect raspberry swirls piped live.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-chef-putting-frosting-on-a-cake-40846-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&q=80&w=600',
+    duration: '0:14',
+    isFeatured: false,
+    likes: 180,
+    views: '1.9k'
+  },
+  {
+    id: 'velvet-slice',
+    title: 'Slicing Red Velvet',
+    desc: 'Extremely satisfying clean vertical cut.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-blowing-out-birthday-candles-on-a-cake-40851-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1616541823729-00fe0aacd32c?auto=format&fit=crop&q=80&w=600',
+    duration: '0:22',
+    isFeatured: false,
+    likes: 290,
+    views: '3.4k'
+  },
+  {
+    id: 'raspberry-fruit',
+    title: 'Organic Raspberries',
+    desc: 'Garnishing fruit tart overlays.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-decorating-a-chocolate-cake-with-fruits-40849-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&q=80&w=600',
+    duration: '0:27',
+    isFeatured: false,
+    likes: 145,
+    views: '1.6k'
+  },
+  {
+    id: 'lemon-torch',
+    title: 'Browning Meringue',
+    desc: 'Bespoke hand-torching sweet tarts.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-chef-putting-frosting-on-a-cake-40846-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&q=80&w=600',
+    duration: '0:17',
+    isFeatured: false,
+    likes: 204,
+    views: '2.2k'
+  },
+  {
+    id: 'gold-box',
+    title: 'Premium Ribbons',
+    desc: 'Amore boutique ribboning process.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-confectioner-decorating-a-wedding-cake-with-flowers-40847-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&q=80&w=600',
+    duration: '0:24',
+    isFeatured: false,
+    likes: 159,
+    views: '1.8k'
+  },
+  {
+    id: 'sugar-dust',
+    title: 'Sugar Snowfall',
+    desc: 'Powdering sugar dust in ultra slow-motion.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-pouring-melted-chocolate-on-a-cake-40852-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&q=80&w=600',
+    duration: '0:16',
+    isFeatured: false,
+    likes: 275,
+    views: '3.0k'
+  },
+  {
+    id: 'cream-filling',
+    title: 'Custard Injection',
+    desc: 'Piping premium vanilla bean custard.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-chef-putting-frosting-on-a-cake-40846-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&q=80&w=600',
+    duration: '0:20',
+    isFeatured: false,
+    likes: 121,
+    views: '1.3k'
+  },
+  {
+    id: 'cheesecake-caramel',
+    title: 'Caramel Swirls',
+    desc: 'Pouring hot organic caramel on cream.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-pouring-melted-chocolate-on-a-cake-40852-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&q=80&w=600',
+    duration: '0:23',
+    isFeatured: false,
+    likes: 318,
+    views: '3.5k'
+  },
+  {
+    id: 'croissant-bake',
+    title: 'Oven Rise',
+    desc: 'Puff croissants rising in our live kitchen.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-blowing-out-birthday-candles-on-a-cake-40851-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=600',
+    duration: '0:28',
+    isFeatured: false,
+    likes: 194,
+    views: '2.0k'
+  },
+  {
+    id: 'molten-lava',
+    title: 'Molten Fudge Cut',
+    desc: 'Hot chocolate fudge erupting in slow-mo.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-pouring-melted-chocolate-on-a-cake-40852-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&q=80&w=600',
+    duration: '0:15',
+    isFeatured: false,
+    likes: 490,
+    views: '5.9k'
+  },
+  {
+    id: 'sweet-table',
+    title: 'Sweet Bar Buffet',
+    desc: 'Grooming custom desserts tables.',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-confectioner-decorating-a-wedding-cake-with-flowers-40847-large.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1535254973040-607b474cb50d?auto=format&fit=crop&q=80&w=600',
+    duration: '0:29',
+    isFeatured: false,
+    likes: 167,
+    views: '1.9k'
+  }
+];
 
 export default function HomePage() {
   const { 
@@ -28,6 +264,134 @@ export default function HomePage() {
 
   // Testimonial Coordinates
   const [tiltStyle, setTiltStyle] = useState({});
+
+  // Special Moments & Shorts States
+  const shortsScrollRef = React.useRef(null);
+  const [mobileShortIndex, setMobileShortIndex] = useState(0);
+  const [activeVideo, setActiveVideo] = useState(null);
+  const [videoLoadError, setVideoLoadError] = useState(false);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
+
+  const handleOpenVideoPlayer = (item) => {
+    setActiveVideo(item);
+    setVideoLoadError(false);
+  };
+  const [activeDot, setActiveDot] = useState(0);
+  const [showAllShortsModal, setShowAllShortsModal] = useState(false);
+  const [likesCount, setLikesCount] = useState({
+    'wedding-cake': 342,
+    'cake-decorating': 189,
+    'chocolate-showcase': 275,
+    'baker-working': 154,
+    'birthday-candles': 421
+  });
+  const [isLiked, setIsLiked] = useState({
+    'wedding-cake': false,
+    'cake-decorating': false,
+    'chocolate-showcase': false,
+    'baker-working': false,
+    'birthday-candles': false
+  });
+  const [heartAnimations, setHeartAnimations] = useState([]);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [newCommentText, setNewCommentText] = useState('');
+  const [comments, setComments] = useState({
+    'wedding-cake': [
+      { name: 'Chef Aditya', text: 'Bespoke 3-tier masterpiece with Madagascar vanilla! 👑', isChef: true },
+      { name: 'Riya Sharma', text: 'Literally the highlight of our big day! Breathtaking layers. 😍', isChef: false },
+      { name: 'Nikhil K.', text: 'Is this eggless? It looks so fluffy!', isChef: false }
+    ],
+    'cake-decorating': [
+      { name: 'Chef Aditya', text: 'Hand-piping our signature organic rosewater buttercream. 🌹', isChef: true },
+      { name: 'Ananya G.', text: 'The flower details are unbelievable! True art.', isChef: false }
+    ],
+    'chocolate-showcase': [
+      { name: 'Chef Aditya', text: '72% single-origin Belgian dark chocolate ganache! 🍫', isChef: true },
+      { name: 'Siddharth M.', text: 'This drip is incredibly satisfying to watch...', isChef: false }
+    ],
+    'baker-working': [
+      { name: 'Chef Aditya', text: 'Where the baking magic happens daily under perfect sanitation.', isChef: true },
+      { name: 'Preeti S.', text: 'Cleanliness and baking excellence combined!', isChef: false }
+    ],
+    'birthday-candles': [
+      { name: 'Chef Aditya', text: 'Happy birthdays make our midnight baking shifts 100% worth it!', isChef: true },
+      { name: 'Rohit D.', text: 'Their midnight delivery is always right on time at 11:59 PM!', isChef: false }
+    ]
+  });
+
+  const handleAddComment = (e) => {
+    e.preventDefault();
+    if (!newCommentText.trim() || !activeVideo) return;
+    
+    const videoId = activeVideo.id;
+    const commentObj = {
+      name: 'Aditya (You)',
+      text: newCommentText.trim(),
+      isChef: false
+    };
+    
+    setComments(prev => ({
+      ...prev,
+      [videoId]: [...(prev[videoId] || []), commentObj]
+    }));
+    setNewCommentText('');
+    showToast("Comment published! Thank you for sharing 💖", "success");
+  };
+
+  const handleLikeShort = (id, event) => {
+    event?.stopPropagation();
+    const wasLiked = !!isLiked[id];
+    setIsLiked(prev => ({ ...prev, [id]: !wasLiked }));
+    setLikesCount(prev => ({
+      ...prev,
+      [id]: wasLiked ? Math.max(0, (prev[id] || 0) - 1) : (prev[id] || 0) + 1
+    }));
+
+    if (!wasLiked && event) {
+      // Trigger a burst of floating hearts if it's a new like
+      const rect = event.currentTarget.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const animationId = Date.now() + Math.random();
+      
+      setHeartAnimations(prev => [...prev, { id: animationId, x, y }]);
+      setTimeout(() => {
+        setHeartAnimations(prev => prev.filter(h => h.id !== animationId));
+      }, 800);
+    }
+  };
+
+  const handleDoubleTapLike = (id, event) => {
+    if (!isLiked[id]) {
+      handleLikeShort(id, event);
+    } else {
+      // Trigger floating heart anyway for a fun interactive feel
+      const rect = event.currentTarget.getBoundingClientRect();
+      const x = rect.width / 2 + (Math.random() * 60 - 30);
+      const y = rect.height / 2 + (Math.random() * 60 - 30);
+      const animationId = Date.now() + Math.random();
+      
+      setHeartAnimations(prev => [...prev, { id: animationId, x, y }]);
+      setTimeout(() => {
+        setHeartAnimations(prev => prev.filter(h => h.id !== animationId));
+      }, 800);
+    }
+  };
+
+  const getAssociatedProduct = (video) => {
+    if (!products || products.length === 0) return null;
+    if (video.id === 'wedding-cake') {
+      return products.find(p => p.category === 'wedding-cakes') || products[0];
+    } else if (video.id === 'chocolate-showcase') {
+      return products.find(p => p.category === 'chocolate-cakes') || products[0];
+    } else if (video.id === 'cake-decorating') {
+      return products.find(p => p.isTrending) || products[0];
+    } else if (video.id === 'baker-working') {
+      return products.find(p => p.isBestSeller) || products[0];
+    } else {
+      return products.find(p => p.category === 'cupcakes') || products[0];
+    }
+  };
 
   // Hero Slider Data (Amore Cakes Branding)
   const heroBanners = [
@@ -450,28 +814,168 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. PINTEREST BAKERY GALLERY GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl md:text-3.5xl font-serif font-black text-navy">Featured Bakery Showcase</h2>
-          <p className="text-xs md:text-sm text-navy/60 font-semibold">Candid celebratory setups and custom baking crafts from our official kitchens.</p>
+      {/* 7. SPECIAL MOMENTS & SHORTS SHOWCASE */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="space-y-2">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-orange bg-orange/10 px-3.5 py-1 rounded-full border border-orange/15">
+              <Sparkles className="w-3.5 h-3.5 animate-spin-slow" /> Interactive Showroom
+            </span>
+            <h2 className="text-3xl md:text-4.5xl font-serif font-black text-navy flex items-center gap-2">
+              ✦ Special Moments ✦
+            </h2>
+            <p className="text-sm md:text-base text-navy/60 font-semibold max-w-xl">
+              Celebrations, behind the scenes, and sweet memories. See our cake artistry in motion.
+            </p>
+          </div>
+          <button 
+            onClick={() => setShowAllShortsModal(true)}
+            className="inline-flex items-center gap-2 border border-orange hover:bg-orange/5 text-orange font-black py-3 px-6 rounded-2xl text-xs transition-all tracking-wider self-start md:self-auto shadow-sm"
+          >
+            <Tv className="w-4 h-4" />
+            <span>View All Videos</span>
+          </button>
         </div>
-        <div className="columns-1 sm:columns-2 md:columns-3 gap-6 space-y-6">
-          {galleryItems.map((item, index) => (
-            <div 
-              key={index} 
-              className="break-inside-avoid relative rounded-3xl overflow-hidden group border border-border-color bg-card-bg shadow-sm"
-            >
-              <img 
-                src={item.img} 
-                alt={item.title} 
-                className="w-full object-cover rounded-3xl transition-transform duration-500 group-hover:scale-103"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <span className="text-white font-serif font-bold text-lg">{item.title}</span>
+
+        {/* Showcase Mockup Workspace Panel */}
+        <div className="bg-[#FFFDF9] dark:bg-navy-dark/40 border border-border-color/60 p-6 md:p-10 rounded-[36px] shadow-lg">
+          <div className="space-y-6">
+            <div className="flex justify-between items-center pr-2">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 bg-success rounded-full animate-pulse"></span>
+                <span className="text-[10px] font-extrabold uppercase text-navy/50 tracking-wider">Interactive Video Carousel</span>
+              </div>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => {
+                    if (shortsScrollRef.current) {
+                      shortsScrollRef.current.scrollBy({ left: -260, behavior: 'smooth' });
+                    }
+                  }}
+                  className="p-2 border border-border-color/80 hover:bg-cream rounded-xl text-navy transition-all shadow-sm"
+                  title="Scroll Left"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button 
+                  onClick={() => {
+                    if (shortsScrollRef.current) {
+                      shortsScrollRef.current.scrollBy({ left: 260, behavior: 'smooth' });
+                    }
+                  }}
+                  className="p-2 border border-border-color/80 hover:bg-cream rounded-xl text-navy transition-all shadow-sm"
+                  title="Scroll Right"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
-          ))}
+
+            {/* Horizontal Slider Row */}
+            <div 
+              ref={shortsScrollRef}
+              onScroll={() => {
+                if (shortsScrollRef.current) {
+                  const { scrollLeft, scrollWidth, clientWidth } = shortsScrollRef.current;
+                  const maxScroll = scrollWidth - clientWidth;
+                  if (maxScroll > 0) {
+                    const idx = Math.round((scrollLeft / maxScroll) * 4);
+                    setActiveDot(idx);
+                  }
+                }
+              }}
+              className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4 px-1"
+            >
+              {shortVideos.map((item, index) => {
+                const liked = !!isLiked[item.id];
+                const likesVal = likesCount[item.id] !== undefined ? likesCount[item.id] : item.likes;
+                return (
+                  <div 
+                    key={item.id}
+                    className="w-56 shrink-0 bg-white dark:bg-[#0D2A6B] border border-border-color/60 rounded-[28px] p-3 flex flex-col justify-between hover:scale-[1.02] hover:border-orange/60 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group"
+                  >
+                    {/* Video Thumbnail Container */}
+                    <div className="rounded-[22px] overflow-hidden aspect-[9/14] border border-border-color/40 relative cursor-pointer" onClick={() => handleOpenVideoPlayer(item)}>
+                      <img 
+                        src={item.thumbnail} 
+                        alt={item.title} 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      {/* Dark Vignette Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/35 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                      
+                      {/* Top action: Featured badge or Likes overlay */}
+                      {item.isFeatured && (
+                        <span className="absolute top-3 left-3 bg-gold text-navy font-black text-[9px] px-2.5 py-1 rounded-full border border-gold-light/40 shadow-sm tracking-wider uppercase">
+                          👑 Featured
+                        </span>
+                      )}
+
+                      {/* Center: Play Button Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full glass border border-white/40 flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:bg-orange group-hover:border-transparent transition-all duration-300 animate-pulse-play">
+                          <Play className="w-5 h-5 fill-white text-white translate-x-[1px]" />
+                        </div>
+                      </div>
+
+                      {/* Bottom Info inside thumb: Duration */}
+                      <span className="absolute bottom-3 left-3 bg-black/55 backdrop-blur-sm text-white font-extrabold text-[10px] px-2 py-0.5 rounded-full tracking-wider">
+                        {item.duration}
+                      </span>
+                    </div>
+
+                    {/* Video Caption & Metadata Below Thumbnail */}
+                    <div className="mt-3.5 space-y-1 px-1">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-serif font-black text-navy text-sm group-hover:text-orange transition-colors cursor-pointer truncate flex-grow mr-2" onClick={() => handleOpenVideoPlayer(item)}>
+                          {item.title}
+                        </h3>
+                        <button 
+                          onClick={(e) => handleLikeShort(item.id, e)}
+                          className="p-1 hover:bg-cream rounded-full text-navy/60 hover:text-red-500 transition-colors shrink-0"
+                          title="Like moment"
+                        >
+                          <Heart className={`w-4 h-4 transition-transform active:scale-150 ${liked ? 'fill-red-500 text-red-500 scale-105' : ''}`} />
+                        </button>
+                      </div>
+                      <p className="text-[11px] text-navy/50 font-semibold line-clamp-2 leading-relaxed">
+                        {item.desc}
+                      </p>
+                      <div className="flex items-center justify-between text-[9px] font-black uppercase text-navy/40 pt-1.5 border-t border-border-color/20">
+                        <span>{item.views} Views</span>
+                        <span>{likesVal} Likes</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Smooth Carousel Dots indicators */}
+            <div className="flex justify-center gap-2.5 pt-2">
+              {shortVideos.map((_, i) => (
+                <button 
+                  key={i} 
+                  onClick={() => {
+                    if (shortsScrollRef.current) {
+                      const { scrollWidth, clientWidth } = shortsScrollRef.current;
+                      const maxScroll = scrollWidth - clientWidth;
+                      shortsScrollRef.current.scrollTo({
+                        left: (i / 4) * maxScroll,
+                        behavior: 'smooth'
+                      });
+                      setActiveDot(i);
+                    }
+                  }}
+                  className={`h-2 transition-all duration-500 rounded-full ${i === activeDot ? 'w-10 bg-orange' : 'w-2 bg-orange/20 hover:bg-orange/45'}`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+
         </div>
       </section>
 
@@ -622,7 +1126,235 @@ export default function HomePage() {
               </div>
 
             </div>
+          </div>
+        </div>
+      )}
 
+                {/* 9. MINIMALIST PORTRAIT SHORTS VIDEO PLAYER MODAL */}
+      {activeVideo && (() => {
+        const liked = !!isLiked[activeVideo.id];
+        const likesVal = likesCount[activeVideo.id] !== undefined ? likesCount[activeVideo.id] : activeVideo.likes;
+        const assocProduct = getAssociatedProduct(activeVideo);
+
+        return (
+          <div className="fixed inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" onClick={() => setActiveVideo(null)}>
+            <div 
+              className="relative w-full max-w-[380px] aspect-[9/16] bg-black rounded-[32px] overflow-hidden border border-white/10 shadow-2xl animate-float"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button 
+                onClick={() => setActiveVideo(null)}
+                className="absolute top-4 right-4 z-40 p-2 bg-black/40 hover:bg-black/60 rounded-full text-white border border-white/10 transition-all"
+                title="Close Player"
+              >
+                <X className="w-4.5 h-4.5" />
+              </button>
+
+              {/* Real HTML5 Video Stream */}
+              <video
+                src={activeVideo.videoUrl}
+                autoPlay
+                loop
+                muted={isVideoMuted}
+                playsInline
+                onTimeUpdate={(e) => {
+                  const video = e.currentTarget;
+                  if (video.duration) {
+                    setVideoProgress((video.currentTime / video.duration) * 100);
+                  }
+                }}
+                onError={() => {
+                  setVideoLoadError(true);
+                }}
+                className={`absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 ${videoLoadError ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+              />
+
+              {/* Graceful CDN / CORS Fallback UI */}
+              {videoLoadError && (
+                <div className="absolute inset-0 w-full h-full z-10 bg-black flex flex-col items-center justify-center p-6 text-center select-none animate-fade-in">
+                  <img 
+                    src={activeVideo.thumbnail} 
+                    alt={activeVideo.title} 
+                    className="absolute inset-0 w-full h-full object-cover opacity-40 blur-[4px]"
+                  />
+                  <div className="relative z-20 space-y-2 px-4">
+                    <div className="w-11 h-11 rounded-full bg-orange/15 text-orange flex items-center justify-center mx-auto border border-orange/20 animate-pulse">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <p className="text-[11px] font-black text-white uppercase tracking-widest pt-1.5">Footage Loading...</p>
+                    <p className="text-[9px] text-white/60 font-semibold max-w-[210px] leading-relaxed mx-auto">We are preparing this vertical live preview. Quick Buy is active below!</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Play / Pause Tap Overlay */}
+              <div 
+                className="absolute inset-0 z-20 cursor-pointer"
+                onClick={(e) => {
+                  const videoEl = e.currentTarget.parentElement?.querySelector('video');
+                  if (videoEl) {
+                    if (videoEl.paused) {
+                      videoEl.play();
+                    } else {
+                      videoEl.pause();
+                    }
+                  }
+                }}
+                onDoubleClick={(e) => handleDoubleTapLike(activeVideo.id, e)}
+              ></div>
+
+              {/* Floating Heart Elements */}
+              {heartAnimations.map(h => (
+                <span 
+                  key={h.id} 
+                  style={{ left: h.x, top: h.y }} 
+                  className="absolute z-30 text-red-500 animate-float-heart pointer-events-none"
+                >
+                  <Heart className="w-10 h-10 fill-red-500 text-red-500 drop-shadow-lg" />
+                </span>
+              ))}
+
+              {/* Sidebar Action Bars */}
+              <div className="absolute right-4 bottom-32 z-30 flex flex-col items-center gap-4 pointer-events-auto">
+                {/* Like Button */}
+                <div className="flex flex-col items-center">
+                  <button 
+                    onClick={(e) => handleLikeShort(activeVideo.id, e)}
+                    className="w-10 h-10 rounded-full bg-black/55 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:scale-105 active:scale-120 hover:bg-orange transition-all shadow"
+                  >
+                    <Heart className={`w-4.5 h-4.5 transition-colors ${liked ? 'fill-red-500 text-red-500' : 'text-white'}`} />
+                  </button>
+                  <span className="text-[10px] font-extrabold text-white mt-1 drop-shadow-md">{likesVal}</span>
+                </div>
+
+                {/* Mute Button */}
+                <button 
+                  onClick={(e) => { e.stopPropagation(); setIsVideoMuted(!isVideoMuted); }}
+                  className="w-10 h-10 rounded-full bg-black/55 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:scale-105 transition-all shadow hover:bg-orange"
+                  title={isVideoMuted ? "Unmute" : "Mute"}
+                >
+                  {isVideoMuted ? <VolumeX className="w-4.5 h-4.5" /> : <Volume2 className="w-4.5 h-4.5" />}
+                </button>
+
+                {/* Share Button */}
+                <button 
+                  onClick={(e) => { e.stopPropagation(); showToast("Reels link copied! 📋", "success"); }}
+                  className="w-10 h-10 rounded-full bg-black/55 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:scale-105 transition-all shadow hover:bg-orange"
+                  title="Copy Link"
+                >
+                  <Send className="w-4 h-4 translate-x-[-0.5px] rotate-[-25deg]" />
+                </button>
+              </div>
+
+              {/* Bottom Metadata & Shopping Pill */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-30 space-y-3 pointer-events-none">
+                
+                {/* Title & Description Overlay */}
+                <div className="space-y-1">
+                  <h4 className="text-sm font-serif font-black text-white leading-tight">{activeVideo.title}</h4>
+                  <p className="text-[10.5px] text-white/80 font-semibold leading-normal line-clamp-2">{activeVideo.desc}</p>
+                </div>
+
+                {/* Premium Connected Product Tag */}
+                {assocProduct && (
+                  <div className="bg-white/10 backdrop-blur-md border border-white/10 p-2.5 rounded-2xl flex items-center justify-between gap-3 pointer-events-auto">
+                    <div className="flex items-center gap-2">
+                      <img 
+                        src={assocProduct.images[0]} 
+                        alt={assocProduct.name} 
+                        className="w-10 h-10 object-cover rounded-xl border border-white/10 shrink-0"
+                      />
+                      <div className="min-w-0">
+                        <h4 className="text-[11px] font-bold text-white truncate w-24 sm:w-28 leading-none">{assocProduct.name}</h4>
+                        <p className="text-[10px] text-orange font-black mt-1 leading-none">₹{assocProduct.discountPrice || assocProduct.price}</p>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart(
+                          assocProduct,
+                          1,
+                          assocProduct.weights ? assocProduct.weights[0] : '0.5kg',
+                          assocProduct.flavors ? assocProduct.flavors[0] : 'Standard Chocolate',
+                          true,
+                          ''
+                        );
+                        showToast(`${assocProduct.name} added to cart! 🍰`, "success");
+                      }}
+                      className="py-1.5 px-3 bg-orange hover:bg-orange-hover text-white rounded-xl text-[9px] font-black transition-all shadow-md shrink-0 uppercase tracking-wider"
+                    >
+                      Quick Buy
+                    </button>
+                  </div>
+                )}
+
+                {/* Video Playback Progress Bar */}
+                <div className="h-0.5 bg-white/20 rounded-full w-full overflow-hidden">
+                  <div className="h-full bg-orange transition-all duration-100" style={{ width: `${videoProgress}%` }}></div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* 10. CATALOG SHOWCASE MODAL: VIEW ALL SHORT VIDEOS */}
+      {showAllShortsModal && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in" onClick={() => setShowAllShortsModal(false)}>
+          <div 
+            className="bg-card-bg text-navy rounded-[32px] max-w-5xl w-full max-h-[85vh] overflow-y-auto border border-border-color p-6 md:p-8 space-y-6 shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Cross button */}
+            <button 
+              onClick={() => setShowAllShortsModal(false)}
+              className="absolute top-4 right-4 p-2 hover:bg-cream rounded-full text-navy transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="border-b border-border-color pb-3">
+              <h2 className="font-serif font-black text-2xl text-navy">Special Moments Grid Showcase</h2>
+              <p className="text-xs text-navy/55 font-semibold">Our full library of live bake-offs, tutorials, and customer reactions</p>
+            </div>
+
+            {/* Video Shorts Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {shortVideos.map((item) => (
+                <div 
+                  key={item.id} 
+                  onClick={() => { handleOpenVideoPlayer(item); setShowAllShortsModal(false); }}
+                  className="bg-background border border-border-color/60 rounded-2xl p-2 cursor-pointer hover:border-orange hover:scale-102 transition-all group flex flex-col justify-between"
+                >
+                  <div className="rounded-xl overflow-hidden aspect-[9/14] relative">
+                    <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover transition-transform group-hover:scale-103" />
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all flex items-center justify-center">
+                      <div className="w-9 h-9 rounded-full glass border border-white/20 flex items-center justify-center text-white">
+                        <Play className="w-3.5 h-3.5 fill-white text-white translate-x-[0.5px]" />
+                      </div>
+                    </div>
+                    <span className="absolute bottom-2 left-2 bg-black/60 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">{item.duration}</span>
+                  </div>
+                  <div className="mt-2.5 px-0.5 space-y-0.5">
+                    <h4 className="font-serif font-black text-xs text-navy truncate leading-tight group-hover:text-orange">{item.title}</h4>
+                    <p className="text-[9px] text-navy/50 font-semibold truncate">{item.views} Views</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-4 border-t border-border-color flex justify-end">
+              <button 
+                onClick={() => setShowAllShortsModal(false)}
+                className="px-6 py-2.5 bg-navy text-white rounded-xl text-xs font-black hover:bg-navy-dark transition-all"
+              >
+                Close Library
+              </button>
+            </div>
           </div>
         </div>
       )}

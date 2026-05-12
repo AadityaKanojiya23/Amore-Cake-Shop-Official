@@ -11,7 +11,7 @@ export default function AdminDashboardPage() {
   const { 
     user, products, orders, updateOrderStatus, adminMetrics, addProduct, deleteProduct, showToast, isBackendOnline 
   } = useApp();
-
+ 
   const router = useRouter();
 
   // Tab state: analytics, orders, products

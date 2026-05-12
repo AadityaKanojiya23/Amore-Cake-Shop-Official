@@ -23,6 +23,7 @@ export const AppProvider = ({ children }) => {
   const [isBackendOnline, setIsBackendOnline] = useState(false);
   const [adminStats, setAdminStats] = useState(null);
 
+
   // Show Toast Helper
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
@@ -242,21 +243,37 @@ export const AppProvider = ({ children }) => {
         }
       } else {
         // Mock Login Flow
-        const { mockUsers } = await import('../../../backend/config/mockStore.js');
-        const matched = mockUsers.find(u => u.email === email);
+        let localUsers = [];
+        try {
+          const savedLocalUsers = localStorage.getItem('sweetcrave_registered_users');
+          if (savedLocalUsers) {
+            localUsers = JSON.parse(savedLocalUsers);
+          } else {
+            const { mockUsers } = await import('../../../backend/config/mockStore.js');
+            localUsers = [...mockUsers];
+          }
+        } catch (e) {
+          console.error(e);
+        }
+
+        const matched = localUsers.find(u => u.email === email);
         if (matched) {
-          // In real life, password matches 'password123'
-          const token = `mock_jwt_token_${matched._id}`;
-          setToken(token);
-          setUser(matched);
-          setWishlist(matched.wishlist || []);
-          localStorage.setItem('sweetcrave_token', token);
-          localStorage.setItem('sweetcrave_user', JSON.stringify(matched));
-          showToast(`Welcome back, ${matched.name} (Demo Auth)!`, 'success');
-          return { success: true };
+          if (matched.password === password || password === 'password123' || !matched.password) {
+            const token = `mock_jwt_token_${matched._id}`;
+            setToken(token);
+            setUser(matched);
+            setWishlist(matched.wishlist || []);
+            localStorage.setItem('sweetcrave_token', token);
+            localStorage.setItem('sweetcrave_user', JSON.stringify(matched));
+            showToast(`Welcome back, ${matched.name}!`, 'success');
+            return { success: true };
+          } else {
+            showToast('Incorrect password. Please try again.', 'error');
+            return { success: false, message: 'Incorrect password' };
+          }
         } else {
-          showToast('Invalid demo credentials. Use user@sweetcrave.com or admin@sweetcrave.com with password123', 'error');
-          return { success: false, message: 'Invalid email or password' };
+          showToast('No account found with this email. Please register first!', 'error');
+          return { success: false, message: 'Email not found' };
         }
       }
     } catch (err) {
@@ -292,23 +309,46 @@ export const AppProvider = ({ children }) => {
         }
       } else {
         // Mock Register Flow
+        let localUsers = [];
+        try {
+          const savedLocalUsers = localStorage.getItem('sweetcrave_registered_users');
+          if (savedLocalUsers) {
+            localUsers = JSON.parse(savedLocalUsers);
+          } else {
+            const { mockUsers } = await import('../../../backend/config/mockStore.js');
+            localUsers = [...mockUsers];
+          }
+        } catch (e) {
+          console.error(e);
+        }
+
+        if (localUsers.some(u => u.email === email)) {
+          showToast('An account with this email already exists!', 'warning');
+          return { success: false, message: 'User already exists' };
+        }
+
         const newUser = {
           _id: `u_${Math.random().toString(36).substring(7)}`,
           name,
           email,
+          password,
           role: 'user',
           avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(name)}`,
           addresses: [],
           wishlist: [],
           createdAt: new Date()
         };
+        
+        localUsers.push(newUser);
+        localStorage.setItem('sweetcrave_registered_users', JSON.stringify(localUsers));
+
         const token = `mock_jwt_token_${newUser._id}`;
         setToken(token);
         setUser(newUser);
         setWishlist([]);
         localStorage.setItem('sweetcrave_token', token);
         localStorage.setItem('sweetcrave_user', JSON.stringify(newUser));
-        showToast(`Welcome to SweetCrave, ${name}!`, 'success');
+        showToast(`Welcome to Amore Cakes, ${name}!`, 'success');
         return { success: true };
       }
     } catch (err) {
@@ -320,10 +360,10 @@ export const AppProvider = ({ children }) => {
   };
 
   // MOCK GOOGLE AUTH LOGIN
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = async (customPayload) => {
     setLoading(true);
     try {
-      const googlePayload = {
+      const googlePayload = customPayload || {
         name: 'Alex Mercer',
         email: 'alex.mercer@gmail.com',
         avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=150',
@@ -348,14 +388,14 @@ export const AppProvider = ({ children }) => {
         }
       } else {
         const newUser = {
-          _id: 'u_google',
+          _id: googlePayload._id || `u_${Math.random().toString(36).substring(7)}`,
           ...googlePayload,
           role: 'user',
-          addresses: [],
+          addresses: googlePayload.addresses || [],
           wishlist: [],
           createdAt: new Date()
         };
-        const token = `mock_google_jwt_token`;
+        const token = `mock_google_jwt_token_${newUser._id}`;
         setToken(token);
         setUser(newUser);
         setWishlist([]);
@@ -386,34 +426,40 @@ export const AppProvider = ({ children }) => {
   // PROFILE ADDRESS MANAGEMENT
   const addAddress = async (address) => {
     try {
-      if (isBackendOnline) {
-        const res = await fetch(`${API_BASE}/auth/addresses`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(address)
-        });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          setUser(prev => ({ ...prev, addresses: data.addresses }));
-          localStorage.setItem('sweetcrave_user', JSON.stringify({ ...user, addresses: data.addresses }));
-          showToast('Address added successfully', 'success');
-          return true;
+      const isMockToken = !token || token.startsWith('mock_');
+      if (isBackendOnline && !isMockToken) {
+        try {
+          const res = await fetch(`${API_BASE}/auth/addresses`, {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(address)
+          });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            setUser(prev => ({ ...prev, addresses: data.addresses }));
+            localStorage.setItem('sweetcrave_user', JSON.stringify({ ...user, addresses: data.addresses }));
+            showToast('Address added successfully', 'success');
+            return true;
+          }
+        } catch (backendErr) {
+          console.warn('Backend address save failed, falling back to offline storage:', backendErr);
         }
-      } else {
-        const newAddr = { _id: `a_${Math.random().toString(36).substring(7)}`, ...address, isDefault: user.addresses.length === 0 || address.isDefault };
-        let updatedAddrs = [...user.addresses];
-        if (address.isDefault) {
-          updatedAddrs = updatedAddrs.map(a => ({ ...a, isDefault: false }));
-        }
-        updatedAddrs.push(newAddr);
-        setUser(prev => ({ ...prev, addresses: updatedAddrs }));
-        localStorage.setItem('sweetcrave_user', JSON.stringify({ ...user, addresses: updatedAddrs }));
-        showToast('Address added (Demo local storage)', 'success');
-        return true;
       }
+      
+      const addressesList = user && user.addresses ? user.addresses : [];
+      const newAddr = { _id: `a_${Math.random().toString(36).substring(7)}`, ...address, isDefault: addressesList.length === 0 || address.isDefault };
+      let updatedAddrs = [...addressesList];
+      if (address.isDefault) {
+        updatedAddrs = updatedAddrs.map(a => ({ ...a, isDefault: false }));
+      }
+      updatedAddrs.push(newAddr);
+      setUser(prev => ({ ...prev, addresses: updatedAddrs }));
+      localStorage.setItem('sweetcrave_user', JSON.stringify({ ...user, addresses: updatedAddrs }));
+      showToast('Address added (Demo local storage)', 'success');
+      return true;
     } catch (err) {
       showToast('Error saving address', 'error');
     }
@@ -422,28 +468,34 @@ export const AppProvider = ({ children }) => {
 
   const deleteAddress = async (addressId) => {
     try {
-      if (isBackendOnline) {
-        const res = await fetch(`${API_BASE}/auth/addresses/${addressId}`, {
-          method: 'DELETE',
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          setUser(prev => ({ ...prev, addresses: data.addresses }));
-          localStorage.setItem('sweetcrave_user', JSON.stringify({ ...user, addresses: data.addresses }));
-          showToast('Address deleted', 'info');
-          return true;
+      const isMockToken = !token || token.startsWith('mock_');
+      if (isBackendOnline && !isMockToken) {
+        try {
+          const res = await fetch(`${API_BASE}/auth/addresses/${addressId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            setUser(prev => ({ ...prev, addresses: data.addresses }));
+            localStorage.setItem('sweetcrave_user', JSON.stringify({ ...user, addresses: data.addresses }));
+            showToast('Address deleted', 'info');
+            return true;
+          }
+        } catch (backendErr) {
+          console.warn('Backend address delete failed, falling back to offline storage:', backendErr);
         }
-      } else {
-        const updatedAddrs = user.addresses.filter(a => a._id !== addressId);
-        if (updatedAddrs.length > 0 && !updatedAddrs.some(a => a.isDefault)) {
-          updatedAddrs[0].isDefault = true;
-        }
-        setUser(prev => ({ ...prev, addresses: updatedAddrs }));
-        localStorage.setItem('sweetcrave_user', JSON.stringify({ ...user, addresses: updatedAddrs }));
-        showToast('Address deleted', 'info');
-        return true;
       }
+      
+      const addressesList = user && user.addresses ? user.addresses : [];
+      const updatedAddrs = addressesList.filter(a => a._id !== addressId);
+      if (updatedAddrs.length > 0 && !updatedAddrs.some(a => a.isDefault)) {
+        updatedAddrs[0].isDefault = true;
+      }
+      setUser(prev => ({ ...prev, addresses: updatedAddrs }));
+      localStorage.setItem('sweetcrave_user', JSON.stringify({ ...user, addresses: updatedAddrs }));
+      showToast('Address deleted', 'info');
+      return true;
     } catch (err) {
       showToast('Error deleting address', 'error');
     }
@@ -844,6 +896,7 @@ export const AppProvider = ({ children }) => {
       isBackendOnline,
       adminStats,
       fetchAdminStats,
+
       
       // auth
       login,

@@ -221,10 +221,10 @@ function CheckoutContent() {
         <p className="text-navy/70 text-sm font-semibold leading-relaxed">To complete secure ordering and track your shipments dynamically, you must authorize your shopper profile.</p>
         <div className="pt-2">
           <button 
-            onClick={loginWithGoogle}
+            onClick={() => loginWithGoogle()}
             className="bg-orange hover:bg-orange-hover text-white font-black py-3.5 px-8 rounded-2xl text-xs transition-all shadow-md hover:scale-102 flex items-center gap-2 mx-auto uppercase"
           >
-            Authorize Profile with Google
+            Authorize Profile Logins
           </button>
         </div>
       </div>

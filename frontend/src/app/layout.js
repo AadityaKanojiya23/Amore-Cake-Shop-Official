@@ -5,23 +5,307 @@ import './globals.css';
 import { 
   Search, ShoppingBag, Heart, User, MapPin, ChevronDown, 
   Sun, Moon, Sparkles, Phone, Mail, Menu, X, Mic, Send, Globe,
-  ShieldCheck, CreditCard, Award
+  ShieldCheck, CreditCard, Award, Lock, Eye, EyeOff, Plus, CheckCircle, ArrowRight, ArrowLeft
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+const megaMenus = {
+  'all': {
+    col1: {
+      title: 'Top Categories',
+      links: [
+        { name: 'Artisanal Cakes', href: '/category/cakes' },
+        { name: 'Birthday Specials', href: '/category/birthday-cakes' },
+        { name: 'Wedding Masterpieces', href: '/category/wedding-cakes' },
+        { name: 'Anniversary Collection', href: '/category/anniversary-cakes' },
+        { name: 'Chocolate Decadence', href: '/category/chocolate-cakes' }
+      ]
+    },
+    col2: {
+      title: 'Gourmet Creations',
+      links: [
+        { name: 'Designer Themes', href: '/category/designer-cakes' },
+        { name: 'Korean Bento Minis', href: '/category/bento-cakes' },
+        { name: 'Cupcakes & Pastries', href: '/category/cupcakes' },
+        { name: 'Pure Eggless Selection', href: '/category/eggless-cakes' },
+        { name: 'Gourmet Photo Prints', href: '/category/photo-cakes' }
+      ]
+    }
+  },
+  'cakes': {
+    col1: {
+      title: 'By Style',
+      links: [
+        { name: 'All Cakes', href: '/category/cakes' },
+        { name: 'Eggless Cakes', href: '/category/eggless-cakes' },
+        { name: 'Photo Cakes', href: '/category/photo-cakes' },
+        { name: 'Pinata Cakes', href: '/category/cakes?sub=pinata' },
+        { name: 'Pull Me Up Cakes', href: '/category/cakes?sub=pull-me-up' },
+        { name: 'Heart Shaped Cakes', href: '/category/cakes?sub=heart' }
+      ]
+    },
+    col2: {
+      title: 'By Weight',
+      links: [
+        { name: 'Half KG Cakes', href: '/category/cakes?weight=0.5' },
+        { name: '1 KG Cakes', href: '/category/cakes?weight=1' },
+        { name: '2 KG Cakes', href: '/category/cakes?weight=2' },
+        { name: 'Multi-Tier Celebration', href: '/category/wedding-cakes' }
+      ]
+    }
+  },
+  'birthday-cakes': {
+    col1: {
+      title: 'By Recipient',
+      links: [
+        { name: 'For Kids 🎈', href: '/category/birthday-cakes?recipient=kids' },
+        { name: 'For Him 👨', href: '/category/birthday-cakes?recipient=him' },
+        { name: 'For Her 👩', href: '/category/birthday-cakes?recipient=her' },
+        { name: 'For Parents 💖', href: '/category/birthday-cakes?recipient=parents' },
+        { name: 'Milestone Birthdays', href: '/category/birthday-cakes?recipient=milestone' }
+      ]
+    },
+    col2: {
+      title: 'Trending Themes',
+      links: [
+        { name: 'Custom Theme Cakes', href: '/category/designer-cakes' },
+        { name: 'Barbie Princess Cakes', href: '/category/designer-cakes?theme=barbie' },
+        { name: 'Superhero Cakes', href: '/category/designer-cakes?theme=superhero' },
+        { name: 'Crown & Tiara Cakes', href: '/category/designer-cakes?theme=crown' }
+      ]
+    }
+  },
+  'wedding-cakes': {
+    col1: {
+      title: 'Bespoke Styles',
+      links: [
+        { name: 'Floral Wedding Cakes 🌸', href: '/category/wedding-cakes?style=floral' },
+        { name: 'Tiered Fondant', href: '/category/wedding-cakes?style=fondant' },
+        { name: 'Elegant Naked Cakes', href: '/category/wedding-cakes?style=naked' },
+        { name: 'Metallic Gold Accents', href: '/category/wedding-cakes?style=gold' }
+      ]
+    },
+    col2: {
+      title: 'Premium Flavors',
+      links: [
+        { name: 'Red Velvet Cream Cheese', href: '/category/wedding-cakes?flavor=red-velvet' },
+        { name: 'Belgian Truffle Decadence', href: '/category/wedding-cakes?flavor=truffle' },
+        { name: 'Classic Madagascar Vanilla', href: '/category/wedding-cakes?flavor=vanilla' },
+        { name: 'Hazelnut Praline Delight', href: '/category/wedding-cakes?flavor=hazelnut' }
+      ]
+    }
+  },
+  'anniversary-cakes': {
+    col1: {
+      title: 'By Milestone',
+      links: [
+        { name: '25th Silver Jubilee 🥈', href: '/category/anniversary-cakes?milestone=25th' },
+        { name: '50th Golden Jubilee 🥇', href: '/category/anniversary-cakes?milestone=50th' },
+        { name: '1st Anniversary Love', href: '/category/anniversary-cakes?milestone=1st' },
+        { name: 'Heart-Shaped Specials', href: '/category/anniversary-cakes?theme=heart' }
+      ]
+    },
+    col2: {
+      title: 'By Relationship',
+      links: [
+        { name: 'For Husband & Wife', href: '/category/anniversary-cakes?for=spouse' },
+        { name: 'For Mom & Dad 👨‍👩‍👧', href: '/category/anniversary-cakes?for=parents' },
+        { name: 'For Premium Couples', href: '/category/anniversary-cakes?for=couples' }
+      ]
+    }
+  },
+  'chocolate-cakes': {
+    col1: {
+      title: 'Rich & Intense',
+      links: [
+        { name: 'Belgian Truffle Cake 🍫', href: '/category/chocolate-cakes?type=truffle' },
+        { name: 'Dark Ganache Decadence', href: '/category/chocolate-cakes?type=dark' },
+        { name: 'Chocolate Mud Overload', href: '/category/chocolate-cakes?type=mud' },
+        { name: 'Death By Chocolate 💀', href: '/category/chocolate-cakes?type=death' }
+      ]
+    },
+    col2: {
+      title: 'Gourmet Fusions',
+      links: [
+        { name: 'Chocolate Caramel Crunch', href: '/category/chocolate-cakes?type=caramel' },
+        { name: 'Nutella Hazelnut Premium', href: '/category/chocolate-cakes?type=nutella' },
+        { name: 'Ferrero Rocher Delight', href: '/category/chocolate-cakes?type=ferrero' },
+        { name: 'Oreo Chocolate Smash', href: '/category/chocolate-cakes?type=oreo' }
+      ]
+    }
+  },
+  'designer-cakes': {
+    col1: {
+      title: 'Modern Artistry',
+      links: [
+        { name: 'Hand-Painted Cakes 🎨', href: '/category/designer-cakes?type=painted' },
+        { name: 'Abstract Buttercream', href: '/category/designer-cakes?type=abstract' },
+        { name: 'Textured Marble Finishes', href: '/category/designer-cakes?type=marble' },
+        { name: 'Geode Crystal Designs', href: '/category/designer-cakes?type=geode' }
+      ]
+    },
+    col2: {
+      title: 'Gourmet Inlays',
+      links: [
+        { name: 'Macaron Loaded Cakes', href: '/category/designer-cakes?type=macaron' },
+        { name: 'Isomalt Glass Tiaras 👑', href: '/category/designer-cakes?type=tiara' },
+        { name: 'Edible Gold Leaf Accented', href: '/category/designer-cakes?type=gold' }
+      ]
+    }
+  },
+  'cupcakes': {
+    col1: {
+      title: 'Artisanal Flavors',
+      links: [
+        { name: 'Red Velvet Rosette 🧁', href: '/category/cupcakes?flavor=red-velvet' },
+        { name: 'Double Chocolate Fudge', href: '/category/cupcakes?flavor=chocolate' },
+        { name: 'Classic Madagascar Bean', href: '/category/cupcakes?flavor=vanilla' },
+        { name: 'Salted Caramel Drizzle', href: '/category/cupcakes?flavor=caramel' }
+      ]
+    },
+    col2: {
+      title: 'Celebration Boxes',
+      links: [
+        { name: 'Assorted Party Box (6)', href: '/category/cupcakes?box=6' },
+        { name: 'Deluxe Celebration Box (12)', href: '/category/cupcakes?box=12' },
+        { name: 'Custom Inscribed Message', href: '/category/cupcakes?box=message' },
+        { name: 'Mini Flowerpot Cupcakes', href: '/category/cupcakes?box=flower' }
+      ]
+    }
+  },
+  'pastries': {
+    col1: {
+      title: 'Gourmet Slices',
+      links: [
+        { name: 'Fresh Fruit Gateau 🍓', href: '/category/pastries?type=fruit' },
+        { name: 'Belgian Truffle Slice', href: '/category/pastries?type=truffle' },
+        { name: 'Classic Red Velvet', href: '/category/pastries?type=red-velvet' },
+        { name: 'Black Forest Elite', href: '/category/pastries?type=black-forest' }
+      ]
+    },
+    col2: {
+      title: 'French Delicacies',
+      links: [
+        { name: 'Gourmet Choco Eclairs', href: '/category/pastries?type=eclairs' },
+        { name: 'Luxury Mille-Feuille', href: '/category/pastries?type=mille-feuille' },
+        { name: 'Gourmet Tiramisu Cups', href: '/category/pastries?type=tiramisu' },
+        { name: 'Assorted Macaron Box', href: '/category/pastries?type=macarons' }
+      ]
+    }
+  },
+  'bento-cakes': {
+    col1: {
+      title: 'Aesthetic Minis',
+      links: [
+        { name: 'Korean Bento Cakes 🇰🇷', href: '/category/bento-cakes?type=korean' },
+        { name: 'Minimalist Pastel Bentos', href: '/category/bento-cakes?type=pastel' },
+        { name: 'Cute Custom Message', href: '/category/bento-cakes?type=message' },
+        { name: 'Heart Shape Bentos 💖', href: '/category/bento-cakes?type=heart' }
+      ]
+    },
+    col2: {
+      title: 'Bento Gift Packs',
+      links: [
+        { name: 'Bento + 2 Cupcakes Combo', href: '/category/bento-cakes?pack=cupcakes' },
+        { name: 'Bento + Assorted Pastry Pack', href: '/category/bento-cakes?pack=pastries' },
+        { name: 'Bento Flower Gift Set 💐', href: '/category/bento-cakes?pack=flower' }
+      ]
+    }
+  },
+  'photo-cakes': {
+    col1: {
+      title: 'Interactive Prints',
+      links: [
+        { name: 'High-Def Edible Photos 📸', href: '/category/photo-cakes?type=hd' },
+        { name: 'Square Poster Cakes', href: '/category/photo-cakes?type=square' },
+        { name: 'Round Photo Borders', href: '/category/photo-cakes?type=round' },
+        { name: 'Collage Memories Cake', href: '/category/photo-cakes?type=collage' }
+      ]
+    },
+    col2: {
+      title: 'Occasion Specials',
+      links: [
+        { name: 'Corporate Logo Cakes 🏢', href: '/category/photo-cakes?type=corporate' },
+        { name: 'Kids Cartoon Prints', href: '/category/photo-cakes?type=cartoon' },
+        { name: 'Retro Polaroid Cakes', href: '/category/photo-cakes?type=retro' }
+      ]
+    }
+  },
+  'eggless-cakes': {
+    col1: {
+      title: 'Veggie Classics',
+      links: [
+        { name: 'Eggless Belgian Truffle 🥦', href: '/category/eggless-cakes?type=truffle' },
+        { name: 'Eggless Fresh Fruit Cake', href: '/category/eggless-cakes?type=fruit' },
+        { name: 'Eggless Butterscotch Crunch', href: '/category/eggless-cakes?type=butterscotch' },
+        { name: 'Eggless Royal Pineapple', href: '/category/eggless-cakes?type=pineapple' }
+      ]
+    },
+    col2: {
+      title: 'Healthy Alternatives',
+      links: [
+        { name: 'Sugar-Free Eggless Truffle', href: '/category/eggless-cakes?type=sugar-free' },
+        { name: 'Gluten-Free Eggless Cake', href: '/category/eggless-cakes?type=gluten-free' },
+        { name: 'Pure Vegan Chocolate 🥑', href: '/category/eggless-cakes?type=vegan' }
+      ]
+    }
+  }
+};
+
+// Tree Node with expand/collapse capability for Varieties Sidebar
+function CategoryTreeNode({ title, links, isOpenDefault = false, onLinkClick }) {
+  const [isOpen, setIsOpen] = useState(isOpenDefault);
+  return (
+    <div className="border border-border-color/60 dark:border-white/10 rounded-xl overflow-hidden bg-cream/10 dark:bg-white/5 shadow-xs transition-all">
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between px-4 py-3 bg-cream/20 hover:bg-cream/40 dark:bg-white/5 dark:hover:bg-white/10 transition-colors text-left"
+      >
+        <span className="font-extrabold text-xs text-navy dark:text-white tracking-wide">{title}</span>
+        <span className="text-navy/40 dark:text-white/40 text-[10px] transition-transform duration-200" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+          ▼
+        </span>
+      </button>
+      
+      {isOpen && (
+        <div className="px-4 py-2 border-t border-border-color/40 dark:border-white/5 bg-white dark:bg-transparent transition-all duration-300">
+          <ul className="space-y-2.5 py-1">
+            {links.map((lnk, i) => (
+              <li key={i} className="flex items-center gap-2 pl-1 relative group/item">
+                {/* Tree bullet circle indicator */}
+                <div className="w-1.5 h-1.5 rounded-full bg-orange/40 group-hover/item:bg-orange transition-colors"></div>
+                <Link 
+                  href={lnk.href}
+                  onClick={onLinkClick}
+                  className="text-navy/80 dark:text-white/80 hover:text-orange dark:hover:text-orange font-bold text-[11px] transition-colors py-0.5"
+                >
+                  {lnk.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function GlobalLayout({ children }) {
   const { 
-    cart, wishlist, user, logout, loginWithGoogle,
+    cart, wishlist, user, logout, loginWithGoogle, login, register, addAddress,
     selectedLocation, setSelectedLocation, searchQuery, setSearchQuery,
     theme, toggleTheme, toast, setToast, categories
   } = useApp();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [allDrawerOpen, setAllDrawerOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [voiceActive, setVoiceActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
+
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,7 +374,7 @@ function GlobalLayout({ children }) {
           : 'relative z-40'
       }`}>
         {/* STICKY MAIN NAVBAR */}
-        <header className={`transition-all duration-300 ${
+        <header className={`relative z-50 transition-all duration-300 ${
           isScrolled 
             ? 'bg-transparent border-b border-transparent shadow-none backdrop-blur-none' 
             : 'bg-background/95 backdrop-blur-sm border-b border-border-color shadow-sm'
@@ -205,11 +489,11 @@ function GlobalLayout({ children }) {
                   </div>
                 ) : (
                   <button 
-                    onClick={loginWithGoogle}
+                    onClick={() => loginWithGoogle()}
                     className="flex items-center gap-1.5 text-xs font-bold bg-orange hover:bg-orange-hover text-white transition-all py-2 px-4 rounded-full shadow-sm"
                   >
                     <User className="w-4 h-4" />
-                    <span>Google Login</span>
+                    <span>Login / Sign Up</span>
                   </button>
                 )}
               </div>
@@ -237,28 +521,117 @@ function GlobalLayout({ children }) {
           </div>
         </header>
 
-        {/* SECONDARY CATEGORY NAVBAR */}
-        <nav className={`text-navy font-semibold overflow-x-auto no-scrollbar px-4 transition-all duration-300 ${
+        <nav className={`relative z-40 text-navy font-medium overflow-x-auto lg:overflow-visible no-scrollbar px-4 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-cream/40 py-1.5 shadow-sm border-b border-border-color/30 backdrop-blur-sm' 
+            ? 'bg-cream/90 py-1.5 shadow-sm border-b border-border-color/30 backdrop-blur-md' 
             : 'bg-cream border-b border-border-color py-2.5 shadow-sm'
         }`}>
-          <div className="max-w-7xl mx-auto flex items-center gap-6 text-xs tracking-wide uppercase font-black whitespace-nowrap">
-            <Link href="/category/all" className="hover:text-orange transition-all pb-1 border-b-2 border-transparent hover:border-orange">
-              Shop All
-            </Link>
-            {categories.map((cat) => (
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 xl:gap-4 text-xs tracking-wide font-medium whitespace-nowrap lg:overflow-visible w-full font-sans">
+            
+            {/* Left aligned items container to keep items nicely grouped */}
+            <div className="flex items-center gap-2 lg:overflow-visible h-full">
+              {/* Shop All Menu Item (☰ All) */}
+              <div className="relative group lg:overflow-visible flex items-center h-full">
+                {/* Left vertical border divider */}
+                <div className="h-5 border-l border-border-color absolute left-0 top-1/2 -translate-y-1/2"></div>
+                
+                <Link 
+                  href="/category/all" 
+                  onClick={(e) => { e.preventDefault(); setAllDrawerOpen(true); }}
+                  className="text-navy hover:text-orange px-2.5 py-1.5 transition-colors flex items-center gap-1.5 font-medium text-xs ml-1 mr-1 normal-case"
+                >
+                  <Menu className="w-4 h-4 text-navy group-hover:text-orange shrink-0 transition-colors" />
+                  <span>All</span>
+                </Link>
+                
+                {/* Right vertical border divider */}
+                <div className="h-5 border-r border-border-color my-auto"></div>
+                
+
+              </div>
+
+
+              {/* Dynamic Categories Loops */}
+              {categories
+                .filter((cat) => ['cakes', 'cupcakes', 'pastries', 'bento-cakes', 'photo-cakes', 'eggless-cakes'].includes(cat.slug))
+                .map((cat, index, filteredArray) => {
+                  const menu = megaMenus[cat.slug];
+                  const isLastFew = index >= filteredArray.length - 2;
+                  let alignmentClass = 'left-1/2 -translate-x-1/2';
+                  if (index === 0) {
+                    alignmentClass = 'left-0 translate-x-0';
+                  } else if (index === 1) {
+                    alignmentClass = 'left-0 -translate-x-1/4';
+                  } else if (isLastFew) {
+                    alignmentClass = 'right-0 left-auto translate-x-0';
+                  }
+                  return (
+                    <div key={cat.slug} className="relative group lg:overflow-visible flex items-center">
+                      <Link 
+                        href={`/category/${cat.slug}`} 
+                        className="text-navy hover:text-orange px-2 py-1.5 transition-all flex items-center gap-1 font-medium text-xs normal-case"
+                      >
+                        <span>{cat.name}</span>
+                        {menu && <span className="text-navy/40 group-hover:text-orange/60 text-[8px] ml-0.5 transition-colors">▼</span>}
+                      </Link>
+                      
+                      {/* Mega Dropdown Menu */}
+                      {menu && (
+                        <div className={`absolute top-full ${alignmentClass} mt-2 w-[460px] bg-white dark:bg-[#0D2A6B] border border-border-color/80 rounded-2xl shadow-xl z-50 transition-all opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 duration-200 pointer-events-none group-hover:pointer-events-auto flex overflow-hidden text-left font-sans normal-case tracking-normal border-t-2 border-t-orange`}>
+                          
+                          {/* Column 1: White Background */}
+                          <div className="w-1/2 p-4 bg-white dark:bg-[#123175] space-y-3 shrink-0">
+                            <h5 className="text-[10px] font-black uppercase text-navy/40 dark:text-white/45 tracking-widest flex items-center gap-1.5 border-b border-border-color/40 pb-1.5">
+                              <span className="text-orange text-[12px] leading-none">✦</span> {menu.col1.title}
+                            </h5>
+                            <ul className="space-y-2">
+                              {menu.col1.links.map((lnk, i) => (
+                                <li key={i}>
+                                  <Link 
+                                    href={lnk.href}
+                                    className="block text-navy/80 dark:text-white/80 hover:text-orange dark:hover:text-orange font-bold text-[11px] transition-colors py-0.5"
+                                  >
+                                    {lnk.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Column 2: Soft Cream Background */}
+                          <div className="w-1/2 p-4 bg-[#FFF9F2] dark:bg-[#0D2A6B]/30 border-l border-border-color/40 space-y-3 shrink-0">
+                            <h5 className="text-[10px] font-black uppercase text-orange tracking-widest flex items-center gap-1.5 border-b border-orange/10 pb-1.5">
+                              <span className="text-orange text-[12px] leading-none">✦</span> {menu.col2.title}
+                            </h5>
+                            <ul className="space-y-2">
+                              {menu.col2.links.map((lnk, i) => (
+                                <li key={i}>
+                                  <Link 
+                                    href={lnk.href}
+                                    className="block text-navy/80 dark:text-white/80 hover:text-orange dark:hover:text-orange font-bold text-[11px] transition-colors py-0.5"
+                                  >
+                                    {lnk.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
               <Link 
-                key={cat.slug} 
-                href={`/category/${cat.slug}`} 
-                className="hover:text-orange transition-all pb-1 border-b-2 border-transparent hover:border-orange flex items-center gap-1"
+                href="/about" 
+                className="text-navy hover:text-orange px-2 py-1.5 transition-colors flex items-center gap-1 font-medium text-xs normal-case"
               >
-                {cat.name}
+                Our Story
               </Link>
-            ))}
-            <Link href="/about" className="hover:text-orange text-orange font-black tracking-widest pb-1 border-b-2 border-transparent hover:border-orange">
-              Our Story / Contact
-            </Link>
+            </div>
+
+
           </div>
         </nav>
       </div>
@@ -412,6 +785,159 @@ function GlobalLayout({ children }) {
         </div>
       )}
 
+      {/* ALL VARIETIES TREE-TYPE SIDEBAR DRAWER */}
+      {allDrawerOpen && (
+        <div className="fixed inset-0 z-50 flex overflow-hidden">
+          {/* Overlay with smooth backdrop blur */}
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity duration-300" 
+            onClick={() => setAllDrawerOpen(false)}
+          ></div>
+          
+          {/* Sidebar Panel */}
+          <div className="relative w-80 max-w-sm bg-white dark:bg-[#0D1B3E] h-full shadow-2xl flex flex-col z-50 animate-slide-right border-r border-border-color">
+            
+            {/* Sidebar Header */}
+            <div className="bg-navy text-white px-5 py-4.5 flex items-center justify-between shadow-sm shrink-0">
+              <div className="flex items-center gap-2">
+                <Menu className="w-5 h-5 text-orange shrink-0 animate-pulse" />
+                <span className="font-serif font-black text-base tracking-wide">
+                  All <span className="text-orange">Varieties</span>
+                </span>
+              </div>
+              <button 
+                onClick={() => setAllDrawerOpen(false)} 
+                className="p-1.5 hover:bg-white/10 rounded-full transition-colors text-white"
+                title="Close Menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            {/* Tree Navigation Area */}
+            <div className="flex-grow overflow-y-auto p-5 space-y-5 select-none no-scrollbar">
+              <div className="space-y-4">
+                <h4 className="text-[10px] font-black text-navy/40 dark:text-white/40 uppercase tracking-widest border-b border-border-color/40 pb-2">
+                  Browse by Boutique Departments
+                </h4>
+                
+                {/* TREE-TYPE ACCORDION ROOT */}
+                <div className="space-y-3 font-sans">
+                  
+                  {/* Category Node 1: Celebration & Milestone Cakes */}
+                  <CategoryTreeNode 
+                    title="🎂 Celebration & Milestones" 
+                    isOpenDefault={true}
+                    links={[
+                      { name: "Artisanal Cakes (All)", href: "/category/cakes" },
+                      { name: "Half KG Celebration Cakes", href: "/category/cakes?weight=0.5" },
+                      { name: "1 KG Boutique Cakes", href: "/category/cakes?weight=1" },
+                      { name: "2 KG Grand Party Cakes", href: "/category/cakes?weight=2" },
+                      { name: "Birthday Specials", href: "/category/birthday-cakes" },
+                      { name: "Birthday Cakes for Kids 🎈", href: "/category/birthday-cakes?recipient=kids" },
+                      { name: "Birthday Cakes for Him 👨", href: "/category/birthday-cakes?recipient=him" },
+                      { name: "Birthday Cakes for Her 👩", href: "/category/birthday-cakes?recipient=her" },
+                      { name: "Milestone Birthday Specials", href: "/category/birthday-cakes?recipient=milestone" },
+                      { name: "Wedding Masterpieces", href: "/category/wedding-cakes" },
+                      { name: "Elegant Floral Weddings 🌸", href: "/category/wedding-cakes?style=floral" },
+                      { name: "Elegant Naked Cakes", href: "/category/wedding-cakes?style=naked" },
+                      { name: "Anniversary Collection", href: "/category/anniversary-cakes" },
+                      { name: "25th Silver Jubilee 🥈", href: "/category/anniversary-cakes?milestone=25th" },
+                      { name: "50th Golden Jubilee 🥇", href: "/category/anniversary-cakes?milestone=50th" },
+                      { name: "Heart-Shaped Anniversary Cakes", href: "/category/anniversary-cakes?theme=heart" }
+                    ]}
+                    onLinkClick={() => setAllDrawerOpen(false)}
+                  />
+
+                  {/* Category Node 2: Rich Chocolate Cakes */}
+                  <CategoryTreeNode 
+                    title="🍫 Rich Chocolate Decadence" 
+                    isOpenDefault={true}
+                    links={[
+                      { name: "All Chocolate Cakes", href: "/category/chocolate-cakes" },
+                      { name: "Belgian Truffle Cake 🍫", href: "/category/chocolate-cakes?type=truffle" },
+                      { name: "Dark Ganache Decadence", href: "/category/chocolate-cakes?type=dark" },
+                      { name: "Chocolate Mud Overload", href: "/category/chocolate-cakes?type=mud" },
+                      { name: "Death By Chocolate 💀", href: "/category/chocolate-cakes?type=death" },
+                      { name: "Nutella Hazelnut Premium", href: "/category/chocolate-cakes?type=nutella" },
+                      { name: "Ferrero Rocher Delight", href: "/category/chocolate-cakes?type=ferrero" },
+                      { name: "Oreo Chocolate Smash", href: "/category/chocolate-cakes?type=oreo" }
+                    ]}
+                    onLinkClick={() => setAllDrawerOpen(false)}
+                  />
+
+                  {/* Category Node 3: Custom & Speciality Designs */}
+                  <CategoryTreeNode 
+                    title="✨ Custom Designer Artistry" 
+                    isOpenDefault={false}
+                    links={[
+                      { name: "Theme & Custom Designer Cakes", href: "/category/designer-cakes" },
+                      { name: "Hand-Painted Cakes 🎨", href: "/category/designer-cakes?type=painted" },
+                      { name: "Abstract Buttercream Designs", href: "/category/designer-cakes?type=abstract" },
+                      { name: "Textured Marble Finishes", href: "/category/designer-cakes?type=marble" },
+                      { name: "Isomalt Glass Tiaras 👑", href: "/category/designer-cakes?type=tiara" },
+                      { name: "Edible Gold Leaf Accented", href: "/category/designer-cakes?type=gold" },
+                      { name: "Korean Bento Minis", href: "/category/bento-cakes" },
+                      { name: "Photo Printed Creations", href: "/category/photo-cakes" }
+                    ]}
+                    onLinkClick={() => setAllDrawerOpen(false)}
+                  />
+
+                  {/* Category Node 4: Healthy & Eggless Options */}
+                  <CategoryTreeNode 
+                    title="🌿 Healthy & Eggless Delights" 
+                    isOpenDefault={false}
+                    links={[
+                      { name: "All Eggless Cakes", href: "/category/eggless-cakes" },
+                      { name: "Sugar-Free Eggless Truffle", href: "/category/eggless-cakes?type=sugar-free" },
+                      { name: "Gluten-Free Eggless Cake", href: "/category/eggless-cakes?type=gluten-free" },
+                      { name: "Pure Vegan Chocolate 🥑", href: "/category/eggless-cakes?type=vegan" }
+                    ]}
+                    onLinkClick={() => setAllDrawerOpen(false)}
+                  />
+
+                  {/* Category Node 5: Individual Treats & Pastries */}
+                  <CategoryTreeNode 
+                    title="🧁 Individual Treats & Pastries" 
+                    isOpenDefault={false}
+                    links={[
+                      { name: "All Cupcakes", href: "/category/cupcakes" },
+                      { name: "Red Velvet Rosette 🧁", href: "/category/cupcakes?flavor=red-velvet" },
+                      { name: "Double Chocolate Fudge", href: "/category/cupcakes?flavor=chocolate" },
+                      { name: "Classic Madagascar Bean", href: "/category/cupcakes?flavor=vanilla" },
+                      { name: "Salted Caramel Drizzle", href: "/category/cupcakes?flavor=caramel" },
+                      { name: "French Pastries Slices", href: "/category/pastries" }
+                    ]}
+                    onLinkClick={() => setAllDrawerOpen(false)}
+                  />
+
+                  {/* Category Node 6: Boutique Gifting */}
+                  <CategoryTreeNode 
+                    title="🎁 Bespoke Gifting & Combos" 
+                    isOpenDefault={false}
+                    links={[
+                      { name: "All Gift Combos", href: "/category/combos" },
+                      { name: "Flowers & Cake Combos", href: "/category/all?addon=flowers" },
+                      { name: "Premium Party Props", href: "/category/all?addon=props" }
+                    ]}
+                    onLinkClick={() => setAllDrawerOpen(false)}
+                  />
+
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar Footer */}
+            <div className="p-4 bg-cream/30 dark:bg-[#0c1a30] border-t border-border-color shrink-0 text-[11px] text-navy/60 dark:text-white/60 space-y-2">
+              <p className="font-bold flex items-center gap-1.5 text-navy dark:text-white">
+                <Phone className="w-3.5 h-3.5 text-orange" /> Boutique Help: +91 98765 43210
+              </p>
+              <p>&copy; 2026 Amore Cakes Bakery. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* MOBILE OVERLAY SITEMAP DRAWER */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 flex">
@@ -455,6 +981,8 @@ function GlobalLayout({ children }) {
           </div>
         </div>
       )}
+
+
     </div>
   );
 }

@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 function DashboardContent() {
   const { 
-    user, token, orders, wishlist, products, deleteAddress, addAddress, cancelOrder, showToast, logout, loginWithGoogle 
+    user, token, orders, wishlist, products, deleteAddress, addAddress, cancelOrder, showToast, logout, loginWithGoogle
   } = useApp();
 
   const searchParams = useSearchParams();
@@ -91,10 +91,10 @@ function DashboardContent() {
         <p className="text-navy/70 text-sm font-semibold leading-relaxed">To view address logbooks, access previous checkout invoices, or track active shipments, you must authorize your profile first.</p>
         <div className="pt-2">
           <button 
-            onClick={loginWithGoogle}
+            onClick={() => loginWithGoogle()}
             className="bg-orange hover:bg-orange-hover text-white font-black py-3.5 px-8 rounded-2xl text-xs transition-all shadow-md hover:scale-102 flex items-center gap-2 mx-auto uppercase"
           >
-            Authorize Profile with Google
+            Authorize Profile Logins
           </button>
         </div>
       </div>
