@@ -396,13 +396,13 @@ export default function HomePage() {
   // Hero Slider Data (Amore Cakes Branding)
   const heroBanners = [
     {
-      title: 'Spectacular Birthday Celebrations',
-      subtitle: 'Save 20% on Designer Custom Masterpieces',
-      badge: 'Trending Designs',
-      image: 'https://images.unsplash.com/photo-1533782654613-826a072dd6f3?auto=format&fit=crop&q=80&w=1200',
-      tagline: 'Hand-piped luxury buttercream, customizable layers, eggless options.',
-      buttonText: 'Order Birthday Cakes',
-      link: '/category/birthday-cakes'
+      title: 'Midnight Surprise Delivered Fresh',
+      subtitle: 'Baked Fresh & Delivered to Your Door at 11:59 PM',
+      badge: 'Premium Express',
+      image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=1200',
+      tagline: 'Midnight delivery guarantees your surprise feels exactly like premium magic.',
+      buttonText: 'Explore Midnight Cakes',
+      link: '/category/chocolate-cakes'
     },
     {
       title: 'Royal Wedding Masterpieces',
@@ -414,13 +414,13 @@ export default function HomePage() {
       link: '/category/wedding-cakes'
     },
     {
-      title: 'Midnight Surprise Delivered Fresh',
-      subtitle: 'Baked Fresh & Delivered to Your Door at 11:59 PM',
-      badge: 'Premium Express',
-      image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=1200',
-      tagline: 'Midnight delivery guarantees your surprise feels exactly like premium magic.',
-      buttonText: 'Explore Midnight Cakes',
-      link: '/category/chocolate-cakes'
+      title: 'Spectacular Birthday Celebrations',
+      subtitle: 'Save 20% on Designer Custom Masterpieces',
+      badge: 'Trending Designs',
+      image: 'https://cdn.shopify.com/s/files/1/0549/5819/4901/files/Chocolate_Birthday_Cake_Decorating_Ideas_for_Adults_Sophisticated_and_Fun_0003.jpg?v=1741458278',
+      tagline: 'Hand-piped luxury buttercream, customizable layers, eggless options.',
+      buttonText: 'Order Birthday Cakes',
+      link: '/category/birthday-cakes'
     }
   ];
 
