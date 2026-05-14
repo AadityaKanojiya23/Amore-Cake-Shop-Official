@@ -262,7 +262,7 @@ function CategoryTreeNode({ title, links, isOpenDefault = false, onLinkClick }) 
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between px-4 py-3 bg-cream/20 hover:bg-cream/40 dark:bg-white/5 dark:hover:bg-white/10 transition-colors text-left"
       >
-        <span className="font-extrabold text-xs text-navy dark:text-white tracking-wide">{title}</span>
+        <span className="font-medium text-xs text-navy dark:text-white tracking-wide">{title}</span>
         <span className="text-navy/40 dark:text-white/40 text-[10px] transition-transform duration-200" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
           ▼
         </span>
@@ -278,7 +278,7 @@ function CategoryTreeNode({ title, links, isOpenDefault = false, onLinkClick }) 
                 <Link 
                   href={lnk.href}
                   onClick={onLinkClick}
-                  className="text-navy/80 dark:text-white/80 hover:text-orange dark:hover:text-orange font-bold text-[11px] transition-colors py-0.5"
+                  className="text-navy/80 dark:text-white/80 hover:text-orange dark:hover:text-orange font-medium text-[11px] transition-colors py-0.5"
                 >
                   {lnk.name}
                 </Link>
@@ -359,9 +359,9 @@ function GlobalLayout({ children }) {
       <div className="bg-navy text-background text-xs py-2 px-4 text-center font-medium tracking-wider flex md:justify-between justify-center items-center z-50 print:hidden flex-wrap gap-2">
         <div className="flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-gold animate-bounce" />
-          <span>CELEBRATE WITH <b className="text-gold uppercase tracking-widest font-black">AMORE CAKES</b>: GET 15% OFF! USE CODE: <b className="text-gold bg-background/10 px-2 py-0.5 rounded">WELCOME15</b></span>
+          <span>CELEBRATE WITH <b className="text-gold uppercase tracking-widest font-medium">AMORE CAKES</b>: GET 15% OFF! USE CODE: <b className="text-gold bg-background/10 px-2 py-0.5 rounded">WELCOME15</b></span>
         </div>
-        <div className="hidden md:flex items-center gap-4 text-background/85 font-semibold">
+        <div className="hidden md:flex items-center gap-4 text-background/85 font-normal">
           <span className="flex items-center gap-1"><Phone className="w-3 h-3 text-gold" /> Call: +91 98765 43210</span>
           <span>Same Day Free Midnight Delivery in Metro Cities!</span>
         </div>
@@ -392,20 +392,20 @@ function GlobalLayout({ children }) {
                 <Menu className="w-6 h-6" />
               </button>
               <Link href="/" className="flex items-center gap-2 group">
-                <span className="text-2xl font-black tracking-tight text-navy font-serif flex items-center gap-1 transition-transform group-hover:scale-102">
+                <span className="text-2xl font-medium tracking-tight text-navy font-serif flex items-center gap-1 transition-transform group-hover:scale-102">
                   Amore<span className="text-orange">Cakes</span>
-                  <span className="text-[10px] bg-orange/15 text-orange font-sans uppercase px-2 py-0.5 rounded-full font-black tracking-wider ml-1">Boutique</span>
+                  <span className="text-[10px] bg-orange/15 text-orange font-sans uppercase px-2 py-0.5 rounded-full font-medium tracking-wider ml-1">Boutique</span>
                 </span>
               </Link>
             </div>
 
             {/* Location Picker */}
-            <div className="hidden md:flex items-center gap-1 text-xs font-semibold hover:text-orange cursor-pointer py-1.5 px-3 rounded-full bg-cream/40 border border-border-color transition-all hover:border-orange/50 shadow-sm">
+            <div className="hidden md:flex items-center gap-1 text-xs font-normal hover:text-orange cursor-pointer py-1.5 px-3 rounded-full bg-cream/40 border border-border-color transition-all hover:border-orange/50 shadow-sm">
               <MapPin className="w-4 h-4 text-orange" />
               <select 
                 value={selectedLocation} 
                 onChange={(e) => setSelectedLocation(e.target.value)}
-                className="bg-transparent border-none text-navy font-bold focus:outline-none cursor-pointer text-xs"
+                className="bg-transparent border-none text-navy font-medium focus:outline-none cursor-pointer text-xs"
               >
                 <option value="Mumbai, MH">Mumbai, MH</option>
                 <option value="Delhi, DL">Delhi NCR</option>
@@ -452,35 +452,35 @@ function GlobalLayout({ children }) {
                   <div className="relative">
                     <button 
                       onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                      className="flex items-center gap-1.5 text-sm font-semibold hover:text-orange cursor-pointer py-1.5 px-3 rounded-full hover:bg-cream transition-all border border-transparent hover:border-border-color"
+                      className="flex items-center gap-1.5 text-sm font-normal hover:text-orange cursor-pointer py-1.5 px-3 rounded-full hover:bg-cream transition-all border border-transparent hover:border-border-color"
                     >
                       <img 
                         src={user.avatar} 
                         alt="avatar" 
                         className="w-7 h-7 rounded-full border border-orange object-cover"
                       />
-                      <span className="hidden md:block max-w-[80px] truncate text-navy font-bold">{user.name.split(' ')[0]}</span>
+                      <span className="hidden md:block max-w-[80px] truncate text-navy font-medium">{user.name.split(' ')[0]}</span>
                       <ChevronDown className="w-3.5 h-3.5 text-navy/60" />
                     </button>
                     {profileDropdownOpen && (
                       <div className="absolute right-0 mt-2 w-52 bg-card-bg border border-border-color rounded-2xl shadow-xl py-2 z-50 animate-float">
                         <div className="px-4 py-2 border-b border-border-color text-xs text-navy/60">
-                          Logged in as <b className="text-navy block truncate font-bold">{user.email}</b>
+                          Logged in as <b className="text-navy block truncate font-medium">{user.email}</b>
                         </div>
-                        <Link href="/dashboard" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-navy transition-colors font-semibold">
+                        <Link href="/dashboard" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-navy transition-colors font-normal">
                           User Dashboard
                         </Link>
                         {user.role === 'admin' && (
-                          <Link href="/admin" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-orange transition-colors font-bold flex items-center gap-1">
+                          <Link href="/admin" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-orange transition-colors font-medium flex items-center gap-1">
                             <Sparkles className="w-4 h-4 text-orange" /> Admin Dashboard
                           </Link>
                         )}
-                        <Link href="/dashboard?tab=orders" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-navy transition-colors font-semibold">
+                        <Link href="/dashboard?tab=orders" onClick={() => setProfileDropdownOpen(false)} className="block px-4 py-2.5 text-sm hover:bg-cream text-navy transition-colors font-normal">
                           Order History
                         </Link>
                         <button 
                           onClick={() => { setProfileDropdownOpen(false); logout(); }}
-                          className="w-full text-left px-4 py-2.5 text-sm hover:bg-red-50 text-red-500 transition-colors font-bold"
+                          className="w-full text-left px-4 py-2.5 text-sm hover:bg-red-50 text-red-500 transition-colors font-medium"
                         >
                           Logout
                         </button>
@@ -490,7 +490,7 @@ function GlobalLayout({ children }) {
                 ) : (
                   <button 
                     onClick={() => loginWithGoogle()}
-                    className="flex items-center gap-1.5 text-xs font-bold bg-orange hover:bg-orange-hover text-white transition-all py-2 px-4 rounded-full shadow-sm"
+                    className="flex items-center gap-1.5 text-xs font-medium bg-orange hover:bg-orange-hover text-white transition-all py-2 px-4 rounded-full shadow-sm"
                   >
                     <User className="w-4 h-4" />
                     <span>Login / Sign Up</span>
@@ -502,7 +502,7 @@ function GlobalLayout({ children }) {
               <Link href="/dashboard?tab=wishlist" className="relative p-2 hover:bg-cream rounded-full text-navy transition-colors hidden sm:block" title="Wishlist">
                 <Heart className="w-5 h-5" />
                 {wishlist.length > 0 && (
-                  <span className="absolute top-0.5 right-0.5 bg-red-500 text-white font-extrabold text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center animate-pulse">
+                  <span className="absolute top-0.5 right-0.5 bg-red-500 text-white font-medium text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center animate-pulse">
                     {wishlist.length}
                   </span>
                 )}
@@ -512,7 +512,7 @@ function GlobalLayout({ children }) {
               <Link href="/cart" className="relative p-2 hover:bg-cream rounded-full text-navy transition-colors" title="Cart Drawer">
                 <ShoppingBag className="w-5 h-5" />
                 {cart.length > 0 && (
-                  <span className="absolute top-0.5 right-0.5 bg-orange text-white font-black text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center border border-card-bg shadow-sm">
+                  <span className="absolute top-0.5 right-0.5 bg-orange text-white font-medium text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center border border-card-bg shadow-sm">
                     {cart.reduce((total, item) => total + item.quantity, 0)}
                   </span>
                 )}
@@ -581,7 +581,7 @@ function GlobalLayout({ children }) {
                           
                           {/* Column 1: White Background */}
                           <div className="w-1/2 p-4 bg-white dark:bg-[#123175] space-y-3 shrink-0">
-                            <h5 className="text-[10px] font-black uppercase text-navy/40 dark:text-white/45 tracking-widest flex items-center gap-1.5 border-b border-border-color/40 pb-1.5">
+                            <h5 className="text-[10px] font-medium uppercase text-navy/40 dark:text-white/45 tracking-widest flex items-center gap-1.5 border-b border-border-color/40 pb-1.5">
                               <span className="text-orange text-[12px] leading-none">✦</span> {menu.col1.title}
                             </h5>
                             <ul className="space-y-2">
@@ -589,7 +589,7 @@ function GlobalLayout({ children }) {
                                 <li key={i}>
                                   <Link 
                                     href={lnk.href}
-                                    className="block text-navy/80 dark:text-white/80 hover:text-orange dark:hover:text-orange font-bold text-[11px] transition-colors py-0.5"
+                                    className="block text-navy/80 dark:text-white/80 hover:text-orange dark:hover:text-orange font-medium text-[11px] transition-colors py-0.5"
                                   >
                                     {lnk.name}
                                   </Link>
@@ -600,7 +600,7 @@ function GlobalLayout({ children }) {
 
                           {/* Column 2: Soft Cream Background */}
                           <div className="w-1/2 p-4 bg-[#FFF9F2] dark:bg-[#0D2A6B]/30 border-l border-border-color/40 space-y-3 shrink-0">
-                            <h5 className="text-[10px] font-black uppercase text-orange tracking-widest flex items-center gap-1.5 border-b border-orange/10 pb-1.5">
+                            <h5 className="text-[10px] font-medium uppercase text-orange tracking-widest flex items-center gap-1.5 border-b border-orange/10 pb-1.5">
                               <span className="text-orange text-[12px] leading-none">✦</span> {menu.col2.title}
                             </h5>
                             <ul className="space-y-2">
@@ -608,7 +608,7 @@ function GlobalLayout({ children }) {
                                 <li key={i}>
                                   <Link 
                                     href={lnk.href}
-                                    className="block text-navy/80 dark:text-white/80 hover:text-orange dark:hover:text-orange font-bold text-[11px] transition-colors py-0.5"
+                                    className="block text-navy/80 dark:text-white/80 hover:text-orange dark:hover:text-orange font-medium text-[11px] transition-colors py-0.5"
                                   >
                                     {lnk.name}
                                   </Link>
@@ -645,7 +645,7 @@ function GlobalLayout({ children }) {
       {/* PREMIUM NEWSLETTER SECTION (HOME/GLOBAL LAYOUT COMPONENT) */}
       <section className="bg-cream border-t border-border-color py-16 px-4 text-center">
         <div className="max-w-2xl mx-auto space-y-4">
-          <h2 className="text-2xl md:text-3xl font-serif text-navy font-black">Join the Amore Cakes Connoisseurs</h2>
+          <h2 className="text-2xl md:text-3xl font-serif text-navy font-medium">Join the Amore Cakes Connoisseurs</h2>
           <p className="text-navy/70 text-sm max-w-md mx-auto font-medium">Subscribe for early access to boutique baking masterclasses, holiday discount keys, and exclusive gourmet previews!</p>
           <form onSubmit={(e) => { e.preventDefault(); alert('Subscribed successfully with mock code AMORE15! Check your email.'); }} className="flex max-w-md mx-auto gap-2 bg-card-bg p-1.5 rounded-full border border-border-color focus-within:ring-2 focus-within:ring-orange/50 shadow-md">
             <Mail className="w-5 h-5 text-navy/45 ml-3 self-center" />
@@ -653,9 +653,9 @@ function GlobalLayout({ children }) {
               type="email" 
               placeholder="Enter your email to receive 15% off..." 
               required 
-              className="w-full bg-transparent outline-none text-sm px-2 text-navy placeholder-navy/45 font-semibold"
+              className="w-full bg-transparent outline-none text-sm px-2 text-navy placeholder-navy/45 font-normal"
             />
-            <button type="submit" className="bg-orange hover:bg-orange-hover text-white font-bold py-2.5 px-6 rounded-full text-xs transition-colors shrink-0 flex items-center gap-1.5 shadow-sm">
+            <button type="submit" className="bg-orange hover:bg-orange-hover text-white font-medium py-2.5 px-6 rounded-full text-xs transition-colors shrink-0 flex items-center gap-1.5 shadow-sm">
               <span>Subscribe</span>
               <Send className="w-3.5 h-3.5" />
             </button>
@@ -669,7 +669,7 @@ function GlobalLayout({ children }) {
           
           {/* Col 1: Brand Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-serif font-black text-white tracking-tight">Amore<span className="text-orange">Cakes</span></h3>
+            <h3 className="text-2xl font-serif font-medium text-white tracking-tight">Amore<span className="text-orange">Cakes</span></h3>
             <p className="text-xs text-background/70 leading-relaxed font-medium">
               Amore Cakes is India&apos;s premier luxury boutique bakery, handcrafting spectacular celebratory cakes, customized gourmet pastries, and masterclass confectionery. We promise pure freshness, exquisite aesthetics, and free same-day midnight home delivery.
             </p>
@@ -694,8 +694,8 @@ function GlobalLayout({ children }) {
 
           {/* Col 2: Navigation Links */}
           <div className="space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider border-b border-background/10 pb-2">The Sweet Menu</h4>
-            <ul className="text-xs space-y-2.5 text-background/70 font-semibold">
+            <h4 className="text-sm font-medium text-white uppercase tracking-wider border-b border-background/10 pb-2">The Sweet Menu</h4>
+            <ul className="text-xs space-y-2.5 text-background/70 font-normal">
               <li><Link href="/category/birthday-cakes" className="hover:text-orange transition-colors">Birthday Cakes Specials</Link></li>
               <li><Link href="/category/wedding-cakes" className="hover:text-orange transition-colors">Luxury Wedding Masterpieces</Link></li>
               <li><Link href="/category/cupcakes" className="hover:text-orange transition-colors">Artisanal Cream Cupcakes</Link></li>
@@ -706,8 +706,8 @@ function GlobalLayout({ children }) {
 
           {/* Col 3: Customer Care Help */}
           <div className="space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider border-b border-background/10 pb-2">Support & Info</h4>
-            <ul className="text-xs space-y-2.5 text-background/70 font-semibold">
+            <h4 className="text-sm font-medium text-white uppercase tracking-wider border-b border-background/10 pb-2">Support & Info</h4>
+            <ul className="text-xs space-y-2.5 text-background/70 font-normal">
               <li><Link href="/about" className="hover:text-orange transition-colors">About Our Boutique Bakery</Link></li>
               <li><Link href="/dashboard?tab=orders" className="hover:text-orange transition-colors">Track Active Shipment</Link></li>
               <li><Link href="/about" className="hover:text-orange transition-colors">Delivery Cities & Details</Link></li>
@@ -718,8 +718,8 @@ function GlobalLayout({ children }) {
 
           {/* Col 4: Contact details */}
           <div className="space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider border-b border-background/10 pb-2">Contact Boutique</h4>
-            <ul className="text-xs space-y-3 text-background/70 font-semibold">
+            <h4 className="text-sm font-medium text-white uppercase tracking-wider border-b border-background/10 pb-2">Contact Boutique</h4>
+            <ul className="text-xs space-y-3 text-background/70 font-normal">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-orange shrink-0 mt-0.5" />
                 <span>Amore Cakes HQ, Level 3, Creative Bakers Complex, Worli, Mumbai, MH - 400018</span>
@@ -738,12 +738,12 @@ function GlobalLayout({ children }) {
 
         {/* TRUST BADGES AND COPYRIGHT */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-background/10 text-center flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-background/50">
-          <div className="flex flex-wrap justify-center gap-6 font-semibold">
+          <div className="flex flex-wrap justify-center gap-6 font-normal">
             <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-orange" /> 100% Certified Safe Checkout</span>
             <span className="flex items-center gap-1.5"><CreditCard className="w-4 h-4 text-orange" /> COD, UPI, & Razorpay Verified</span>
             <span className="flex items-center gap-1.5"><Award className="w-4 h-4 text-orange" /> 5-Star Food Grade Bakery Rating</span>
           </div>
-          <div className="font-semibold">
+          <div className="font-normal">
             &copy; 2026 Amore Cakes Ltd. All rights reserved. Designed with premium bakery aesthetics.
           </div>
         </div>
@@ -751,24 +751,24 @@ function GlobalLayout({ children }) {
 
       {/* MOBILE LOWER ACTION BAR */}
       <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-card-bg/95 border-t border-border-color py-2.5 px-6 flex justify-between items-center z-40 shadow-xl">
-        <Link href="/" className="flex flex-col items-center gap-1 text-navy text-[10px] font-bold">
+        <Link href="/" className="flex flex-col items-center gap-1 text-navy text-[10px] font-medium">
           <Sparkles className="w-5 h-5 text-orange" />
           <span>Home</span>
         </Link>
-        <Link href="/category/all" className="flex flex-col items-center gap-1 text-navy text-[10px] font-bold">
+        <Link href="/category/all" className="flex flex-col items-center gap-1 text-navy text-[10px] font-medium">
           <Search className="w-5 h-5 text-orange" />
           <span>Browse</span>
         </Link>
-        <Link href="/cart" className="flex flex-col items-center gap-1 text-navy text-[10px] font-bold relative">
+        <Link href="/cart" className="flex flex-col items-center gap-1 text-navy text-[10px] font-medium relative">
           <ShoppingBag className="w-5 h-5 text-orange" />
           <span>Cart</span>
           {cart.length > 0 && (
-            <span className="absolute -top-1.5 -right-1.5 bg-orange text-white font-black text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center border border-card-bg">
+            <span className="absolute -top-1.5 -right-1.5 bg-orange text-white font-medium text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center border border-card-bg">
               {cart.reduce((total, item) => total + item.quantity, 0)}
             </span>
           )}
         </Link>
-        <Link href="/dashboard" className="flex flex-col items-center gap-1 text-navy text-[10px] font-bold">
+        <Link href="/dashboard" className="flex flex-col items-center gap-1 text-navy text-[10px] font-medium">
           <User className="w-5 h-5 text-orange" />
           <span>Account</span>
         </Link>
@@ -778,8 +778,8 @@ function GlobalLayout({ children }) {
       {toast && (
         <div className="fixed bottom-18 sm:bottom-6 right-6 bg-navy text-white py-3 px-5 rounded-2xl shadow-2xl z-50 flex items-center gap-3 border border-orange/40 animate-float max-w-sm">
           <Sparkles className="w-5 h-5 text-orange shrink-0 animate-pulse" />
-          <div className="text-xs font-bold leading-tight flex-grow">{toast.message}</div>
-          <button onClick={() => setToast(null)} className="text-white/50 hover:text-white font-bold ml-2">
+          <div className="text-xs font-medium leading-tight flex-grow">{toast.message}</div>
+          <button onClick={() => setToast(null)} className="text-white/50 hover:text-white font-medium ml-2">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -801,7 +801,7 @@ function GlobalLayout({ children }) {
             <div className="bg-navy text-white px-5 py-4.5 flex items-center justify-between shadow-sm shrink-0">
               <div className="flex items-center gap-2">
                 <Menu className="w-5 h-5 text-orange shrink-0 animate-pulse" />
-                <span className="font-serif font-black text-base tracking-wide">
+                <span className="font-serif font-medium text-base tracking-wide">
                   All <span className="text-orange">Varieties</span>
                 </span>
               </div>
@@ -817,7 +817,7 @@ function GlobalLayout({ children }) {
             {/* Tree Navigation Area */}
             <div className="flex-grow overflow-y-auto p-5 space-y-5 select-none no-scrollbar">
               <div className="space-y-4">
-                <h4 className="text-[10px] font-black text-navy/40 dark:text-white/40 uppercase tracking-widest border-b border-border-color/40 pb-2">
+                <h4 className="text-[10px] font-medium text-navy/40 dark:text-white/40 uppercase tracking-widest border-b border-border-color/40 pb-2">
                   Browse by Boutique Departments
                 </h4>
                 
@@ -929,7 +929,7 @@ function GlobalLayout({ children }) {
 
             {/* Sidebar Footer */}
             <div className="p-4 bg-cream/30 dark:bg-[#0c1a30] border-t border-border-color shrink-0 text-[11px] text-navy/60 dark:text-white/60 space-y-2">
-              <p className="font-bold flex items-center gap-1.5 text-navy dark:text-white">
+              <p className="font-medium flex items-center gap-1.5 text-navy dark:text-white">
                 <Phone className="w-3.5 h-3.5 text-orange" /> Boutique Help: +91 98765 43210
               </p>
               <p>&copy; 2026 Amore Cakes Bakery. All rights reserved.</p>
@@ -945,7 +945,7 @@ function GlobalLayout({ children }) {
           <div className="relative w-80 max-w-xs bg-card-bg h-full p-6 flex flex-col justify-between shadow-2xl animate-slide-right border-r border-border-color">
             <div className="space-y-6">
               <div className="flex justify-between items-center pb-4 border-b border-border-color">
-                <span className="text-xl font-serif font-black text-navy">Amore<span className="text-orange">Cakes</span></span>
+                <span className="text-xl font-serif font-medium text-navy">Amore<span className="text-orange">Cakes</span></span>
                 <button onClick={() => setMobileMenuOpen(false)} className="p-1 hover:bg-cream rounded-full text-navy"><X className="w-6 h-6" /></button>
               </div>
               <div className="space-y-4">
@@ -960,22 +960,22 @@ function GlobalLayout({ children }) {
                     placeholder="Search cakes, desserts..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-transparent border-none outline-none text-xs text-navy placeholder-navy/45 font-semibold"
+                    className="w-full bg-transparent border-none outline-none text-xs text-navy placeholder-navy/45 font-normal"
                   />
                 </form>
 
-                <h4 className="text-xs font-bold text-navy/50 uppercase tracking-widest pt-2">Our Cake Menu</h4>
-                <div className="flex flex-col gap-3 font-semibold text-sm">
+                <h4 className="text-xs font-medium text-navy/50 uppercase tracking-widest pt-2">Our Cake Menu</h4>
+                <div className="flex flex-col gap-3 font-normal text-sm">
                   <Link href="/category/all" onClick={() => setMobileMenuOpen(false)} className="hover:text-orange text-navy transition-colors">Shop All Categories</Link>
                   {categories.slice(0, 8).map(c => (
                     <Link key={c.slug} href={`/category/${c.slug}`} onClick={() => setMobileMenuOpen(false)} className="hover:text-orange text-navy transition-colors">{c.name}</Link>
                   ))}
-                  <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-orange text-navy font-black tracking-widest transition-colors pt-2 border-t border-border-color">Our Boutique Story / Help</Link>
+                  <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-orange text-navy font-medium tracking-widest transition-colors pt-2 border-t border-border-color">Our Boutique Story / Help</Link>
                 </div>
               </div>
             </div>
             <div className="text-xs text-navy/60 border-t border-border-color pt-4 space-y-2">
-              <p className="font-bold flex items-center gap-1 text-navy"><Phone className="w-3.5 h-3.5 text-orange" /> Call Boutique: +91 98765 43210</p>
+              <p className="font-medium flex items-center gap-1 text-navy"><Phone className="w-3.5 h-3.5 text-orange" /> Call Boutique: +91 98765 43210</p>
               <p>&copy; 2026 Amore Cakes Bakery.</p>
             </div>
           </div>

@@ -120,7 +120,7 @@ export default function ProductDetailsPage({ params }) {
     return (
       <div className="flex-grow flex items-center justify-center py-24 bg-background text-navy gap-3">
         <div className="w-12 h-12 border-t-2 border-b-2 border-orange rounded-full animate-spin"></div>
-        <span className="font-sans font-black animate-pulse uppercase tracking-wider text-xs">Cooking Details...</span>
+        <span className="font-sans font-medium animate-pulse uppercase tracking-wider text-xs">Cooking Details...</span>
       </div>
     );
   }
@@ -134,7 +134,7 @@ export default function ProductDetailsPage({ params }) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 bg-background text-foreground">
       
       {/* Dynamic breadcrumb */}
-      <div className="text-xs text-navy/50 font-black uppercase tracking-wider flex items-center gap-2">
+      <div className="text-xs text-navy/50 font-medium uppercase tracking-wider flex items-center gap-2">
         <Link href="/" className="hover:text-orange">Home</Link>
         <span>/</span>
         <Link href={`/category/${product.category}`} className="hover:text-orange">{product.category.replace('-', ' ')}</Link>
@@ -173,7 +173,7 @@ export default function ProductDetailsPage({ params }) {
         <div className="lg:col-span-6 space-y-6">
           <div className="space-y-2 border-b border-border-color pb-4">
             <div className="flex justify-between items-start gap-4">
-              <h1 className="text-2xl md:text-3.5xl font-serif font-black text-navy leading-tight">{product.name}</h1>
+              <h1 className="text-2xl md:text-3.5xl font-serif font-medium text-navy leading-tight">{product.name}</h1>
               <button 
                 onClick={() => toggleWishlist(product._id)}
                 className="p-2 border border-border-color hover:bg-cream rounded-full text-navy shrink-0 transition-colors shadow-sm"
@@ -182,7 +182,7 @@ export default function ProductDetailsPage({ params }) {
               </button>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-black text-navy">
+            <div className="flex items-center gap-2 text-xs font-medium text-navy">
               <div className="flex text-gold">
                 <Star className="w-4 h-4 fill-gold text-gold" />
               </div>
@@ -193,18 +193,18 @@ export default function ProductDetailsPage({ params }) {
 
             {/* Pricing Section */}
             <div className="flex items-baseline gap-3 pt-2">
-              <span className="text-orange font-black text-3xl">₹{product.discountPrice || product.price}</span>
+              <span className="text-orange font-medium text-3xl">₹{product.discountPrice || product.price}</span>
               {product.discountPrice && (
                 <>
-                  <span className="text-navy/40 line-through text-sm font-bold">₹{product.price}</span>
-                  <span className="text-success bg-success/10 border border-success/20 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Save {discountPercent}%</span>
+                  <span className="text-navy/40 line-through text-sm font-medium">₹{product.price}</span>
+                  <span className="text-success bg-success/10 border border-success/20 text-[10px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider">Save {discountPercent}%</span>
                 </>
               )}
             </div>
           </div>
 
           {/* Description Block */}
-          <div className="space-y-2 text-xs md:text-sm text-navy/80 leading-relaxed font-semibold">
+          <div className="space-y-2 text-xs md:text-sm text-navy/80 leading-relaxed font-normal">
             <p>{product.description}</p>
             <p className="text-navy/50 text-xs">{product.longDescription}</p>
           </div>
@@ -212,7 +212,7 @@ export default function ProductDetailsPage({ params }) {
           {/* Customization Details: Weights */}
           {product.weights && product.weights.length > 0 && (
             <div className="space-y-2.5">
-              <h3 className="text-xs font-bold text-navy uppercase tracking-wider flex items-center gap-1">
+              <h3 className="text-xs font-medium text-navy uppercase tracking-wider flex items-center gap-1">
                 <UtensilsCrossed className="w-4 h-4 text-orange" /> Select Cake Weight
               </h3>
               <div className="flex flex-wrap gap-2.5">
@@ -220,7 +220,7 @@ export default function ProductDetailsPage({ params }) {
                   <button 
                     key={w} 
                     onClick={() => setSelectedWeight(w)}
-                    className={`text-xs font-black px-4 py-2 rounded-xl border transition-all ${selectedWeight === w ? 'bg-orange text-white border-orange shadow-md' : 'border-border-color hover:border-orange bg-background text-navy'}`}
+                    className={`text-xs font-medium px-4 py-2 rounded-xl border transition-all ${selectedWeight === w ? 'bg-orange text-white border-orange shadow-md' : 'border-border-color hover:border-orange bg-background text-navy'}`}
                   >
                     {w}
                   </button>
@@ -232,13 +232,13 @@ export default function ProductDetailsPage({ params }) {
           {/* Customization Details: Flavors */}
           {product.flavors && product.flavors.length > 0 && (
             <div className="space-y-2.5">
-              <h3 className="text-xs font-bold text-navy uppercase tracking-wider">Select Flavor Filling</h3>
+              <h3 className="text-xs font-medium text-navy uppercase tracking-wider">Select Flavor Filling</h3>
               <div className="flex flex-wrap gap-2.5">
                 {product.flavors.map(f => (
                   <button 
                     key={f} 
                     onClick={() => setSelectedFlavor(f)}
-                    className={`text-xs font-black px-4 py-2 rounded-xl border transition-all ${selectedFlavor === f ? 'bg-orange text-white border-orange shadow-md' : 'border-border-color hover:border-orange bg-background text-navy'}`}
+                    className={`text-xs font-medium px-4 py-2 rounded-xl border transition-all ${selectedFlavor === f ? 'bg-orange text-white border-orange shadow-md' : 'border-border-color hover:border-orange bg-background text-navy'}`}
                   >
                     {f}
                   </button>
@@ -249,9 +249,9 @@ export default function ProductDetailsPage({ params }) {
 
           {/* Custom message field */}
           <div className="space-y-2.5">
-            <h3 className="text-xs font-bold text-navy uppercase tracking-wider flex justify-between">
+            <h3 className="text-xs font-medium text-navy uppercase tracking-wider flex justify-between">
               <span>Message Written on Cake</span>
-              <span className="text-[10px] text-navy/50 font-sans font-black">Max 25 Characters</span>
+              <span className="text-[10px] text-navy/50 font-sans font-medium">Max 25 Characters</span>
             </h3>
             <input 
               type="text" 
@@ -259,13 +259,13 @@ export default function ProductDetailsPage({ params }) {
               placeholder="E.g. Happy Anniversary Mom & Dad" 
               value={customMessage}
               onChange={(e) => setCustomMessage(e.target.value)}
-              className="w-full text-xs font-semibold border border-border-color p-3 rounded-xl outline-none focus:ring-1 focus:ring-orange bg-background text-navy"
+              className="w-full text-xs font-normal border border-border-color p-3 rounded-xl outline-none focus:ring-1 focus:ring-orange bg-background text-navy"
             />
           </div>
 
           {/* Pure Veg / Eggless toggle */}
           {product.isEgglessOption && (
-            <label className="flex items-center gap-2.5 text-xs font-black text-navy cursor-pointer select-none bg-cream p-3 rounded-xl border border-border-color">
+            <label className="flex items-center gap-2.5 text-xs font-medium text-navy cursor-pointer select-none bg-cream p-3 rounded-xl border border-border-color">
               <input 
                 type="checkbox" 
                 checked={isEggless} 
@@ -278,24 +278,24 @@ export default function ProductDetailsPage({ params }) {
 
           {/* DELIVERABLE DATE AND TIME PICKER */}
           <div className="bg-cream border border-border-color rounded-2xl p-4 space-y-4 shadow-sm">
-            <h3 className="text-xs font-bold text-navy uppercase tracking-wider flex items-center gap-2">
+            <h3 className="text-xs font-medium text-navy uppercase tracking-wider flex items-center gap-2">
               <Calendar className="w-4 h-4 text-orange" /> Scheduled Delivery Slot Details
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-navy/60">Preferred Date</label>
+                <label className="text-[10px] uppercase font-medium text-navy/60">Preferred Date</label>
                 <input 
                   type="date" 
                   min={new Date().toISOString().split('T')[0]}
                   value={deliveryDate}
                   onChange={(e) => setDeliveryDate(e.target.value)}
-                  className="w-full text-xs font-black p-2.5 bg-card-bg border border-border-color rounded-xl outline-none focus:ring-1 focus:ring-orange text-navy cursor-pointer"
+                  className="w-full text-xs font-medium p-2.5 bg-card-bg border border-border-color rounded-xl outline-none focus:ring-1 focus:ring-orange text-navy cursor-pointer"
                   required
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-navy/60">Delivery Hour Bracket</label>
+                <label className="text-[10px] uppercase font-medium text-navy/60">Delivery Hour Bracket</label>
                 <select 
                   value={deliverySlot}
                   onChange={(e) => {
@@ -304,7 +304,7 @@ export default function ProductDetailsPage({ params }) {
                     const isExpress = e.target.value.includes('Express');
                     setDeliveryType(isMidnight ? 'Midnight' : isExpress ? 'Express' : 'Standard');
                   }}
-                  className="w-full text-xs font-black p-2.5 bg-card-bg border border-border-color rounded-xl outline-none focus:ring-1 focus:ring-orange text-navy cursor-pointer"
+                  className="w-full text-xs font-medium p-2.5 bg-card-bg border border-border-color rounded-xl outline-none focus:ring-1 focus:ring-orange text-navy cursor-pointer"
                 >
                   <option value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM) [+ ₹50]</option>
                   <option value="Standard (12 PM - 6 PM)">Standard (12 PM - 6 PM) [Free]</option>
@@ -317,17 +317,17 @@ export default function ProductDetailsPage({ params }) {
 
           {/* OPTIONAL EXCLUSIVE PARTY ADD-ONS */}
           <div className="space-y-3">
-            <h3 className="text-xs font-bold text-navy uppercase tracking-wider">Premium Party Accessories / Add-ons</h3>
+            <h3 className="text-xs font-medium text-navy uppercase tracking-wider">Premium Party Accessories / Add-ons</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <label className="flex items-center gap-2 border border-border-color hover:border-orange rounded-xl p-3 cursor-pointer select-none text-xs font-black text-navy bg-card-bg shadow-sm transition-all">
+              <label className="flex items-center gap-2 border border-border-color hover:border-orange rounded-xl p-3 cursor-pointer select-none text-xs font-medium text-navy bg-card-bg shadow-sm transition-all">
                 <input type="checkbox" checked={addCandles} onChange={(e) => setAddCandles(e.target.checked)} className="accent-orange w-4 h-4" />
                 <span>Metallic Candles (+₹50)</span>
               </label>
-              <label className="flex items-center gap-2 border border-border-color hover:border-orange rounded-xl p-3 cursor-pointer select-none text-xs font-black text-navy bg-card-bg shadow-sm transition-all">
+              <label className="flex items-center gap-2 border border-border-color hover:border-orange rounded-xl p-3 cursor-pointer select-none text-xs font-medium text-navy bg-card-bg shadow-sm transition-all">
                 <input type="checkbox" checked={addFlowers} onChange={(e) => setAddFlowers(e.target.checked)} className="accent-orange w-4 h-4" />
                 <span>Rose Bouquet (+₹299)</span>
               </label>
-              <label className="flex items-center gap-2 border border-border-color hover:border-orange rounded-xl p-3 cursor-pointer select-none text-xs font-black text-navy bg-card-bg shadow-sm transition-all">
+              <label className="flex items-center gap-2 border border-border-color hover:border-orange rounded-xl p-3 cursor-pointer select-none text-xs font-medium text-navy bg-card-bg shadow-sm transition-all">
                 <input type="checkbox" checked={addChocolates} onChange={(e) => setAddChocolates(e.target.checked)} className="accent-orange w-4 h-4" />
                 <span>Chocolates Box (+₹150)</span>
               </label>
@@ -337,7 +337,7 @@ export default function ProductDetailsPage({ params }) {
           {/* QUANTITY PICKER & ACTION PANEL */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4 border-t border-border-color">
             <div className="flex items-center justify-between border border-border-color rounded-2xl py-2 px-4 bg-cream">
-              <span className="text-xs font-black text-navy mr-4">Qty:</span>
+              <span className="text-xs font-medium text-navy mr-4">Qty:</span>
               <div className="flex items-center gap-3">
                 <button 
                   onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
@@ -345,7 +345,7 @@ export default function ProductDetailsPage({ params }) {
                 >
                   <Minus className="w-4 h-4" />
                 </button>
-                <span className="text-sm font-black text-navy w-4 text-center">{quantity}</span>
+                <span className="text-sm font-medium text-navy w-4 text-center">{quantity}</span>
                 <button 
                   onClick={() => setQuantity(prev => prev + 1)}
                   className="p-1 hover:bg-background rounded text-navy transition-colors"
@@ -357,13 +357,13 @@ export default function ProductDetailsPage({ params }) {
 
             <button 
               onClick={() => handleAddToCart(false)}
-              className="flex-1 bg-orange hover:bg-orange-hover text-white font-black py-3.5 px-6 rounded-2xl text-xs transition-all flex justify-center items-center gap-2 shadow-md hover:scale-102"
+              className="flex-1 bg-orange hover:bg-orange-hover text-white font-medium py-3.5 px-6 rounded-2xl text-xs transition-all flex justify-center items-center gap-2 shadow-md hover:scale-102"
             >
               <ShoppingBag className="w-4 h-4" /> Add to Shopping Basket
             </button>
             <button 
               onClick={() => handleAddToCart(true)}
-              className="flex-1 bg-navy hover:bg-navy-dark text-white font-black py-3.5 px-6 rounded-2xl text-xs transition-all shadow-md text-center hover:scale-102"
+              className="flex-1 bg-navy hover:bg-navy-dark text-white font-medium py-3.5 px-6 rounded-2xl text-xs transition-all shadow-md text-center hover:scale-102"
             >
               Express Checkout Now
             </button>
@@ -372,10 +372,10 @@ export default function ProductDetailsPage({ params }) {
           {/* Product Specifications Table */}
           {product.ingredients && (
             <div className="border border-border-color rounded-2xl p-4 bg-cream space-y-2 shadow-sm">
-              <h4 className="text-[10px] font-black uppercase tracking-widest text-navy/50 flex items-center gap-1">
+              <h4 className="text-[10px] font-medium uppercase tracking-widest text-navy/50 flex items-center gap-1">
                 <Info className="w-3.5 h-3.5 text-orange" /> Ingredients & Safety Specs
               </h4>
-              <p className="text-xs text-navy/70 font-semibold leading-relaxed">
+              <p className="text-xs text-navy/70 font-normal leading-relaxed">
                 Contains: {product.ingredients.join(', ')}. Freshly baked to order. Consumable within 48 hours if refrigerated.
               </p>
             </div>
@@ -387,18 +387,18 @@ export default function ProductDetailsPage({ params }) {
       {/* VERIFIED CUSTOMER REVIEWS FEEDBACK BLOCKS */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 border-t border-border-color pt-12">
         <div className="lg:col-span-5 space-y-4">
-          <h2 className="text-2xl font-serif font-black text-navy flex items-center gap-2">
+          <h2 className="text-2xl font-serif font-medium text-navy flex items-center gap-2">
             <MessageSquare className="w-6 h-6 text-orange" /> Product Review Logs
           </h2>
-          <p className="text-xs md:text-sm text-navy/60 leading-relaxed font-semibold">
+          <p className="text-xs md:text-sm text-navy/60 leading-relaxed font-normal">
             Read authentic reviews left by other verification-badged Amore Cakes shoppers. Or submit your own gourmet feedback rating.
           </p>
           
           {/* Review Submission Form */}
           <form onSubmit={handleReviewSubmit} className="bg-cream border border-border-color p-6 rounded-3xl space-y-4 shadow-sm">
-            <h3 className="font-serif font-black text-navy text-base">Write a Review</h3>
+            <h3 className="font-serif font-medium text-navy text-base">Write a Review</h3>
             <div className="space-y-1">
-              <label className="text-[10px] uppercase font-bold text-navy/50">Star Rating</label>
+              <label className="text-[10px] uppercase font-medium text-navy/50">Star Rating</label>
               <div className="flex gap-1.5 text-gold">
                 {[1, 2, 3, 4, 5].map((num) => (
                   <button 
@@ -414,18 +414,18 @@ export default function ProductDetailsPage({ params }) {
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] uppercase font-bold text-navy/50">Your Commentary</label>
+              <label className="text-[10px] uppercase font-medium text-navy/50">Your Commentary</label>
               <textarea 
                 rows={3}
                 placeholder="How was the texture, cream fresh-piping, and delivery timing?"
                 required
                 value={userComment}
                 onChange={(e) => setUserComment(e.target.value)}
-                className="w-full text-xs font-semibold p-3 border border-border-color bg-card-bg text-navy rounded-2xl outline-none focus:ring-1 focus:ring-orange"
+                className="w-full text-xs font-normal p-3 border border-border-color bg-card-bg text-navy rounded-2xl outline-none focus:ring-1 focus:ring-orange"
               />
             </div>
 
-            <button type="submit" className="bg-orange hover:bg-orange-hover text-white font-black py-2.5 px-6 rounded-full text-xs transition-colors shadow-sm">
+            <button type="submit" className="bg-orange hover:bg-orange-hover text-white font-medium py-2.5 px-6 rounded-full text-xs transition-colors shadow-sm">
               Publish Review
             </button>
           </form>
@@ -434,20 +434,20 @@ export default function ProductDetailsPage({ params }) {
         {/* Existing Reviews List */}
         <div className="lg:col-span-7 space-y-4 max-h-[420px] overflow-y-auto no-scrollbar pr-2">
           {reviews.length === 0 ? (
-            <p className="text-xs text-navy/40 italic font-black">No reviews logged yet. Be the first to verify order!</p>
+            <p className="text-xs text-navy/40 italic font-medium">No reviews logged yet. Be the first to verify order!</p>
           ) : (
             reviews.map((r, i) => (
               <div key={i} className="bg-card-bg border border-border-color p-5 rounded-2xl space-y-2.5 shadow-sm hover:border-orange transition-colors">
                 <div className="flex justify-between items-center text-xs">
-                  <h4 className="font-serif font-black text-navy">{r.userName}</h4>
-                  <span className="text-navy/40 font-black">{r.createdAt}</span>
+                  <h4 className="font-serif font-medium text-navy">{r.userName}</h4>
+                  <span className="text-navy/40 font-medium">{r.createdAt}</span>
                 </div>
                 <div className="flex text-gold">
                   {[...Array(r.rating)].map((_, i) => (
                     <Star key={i} className="w-3.5 h-3.5 fill-gold text-gold" />
                   ))}
                 </div>
-                <p className="text-navy/85 text-xs md:text-sm font-semibold leading-relaxed">&quot;{r.comment}&quot;</p>
+                <p className="text-navy/85 text-xs md:text-sm font-normal leading-relaxed">&quot;{r.comment}&quot;</p>
               </div>
             ))
           )}
@@ -458,8 +458,8 @@ export default function ProductDetailsPage({ params }) {
       {similar.length > 0 && (
         <section className="border-t border-border-color pt-12 space-y-6">
           <div>
-            <h2 className="text-2xl font-serif font-black text-navy">You Might Also Crave</h2>
-            <p className="text-xs text-navy/50 font-black uppercase tracking-wider">Similar premium recipes in this segment</p>
+            <h2 className="text-2xl font-serif font-medium text-navy">You Might Also Crave</h2>
+            <p className="text-xs text-navy/50 font-medium uppercase tracking-wider">Similar premium recipes in this segment</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {similar.map((prod) => (
@@ -468,10 +468,10 @@ export default function ProductDetailsPage({ params }) {
                   <div className="rounded-xl overflow-hidden aspect-video border border-border-color">
                     <img src={prod.images[0]} alt={prod.name} className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" />
                   </div>
-                  <h3 className="font-serif font-black text-navy text-sm truncate leading-tight group-hover:text-orange transition-colors">{prod.name}</h3>
+                  <h3 className="font-serif font-medium text-navy text-sm truncate leading-tight group-hover:text-orange transition-colors">{prod.name}</h3>
                   <div className="flex justify-between items-center mt-2">
-                    <span className="text-orange font-black text-sm">₹{prod.discountPrice || prod.price}</span>
-                    <span className="text-[10px] bg-orange/15 text-orange font-black px-1.5 py-0.5 rounded uppercase border border-orange/20">Verify</span>
+                    <span className="text-orange font-medium text-sm">₹{prod.discountPrice || prod.price}</span>
+                    <span className="text-[10px] bg-orange/15 text-orange font-medium px-1.5 py-0.5 rounded uppercase border border-orange/20">Verify</span>
                   </div>
                 </Link>
               </div>

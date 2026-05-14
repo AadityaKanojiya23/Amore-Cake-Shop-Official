@@ -111,15 +111,15 @@ export default function CartPage() {
     return (
       <div className="flex-grow max-w-2xl mx-auto px-4 py-24 text-center space-y-6 bg-background text-foreground">
         <div className="text-6xl animate-bounce">🛒</div>
-        <h1 className="font-serif font-black text-3xl text-navy">Your Shopping Basket is Empty</h1>
-        <p className="text-navy/60 text-sm max-w-sm mx-auto font-semibold leading-relaxed">
+        <h1 className="font-serif font-medium text-3xl text-navy">Your Shopping Basket is Empty</h1>
+        <p className="text-navy/60 text-sm max-w-sm mx-auto font-normal leading-relaxed">
           Looks like you haven&apos;t added any of our delicious customized baking creations to your shopping basket yet!
         </p>
         <div className="pt-4 flex flex-wrap justify-center gap-4">
-          <Link href="/category/all" className="bg-orange hover:bg-orange-hover text-white font-black py-3.5 px-8 rounded-full text-xs transition-all shadow-md hover:scale-102">
+          <Link href="/category/all" className="bg-orange hover:bg-orange-hover text-white font-medium py-3.5 px-8 rounded-full text-xs transition-all shadow-md hover:scale-102">
             Explore Cake Catalog
           </Link>
-          <Link href="/dashboard?tab=wishlist" className="bg-cream hover:bg-cream/80 text-navy border border-border-color font-black py-3.5 px-8 rounded-full text-xs transition-colors">
+          <Link href="/dashboard?tab=wishlist" className="bg-cream hover:bg-cream/80 text-navy border border-border-color font-medium py-3.5 px-8 rounded-full text-xs transition-colors">
             View Your Wishlist
           </Link>
         </div>
@@ -130,8 +130,8 @@ export default function CartPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 bg-background text-foreground">
       
-      <h1 className="text-2xl md:text-3.5xl font-serif font-black text-navy flex items-center gap-2">
-        Shopping Cart <span className="text-xs bg-orange/15 text-orange border border-orange/20 font-black px-3 py-1 rounded-full">{cart.length} Confectioneries</span>
+      <h1 className="text-2xl md:text-3.5xl font-serif font-medium text-navy flex items-center gap-2">
+        Shopping Cart <span className="text-xs bg-orange/15 text-orange border border-orange/20 font-medium px-3 py-1 rounded-full">{cart.length} Confectioneries</span>
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -171,22 +171,22 @@ export default function CartPage() {
                     className="w-20 h-20 object-cover rounded-2xl border border-border-color shadow-sm"
                   />
                   <div className="space-y-1">
-                    <h3 className="font-serif font-black text-navy text-base truncate pr-6 leading-tight">{item.name}</h3>
+                    <h3 className="font-serif font-medium text-navy text-base truncate pr-6 leading-tight">{item.name}</h3>
                     
                     {/* Weight and flavor customizations labels */}
-                    <div className="flex flex-wrap gap-1.5 text-[10px] font-black uppercase text-navy/55 mt-1">
+                    <div className="flex flex-wrap gap-1.5 text-[10px] font-medium uppercase text-navy/55 mt-1">
                       <span className="bg-cream px-2 py-0.5 rounded border border-border-color">Weight: {item.weight}</span>
                       <span className="bg-cream px-2 py-0.5 rounded border border-border-color">Flavor: {item.flavor}</span>
                     </div>
 
                     {/* Add-ons list details */}
                     {addonsList.length > 0 && (
-                      <p className="text-[10px] font-black text-success block">Modifications: {addonsList.join(', ')}</p>
+                      <p className="text-[10px] font-medium text-success block">Modifications: {addonsList.join(', ')}</p>
                     )}
 
                     {/* Custom inscription message details */}
                     {item.cakeMessage && (
-                      <p className="text-[10px] font-black italic text-navy/65 block truncate">Inscription: &quot;{item.cakeMessage}&quot;</p>
+                      <p className="text-[10px] font-medium italic text-navy/65 block truncate">Inscription: &quot;{item.cakeMessage}&quot;</p>
                     )}
                   </div>
                 </div>
@@ -196,8 +196,8 @@ export default function CartPage() {
                   
                   {/* Item price sum */}
                   <div className="text-right">
-                    <span className="text-orange font-black text-base block">₹{(basePrice + (item.addCandles ? 50 : 0) + (item.addFlowers ? 299 : 0) + (item.addChocolates ? 150 : 0)) * item.quantity}</span>
-                    <span className="text-navy/40 text-[10px] font-bold block">₹{basePrice + (item.addCandles ? 50 : 0) + (item.addFlowers ? 299 : 0) + (item.addChocolates ? 150 : 0)} each</span>
+                    <span className="text-orange font-medium text-base block">₹{(basePrice + (item.addCandles ? 50 : 0) + (item.addFlowers ? 299 : 0) + (item.addChocolates ? 150 : 0)) * item.quantity}</span>
+                    <span className="text-navy/40 text-[10px] font-medium block">₹{basePrice + (item.addCandles ? 50 : 0) + (item.addFlowers ? 299 : 0) + (item.addChocolates ? 150 : 0)} each</span>
                   </div>
 
                   {/* Quantity selector buttons */}
@@ -208,7 +208,7 @@ export default function CartPage() {
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
-                    <span className="text-xs font-black text-navy w-4 text-center">{item.quantity}</span>
+                    <span className="text-xs font-medium text-navy w-4 text-center">{item.quantity}</span>
                     <button 
                       onClick={() => updateCartQuantity(item.cartItemId, item.quantity + 1)}
                       className="p-1 hover:bg-background rounded text-navy transition-colors"
@@ -229,19 +229,19 @@ export default function CartPage() {
           
           {/* Coupon Entry form block */}
           <div className="bg-card-bg border border-border-color rounded-3xl p-6 space-y-4 shadow-sm">
-            <h3 className="font-serif font-black text-navy text-base flex items-center gap-1.5">
+            <h3 className="font-serif font-medium text-navy text-base flex items-center gap-1.5">
               <Tag className="w-4 h-4 text-orange" /> Have a Coupon Code?
             </h3>
             
             {appliedCoupon ? (
               <div className="bg-success/5 border border-success/20 rounded-xl p-3.5 flex justify-between items-center text-xs">
                 <div>
-                  <p className="font-black text-success">Promo: <span className="font-black uppercase text-orange">{appliedCoupon.code}</span></p>
-                  <p className="text-navy/70 font-semibold mt-0.5">Applied {appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountAmount}% Discount` : `₹${appliedCoupon.discountAmount} Discount`}</p>
+                  <p className="font-medium text-success">Promo: <span className="font-medium uppercase text-orange">{appliedCoupon.code}</span></p>
+                  <p className="text-navy/70 font-normal mt-0.5">Applied {appliedCoupon.discountType === 'percentage' ? `${appliedCoupon.discountAmount}% Discount` : `₹${appliedCoupon.discountAmount} Discount`}</p>
                 </div>
                 <button 
                   onClick={handleRemoveCoupon}
-                  className="text-[10px] font-black text-red-500 uppercase hover:text-red-700"
+                  className="text-[10px] font-medium text-red-500 uppercase hover:text-red-700"
                 >
                   Remove
                 </button>
@@ -253,11 +253,11 @@ export default function CartPage() {
                   placeholder="E.g. WELCOME15" 
                   value={couponInput}
                   onChange={(e) => setCouponInput(e.target.value)}
-                  className="w-full text-xs font-black border border-border-color p-2.5 rounded-xl outline-none focus:ring-1 focus:ring-orange bg-background text-navy uppercase"
+                  className="w-full text-xs font-medium border border-border-color p-2.5 rounded-xl outline-none focus:ring-1 focus:ring-orange bg-background text-navy uppercase"
                 />
                 <button 
                   type="submit" 
-                  className="bg-navy hover:bg-navy-dark text-white font-black py-2.5 px-5 rounded-xl text-xs transition-colors shrink-0"
+                  className="bg-navy hover:bg-navy-dark text-white font-medium py-2.5 px-5 rounded-xl text-xs transition-colors shrink-0"
                 >
                   Apply
                 </button>
@@ -265,19 +265,19 @@ export default function CartPage() {
             )}
 
             {couponError && (
-              <p className="text-[10px] text-red-500 font-black flex items-center gap-1"><AlertCircle className="w-3.5 h-3.5" /> {couponError}</p>
+              <p className="text-[10px] text-red-500 font-medium flex items-center gap-1"><AlertCircle className="w-3.5 h-3.5" /> {couponError}</p>
             )}
 
-            <div className="text-[10px] font-black text-navy/50 bg-cream p-2 rounded.5 border border-border-color">
+            <div className="text-[10px] font-medium text-navy/50 bg-cream p-2 rounded.5 border border-border-color">
               👉 Try using code <b className="text-orange">WELCOME15</b> for 15% discount! (Min Purchase ₹400)
             </div>
           </div>
 
           {/* Pricing dues layout */}
           <div className="bg-card-bg border border-border-color rounded-[28px] p-6 space-y-4 shadow-md">
-            <h3 className="font-serif font-black text-navy text-base border-b border-border-color pb-2.5">Order Value Details</h3>
+            <h3 className="font-serif font-medium text-navy text-base border-b border-border-color pb-2.5">Order Value Details</h3>
             
-            <div className="space-y-2.5 text-xs font-semibold text-navy/75">
+            <div className="space-y-2.5 text-xs font-normal text-navy/75">
               <div className="flex justify-between">
                 <span>Confectionery Subtotal</span>
                 <span>₹{subtotal}</span>
@@ -303,22 +303,22 @@ export default function CartPage() {
 
             {/* Total line item */}
             <div className="border-t border-border-color pt-4 flex justify-between items-baseline">
-              <span className="font-serif font-black text-navy text-lg">Total Payable Dues</span>
-              <span className="text-orange font-black text-2.5xl">₹{totalAmount}</span>
+              <span className="font-serif font-medium text-navy text-lg">Total Payable Dues</span>
+              <span className="text-orange font-medium text-2.5xl">₹{totalAmount}</span>
             </div>
 
             {/* Checkout buttons path */}
             <div className="pt-2">
               <button 
                 onClick={handleProceedToCheckout}
-                className="w-full bg-orange hover:bg-orange-hover text-white font-black py-3.5 rounded-2xl text-xs transition-all flex justify-center items-center gap-2 shadow-lg hover:scale-102 uppercase"
+                className="w-full bg-orange hover:bg-orange-hover text-white font-medium py-3.5 rounded-2xl text-xs transition-all flex justify-center items-center gap-2 shadow-lg hover:scale-102 uppercase"
               >
                 <span>Proceed to Secure Checkout</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="text-[10px] text-navy/50 text-center flex justify-center items-center gap-1.5 pt-2 font-semibold">
+            <div className="text-[10px] text-navy/50 text-center flex justify-center items-center gap-1.5 pt-2 font-normal">
               <ShieldCheck className="w-4 h-4 text-success" /> 256-Bit SSL Encrypted Transmissions
             </div>
           </div>

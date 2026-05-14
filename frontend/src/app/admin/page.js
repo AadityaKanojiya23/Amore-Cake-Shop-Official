@@ -50,7 +50,7 @@ export default function AdminDashboardPage() {
   if (!user || user.role !== 'admin') {
     return (
       <div className="flex-grow flex items-center justify-center py-24 bg-background text-navy">
-        <span className="font-sans font-black animate-pulse uppercase tracking-wider text-xs">Verifying Credentials...</span>
+        <span className="font-sans font-medium animate-pulse uppercase tracking-wider text-xs">Verifying Credentials...</span>
       </div>
     );
   }
@@ -127,13 +127,13 @@ export default function AdminDashboardPage() {
             <ShieldCheck className="w-8 h-8" />
           </div>
           <div className="space-y-1">
-            <h1 className="text-2xl md:text-3xl font-serif font-black text-white">Central Operations Desk</h1>
-            <p className="text-xs text-white/70 font-semibold">Active: <span className="text-success font-black uppercase tracking-wider">{isBackendOnline ? 'LIVE SERVER ROUTING' : 'OFFLINE SHADOW STATE'}</span> | Total registered catalog: {products.length} products</p>
+            <h1 className="text-2xl md:text-3xl font-serif font-medium text-white">Central Operations Desk</h1>
+            <p className="text-xs text-white/70 font-normal">Active: <span className="text-success font-medium uppercase tracking-wider">{isBackendOnline ? 'LIVE SERVER ROUTING' : 'OFFLINE SHADOW STATE'}</span> | Total registered catalog: {products.length} products</p>
           </div>
         </div>
 
         {/* Tab Navigation buttons */}
-        <div className="flex gap-2 bg-white/10 p-1.5 rounded-2xl border border-white/5 font-black text-xs shrink-0">
+        <div className="flex gap-2 bg-white/10 p-1.5 rounded-2xl border border-white/5 font-medium text-xs shrink-0">
           <button 
             onClick={() => setActiveTab('analytics')}
             className={`py-2 px-4 rounded-xl transition-all ${activeTab === 'analytics' ? 'bg-orange text-white shadow-md' : 'hover:bg-white/5 text-white/80'}`}
@@ -168,11 +168,11 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Graphical representation simulation & Statuses percentages lists */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-navy font-black">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-navy font-medium">
             
             {/* Visual graph layout */}
             <div className="lg:col-span-8 bg-card-bg border border-border-color p-6 rounded-[28px] shadow-md space-y-4">
-              <h3 className="font-serif font-black text-navy text-base flex items-center gap-1.5"><BarChart3 className="w-5 h-5 text-orange" /> Weekly Sales Performance</h3>
+              <h3 className="font-serif font-medium text-navy text-base flex items-center gap-1.5"><BarChart3 className="w-5 h-5 text-orange" /> Weekly Sales Performance</h3>
               <div className="h-52 flex items-end justify-between gap-4 pt-6 border-b border-border-color pb-2 relative">
                 <GraphBar label="Mon" height="40%" val="₹18.5k" />
                 <GraphBar label="Tue" height="55%" val="₹24.8k" />
@@ -186,8 +186,8 @@ export default function AdminDashboardPage() {
 
             {/* Popular category breakdown lists */}
             <div className="lg:col-span-4 bg-card-bg border border-border-color p-6 rounded-[28px] shadow-md space-y-4">
-              <h3 className="font-serif font-black text-navy text-base">Category Demand Ratios</h3>
-              <div className="space-y-3.5 text-xs font-semibold text-navy">
+              <h3 className="font-serif font-medium text-navy text-base">Category Demand Ratios</h3>
+              <div className="space-y-3.5 text-xs font-normal text-navy">
                 <CategoryBar label="Chocolate Heaven" percent={45} color="bg-orange" />
                 <CategoryBar label="Wedding Specials" percent={22} color="bg-gold" />
                 <CategoryBar label="Cupcakes" percent={18} color="bg-orange-hover" />
@@ -205,13 +205,13 @@ export default function AdminDashboardPage() {
         <div className="space-y-6 animate-fade-in">
           
           {/* Subheader Search bar */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-card-bg border border-border-color p-4 rounded-2xl shadow-sm text-xs font-black text-navy">
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-card-bg border border-border-color p-4 rounded-2xl shadow-sm text-xs font-medium text-navy">
             <div className="flex items-center border border-border-color bg-cream py-1.5 px-3 rounded-xl w-full sm:max-w-xs">
               <Search className="w-4 h-4 text-navy/40 mr-1.5" />
               <input 
                 type="text" placeholder="Search by Invoice or Name..."
                 value={orderSearch} onChange={(e) => setOrderSearch(e.target.value)}
-                className="w-full bg-transparent outline-none text-navy font-bold"
+                className="w-full bg-transparent outline-none text-navy font-medium"
               />
             </div>
             <span>Manage active status progression dials below</span>
@@ -220,9 +220,9 @@ export default function AdminDashboardPage() {
           {/* Detailed tabular layouts of orders */}
           <div className="bg-card-bg border border-border-color rounded-[28px] shadow-md overflow-hidden text-navy">
             <div className="overflow-x-auto no-scrollbar">
-              <table className="w-full text-left text-xs font-semibold">
+              <table className="w-full text-left text-xs font-normal">
                 <thead>
-                  <tr className="bg-cream border-b border-border-color text-navy/55 uppercase font-black text-[10px]">
+                  <tr className="bg-cream border-b border-border-color text-navy/55 uppercase font-medium text-[10px]">
                     <th className="p-4">Invoice / Client details</th>
                     <th className="p-4">Delivery scheduled</th>
                     <th className="p-4">Price breakdowns</th>
@@ -233,42 +233,42 @@ export default function AdminDashboardPage() {
                 <tbody>
                   {filteredOrders.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="p-8 text-center text-navy/40 italic font-bold">No checkout records match.</td>
+                      <td colSpan={5} className="p-8 text-center text-navy/40 italic font-medium">No checkout records match.</td>
                     </tr>
                   ) : (
                     filteredOrders.map(order => (
                       <tr key={order._id} className="border-b border-border-color hover:bg-cream/40">
                         <td className="p-4 space-y-1">
-                          <p className="font-serif font-black text-sm text-navy">{order.invoiceNumber}</p>
-                          <p className="text-[10px] text-navy/55 font-black flex items-center gap-1"><User className="w-3.5 h-3.5 text-orange" /> {order.shippingAddress.name} ({order.shippingAddress.phone})</p>
+                          <p className="font-serif font-medium text-sm text-navy">{order.invoiceNumber}</p>
+                          <p className="text-[10px] text-navy/55 font-medium flex items-center gap-1"><User className="w-3.5 h-3.5 text-orange" /> {order.shippingAddress.name} ({order.shippingAddress.phone})</p>
                         </td>
                         <td className="p-4 text-[10px] space-y-0.5">
-                          <p className="font-black flex items-center gap-1 text-navy"><Calendar className="w-3.5 h-3.5 text-orange" /> {order.deliveryDetails.date}</p>
-                          <p className="text-navy/55 font-semibold">Slot: {order.deliveryDetails.timeSlot}</p>
+                          <p className="font-medium flex items-center gap-1 text-navy"><Calendar className="w-3.5 h-3.5 text-orange" /> {order.deliveryDetails.date}</p>
+                          <p className="text-navy/55 font-normal">Slot: {order.deliveryDetails.timeSlot}</p>
                         </td>
                         <td className="p-4 space-y-0.5">
-                          <p className="text-sm font-black text-orange">₹{order.pricing.totalAmount}</p>
-                          <p className="text-[10px] text-navy/55 font-semibold">Method: {order.payment.method} ({order.payment.status})</p>
+                          <p className="text-sm font-medium text-orange">₹{order.pricing.totalAmount}</p>
+                          <p className="text-[10px] text-navy/55 font-normal">Method: {order.payment.method} ({order.payment.status})</p>
                         </td>
                         <td className="p-4 text-[10px] max-w-xs leading-normal">
                           {order.items.map((it, idx) => (
                             <div key={idx} className="border-b border-border-color/40 pb-1 mb-1 last:border-none last:pb-0 last:mb-0">
-                              <p className="font-black text-navy">{it.name} ({it.weight} | {it.flavor})</p>
-                              {it.cakeMessage && <p className="italic text-navy/65 font-black">Msg: &quot;{it.cakeMessage}&quot;</p>}
-                              {it.isEggless && <p className="text-success font-black text-[9px]">100% EGGLESS RECIPE</p>}
+                              <p className="font-medium text-navy">{it.name} ({it.weight} | {it.flavor})</p>
+                              {it.cakeMessage && <p className="italic text-navy/65 font-medium">Msg: &quot;{it.cakeMessage}&quot;</p>}
+                              {it.isEggless && <p className="text-success font-medium text-[9px]">100% EGGLESS RECIPE</p>}
                             </div>
                           ))}
                         </td>
                         <td className="p-4">
                           {order.status === 'Cancelled' ? (
-                            <span className="text-red-500 bg-red-50 border border-red-100 text-[10px] uppercase font-black px-2.5 py-1 rounded-full">Cancelled</span>
+                            <span className="text-red-500 bg-red-50 border border-red-100 text-[10px] uppercase font-medium px-2.5 py-1 rounded-full">Cancelled</span>
                           ) : order.status === 'Delivered' ? (
-                            <span className="text-success bg-success/10 border border-success/20 text-[10px] uppercase font-black px-2.5 py-1 rounded-full flex items-center gap-1 max-w-[95px]"><Check className="w-3.5 h-3.5" /> Delivered</span>
+                            <span className="text-success bg-success/10 border border-success/20 text-[10px] uppercase font-medium px-2.5 py-1 rounded-full flex items-center gap-1 max-w-[95px]"><Check className="w-3.5 h-3.5" /> Delivered</span>
                           ) : (
                             <select 
                               value={order.status}
                               onChange={(e) => handleStatusChange(order._id, e.target.value)}
-                              className="text-xs font-black p-1.5 border border-border-color bg-card-bg text-navy rounded-lg outline-none focus:ring-1 focus:ring-orange cursor-pointer"
+                              className="text-xs font-medium p-1.5 border border-border-color bg-card-bg text-navy rounded-lg outline-none focus:ring-1 focus:ring-orange cursor-pointer"
                             >
                               <option value="Confirmed">Confirmed</option>
                               <option value="Baking">Baking</option>
@@ -294,18 +294,18 @@ export default function AdminDashboardPage() {
         <div className="space-y-6 animate-fade-in">
           
           {/* Subheader action bars */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-card-bg border border-border-color p-4 rounded-2xl shadow-sm text-xs font-black text-navy">
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-card-bg border border-border-color p-4 rounded-2xl shadow-sm text-xs font-medium text-navy">
             <div className="flex items-center border border-border-color bg-cream py-1.5 px-3 rounded-xl w-full sm:max-w-xs">
               <Search className="w-4 h-4 text-navy/40 mr-1.5" />
               <input 
                 type="text" placeholder="Search catalog by name/slug..."
                 value={productSearch} onChange={(e) => setProductSearch(e.target.value)}
-                className="w-full bg-transparent outline-none text-navy font-bold"
+                className="w-full bg-transparent outline-none text-navy font-medium"
               />
             </div>
             <button 
               onClick={() => setShowProductModal(true)}
-              className="bg-orange hover:bg-orange-hover text-white font-black py-2.5 px-6 rounded-xl transition-all shadow-md flex items-center gap-1.5 uppercase shrink-0 hover:scale-102"
+              className="bg-orange hover:bg-orange-hover text-white font-medium py-2.5 px-6 rounded-xl transition-all shadow-md flex items-center gap-1.5 uppercase shrink-0 hover:scale-102"
             >
               <Plus className="w-4 h-4" /> Add New Confectionery
             </button>
@@ -330,13 +330,13 @@ export default function AdminDashboardPage() {
                 <div className="space-y-3">
                   <img src={prod.images[0]} alt={prod.name} className="w-full h-36 object-cover rounded-2xl border border-border-color" />
                   <div className="space-y-1">
-                    <span className="text-[9px] font-black uppercase tracking-wider text-navy/50">{prod.category.replace('-', ' ')}</span>
-                    <h3 className="font-serif font-black text-navy text-sm truncate leading-tight group-hover:text-orange transition-colors">{prod.name}</h3>
-                    <p className="text-orange font-black text-sm">₹{prod.discountPrice || prod.price}</p>
+                    <span className="text-[9px] font-medium uppercase tracking-wider text-navy/50">{prod.category.replace('-', ' ')}</span>
+                    <h3 className="font-serif font-medium text-navy text-sm truncate leading-tight group-hover:text-orange transition-colors">{prod.name}</h3>
+                    <p className="text-orange font-medium text-sm">₹{prod.discountPrice || prod.price}</p>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-border-color mt-3 flex justify-between text-[10px] text-navy/40 font-black">
+                <div className="pt-3 border-t border-border-color mt-3 flex justify-between text-[10px] text-navy/40 font-medium">
                   <span>Rating: {prod.rating}</span>
                   <span>Orders: {prod.reviewsCount}</span>
                 </div>
@@ -352,65 +352,65 @@ export default function AdminDashboardPage() {
         <div className="fixed inset-0 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 z-50">
           <form 
             onSubmit={handleAddNewProductSubmit}
-            className="bg-card-bg border border-border-color rounded-[32px] max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 space-y-5 shadow-2xl relative text-navy font-black animate-float"
+            className="bg-card-bg border border-border-color rounded-[32px] max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 space-y-5 shadow-2xl relative text-navy font-medium animate-float"
           >
             <button type="button" onClick={() => setShowProductModal(false)} className="absolute top-4 right-4 p-1 hover:bg-cream rounded-full text-navy"><X className="w-5 h-5" /></button>
-            <h2 className="font-serif font-black text-navy text-xl border-b border-border-color pb-2.5 flex items-center gap-1.5">
+            <h2 className="font-serif font-medium text-navy text-xl border-b border-border-color pb-2.5 flex items-center gap-1.5">
               <Package className="w-5 h-5 text-orange" /> Inject Catalog Recipe
             </h2>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] uppercase font-bold text-navy/50">Product Name</label>
+              <label className="text-[10px] uppercase font-medium text-navy/50">Product Name</label>
               <input 
                 type="text" required placeholder="E.g. Royal Gold Velvet"
                 value={prodName} onChange={(e) => setProdName(e.target.value)}
-                className="w-full text-xs font-semibold p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
+                className="w-full text-xs font-normal p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] uppercase font-bold text-navy/50">Short description</label>
+              <label className="text-[10px] uppercase font-medium text-navy/50">Short description</label>
               <textarea 
                 required rows={2} placeholder="Ingredients details, textures, and decorative pipings details..."
                 value={prodDescription} onChange={(e) => setProdDescription(e.target.value)}
-                className="w-full text-xs font-semibold p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
+                className="w-full text-xs font-normal p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-navy/50">Catalog Base Price (₹)</label>
+                <label className="text-[10px] uppercase font-medium text-navy/50">Catalog Base Price (₹)</label>
                 <input 
                   type="number" required
                   value={prodPrice} onChange={(e) => setProdPrice(Number(e.target.value))}
-                  className="w-full text-xs font-black p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
+                  className="w-full text-xs font-medium p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-navy/50">Promo Discount Price (₹)</label>
+                <label className="text-[10px] uppercase font-medium text-navy/50">Promo Discount Price (₹)</label>
                 <input 
                   type="number" required
                   value={prodDiscountPrice} onChange={(e) => setProdDiscountPrice(Number(e.target.value))}
-                  className="w-full text-xs font-black p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
+                  className="w-full text-xs font-medium p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] uppercase font-bold text-navy/50">Product Image URL</label>
+              <label className="text-[10px] uppercase font-medium text-navy/50">Product Image URL</label>
               <input 
                 type="text" required
                 value={prodImage} onChange={(e) => setProdImage(e.target.value)}
-                className="w-full text-xs font-semibold p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
+                className="w-full text-xs font-normal p-2.5 bg-background border border-border-color rounded-xl outline-none text-navy"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div className="space-y-1.5">
-                <label className="text-[10px] uppercase font-bold text-navy/50">Bake category</label>
+                <label className="text-[10px] uppercase font-medium text-navy/50">Bake category</label>
                 <select 
                   value={prodCategory} onChange={(e) => setProdCategory(e.target.value)}
-                  className="w-full p-2 bg-background border border-border-color rounded-xl text-navy font-black text-xs cursor-pointer outline-none focus:ring-1 focus:ring-orange"
+                  className="w-full p-2 bg-background border border-border-color rounded-xl text-navy font-medium text-xs cursor-pointer outline-none focus:ring-1 focus:ring-orange"
                 >
                   <option value="chocolate-cakes">Chocolate Heaven</option>
                   <option value="premium-cakes">Luxury Aura Cakes</option>
@@ -422,7 +422,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* Toggles */}
-              <div className="flex flex-col gap-1 pt-4 font-semibold text-navy">
+              <div className="flex flex-col gap-1 pt-4 font-normal text-navy">
                 <label className="flex items-center gap-1.5 cursor-pointer">
                   <input type="checkbox" checked={prodIsPremium} onChange={(e) => setProdIsPremium(e.target.checked)} className="accent-orange" />
                   <span>Is Elite Premium</span>
@@ -440,7 +440,7 @@ export default function AdminDashboardPage() {
 
             <button 
               type="submit"
-              className="w-full bg-orange hover:bg-orange-hover text-white font-black py-3 rounded-2xl text-xs transition-all shadow-lg uppercase"
+              className="w-full bg-orange hover:bg-orange-hover text-white font-medium py-3 rounded-2xl text-xs transition-all shadow-lg uppercase"
             >
               Add Product to Store Catalog
             </button>
@@ -458,9 +458,9 @@ function MetricsCard({ title, value, subtitle, icon }) {
   return (
     <div className="bg-card-bg border border-border-color rounded-[28px] p-6 flex justify-between items-center shadow-md text-navy">
       <div className="space-y-1">
-        <span className="text-[10px] font-black uppercase tracking-widest text-navy/45">{title}</span>
-        <h3 className="text-2xl font-serif font-black text-navy leading-none">{value}</h3>
-        <p className="text-[10px] text-navy/50 font-semibold">{subtitle}</p>
+        <span className="text-[10px] font-medium uppercase tracking-widest text-navy/45">{title}</span>
+        <h3 className="text-2xl font-serif font-medium text-navy leading-none">{value}</h3>
+        <p className="text-[10px] text-navy/50 font-normal">{subtitle}</p>
       </div>
       <div className="bg-cream p-3 rounded-2xl shrink-0">
         {icon}
@@ -473,9 +473,9 @@ function MetricsCard({ title, value, subtitle, icon }) {
 function GraphBar({ label, height, val }) {
   return (
     <div className="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
-      <span className="opacity-0 group-hover:opacity-100 bg-navy text-white text-[9px] font-black py-0.5 px-1.5 rounded transition-opacity absolute mb-38 shrink-0">{val}</span>
+      <span className="opacity-0 group-hover:opacity-100 bg-navy text-white text-[9px] font-medium py-0.5 px-1.5 rounded transition-opacity absolute mb-38 shrink-0">{val}</span>
       <div className="w-full bg-orange/10 rounded-t-xl hover:bg-orange transition-all duration-500 cursor-pointer relative" style={{ height: height }}></div>
-      <span className="text-[10px] font-black text-navy/55 uppercase">{label}</span>
+      <span className="text-[10px] font-medium text-navy/55 uppercase">{label}</span>
     </div>
   );
 }
@@ -484,7 +484,7 @@ function GraphBar({ label, height, val }) {
 function CategoryBar({ label, percent, color }) {
   return (
     <div className="space-y-1 text-navy">
-      <div className="flex justify-between text-[11px] font-black">
+      <div className="flex justify-between text-[11px] font-medium">
         <span>{label}</span>
         <span>{percent}%</span>
       </div>

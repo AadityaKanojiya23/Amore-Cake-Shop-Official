@@ -538,7 +538,7 @@ export default function HomePage() {
     return (
       <div className="flex-grow flex flex-col items-center justify-center py-24 bg-background text-navy gap-4">
         <div className="w-16 h-16 border-t-4 border-b-4 border-orange rounded-full animate-spin"></div>
-        <div className="text-sm font-sans font-black animate-pulse tracking-widest uppercase text-navy/80">
+        <div className="text-sm font-sans font-medium animate-pulse tracking-widest uppercase text-navy/80">
           Curating Spectacular Cravings...
         </div>
       </div>
@@ -569,18 +569,18 @@ export default function HomePage() {
             }}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-white space-y-6">
-              <span className="inline-flex items-center gap-1.5 text-[10px] font-black bg-gold text-navy px-3 py-1 rounded-full uppercase tracking-wider">
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-medium bg-gold text-navy px-3 py-1 rounded-full uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5" /> {banner.badge}
               </span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight max-w-xl leading-none">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-medium tracking-tight max-w-xl leading-none">
                 {banner.title}
               </h1>
-              <p className="text-gold font-bold text-lg md:text-xl font-sans">{banner.subtitle}</p>
+              <p className="text-gold font-medium text-lg md:text-xl font-sans">{banner.subtitle}</p>
               <p className="text-white/70 max-w-md text-xs md:text-sm hidden sm:block font-medium">{banner.tagline}</p>
               <div className="pt-2">
                 <Link 
                   href={banner.link} 
-                  className="inline-flex items-center gap-2 bg-orange hover:bg-orange-hover text-white font-black py-3.5 px-8 rounded-full shadow-lg text-sm transition-all gold-glow"
+                  className="inline-flex items-center gap-2 bg-orange hover:bg-orange-hover text-white font-medium py-3.5 px-8 rounded-full shadow-lg text-sm transition-all gold-glow"
                 >
                   <span>{banner.buttonText}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -613,10 +613,10 @@ export default function HomePage() {
             >
               <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-white/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
               <div>
-                <span className="text-[10px] font-black uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full">{p.tag}</span>
-                <h3 className="text-lg font-black font-serif mt-2 leading-tight">{p.title}</h3>
+                <span className="text-[10px] font-medium uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full">{p.tag}</span>
+                <h3 className="text-lg font-medium font-serif mt-2 leading-tight">{p.title}</h3>
               </div>
-              <p className="text-white/80 text-xs font-semibold">{p.desc}</p>
+              <p className="text-white/80 text-xs font-normal">{p.desc}</p>
             </Link>
           ))}
         </div>
@@ -666,10 +666,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
           
           <div className="lg:col-span-5 space-y-6">
-            <span className="inline-flex items-center gap-1 text-gold font-bold text-xs uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1 text-gold font-medium text-xs uppercase tracking-widest">
               <Award className="w-4 h-4 text-gold" /> Chef Recommended Premium Selection
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif font-black tracking-tight leading-none text-white">
+            <h2 className="text-3xl md:text-5xl font-serif font-medium tracking-tight leading-none text-white">
               The Luxury <br /> <span className="gold-gradient-text font-serif">Aura Collection</span>
             </h2>
             <p className="text-background/80 text-sm leading-relaxed max-w-md font-medium">
@@ -679,20 +679,20 @@ export default function HomePage() {
               <div className="bg-white/5 border border-gold/30 rounded-2xl p-4 flex gap-3 items-center">
                 <Clock className="w-5 h-5 text-gold" />
                 <div className="text-xs">
-                  <p className="font-extrabold text-white">48 Hours Notice</p>
+                  <p className="font-medium text-white">48 Hours Notice</p>
                   <p className="text-background/60 font-medium">Required for custom details</p>
                 </div>
               </div>
               <div className="bg-white/5 border border-gold/30 rounded-2xl p-4 flex gap-3 items-center">
                 <Sparkles className="w-5 h-5 text-gold animate-pulse" />
                 <div className="text-xs">
-                  <p className="font-extrabold text-white">100% Chef Managed</p>
+                  <p className="font-medium text-white">100% Chef Managed</p>
                   <p className="text-background/60 font-medium">Curated design handcrafting</p>
                 </div>
               </div>
             </div>
             <div className="pt-2">
-              <Link href="/category/premium-cakes" className="bg-orange hover:bg-orange-hover text-white font-extrabold py-3.5 px-8 rounded-full text-sm shadow-xl inline-flex items-center gap-2 gold-glow">
+              <Link href="/category/premium-cakes" className="bg-orange hover:bg-orange-hover text-white font-medium py-3.5 px-8 rounded-full text-sm shadow-xl inline-flex items-center gap-2 gold-glow">
                 <span>View Aura Collection</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
@@ -706,17 +706,17 @@ export default function HomePage() {
                 key={prod._id} 
                 className="bg-white/5 border border-border-color/20 rounded-3xl p-6 relative group hover:border-orange transition-all gold-glow overflow-hidden"
               >
-                <div className="absolute top-4 right-4 bg-orange/15 text-orange text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-orange/20">Elite Custom</div>
+                <div className="absolute top-4 right-4 bg-orange/15 text-orange text-[10px] font-medium uppercase px-2 py-0.5 rounded-full border border-orange/20">Elite Custom</div>
                 <img 
                   src={prod.images[0]} 
                   alt={prod.name} 
                   className="w-full h-44 object-cover rounded-2xl transition-all duration-500 group-hover:scale-105 shadow-md border border-white/5"
                 />
-                <h3 className="font-serif font-black text-white text-lg mt-4 group-hover:text-gold transition-colors">{prod.name}</h3>
+                <h3 className="font-serif font-medium text-white text-lg mt-4 group-hover:text-gold transition-colors">{prod.name}</h3>
                 <div className="flex justify-between items-center mt-3">
                   <div>
-                    <span className="text-orange font-extrabold text-xl">₹{prod.discountPrice || prod.price}</span>
-                    <span className="text-background/40 line-through text-xs ml-1.5 font-bold">₹{prod.price}</span>
+                    <span className="text-orange font-medium text-xl">₹{prod.discountPrice || prod.price}</span>
+                    <span className="text-background/40 line-through text-xs ml-1.5 font-medium">₹{prod.price}</span>
                   </div>
                   <button 
                     onClick={() => handleOpenQuickView(prod)}
@@ -761,10 +761,10 @@ export default function HomePage() {
       <section className="bg-cream border-y border-border-color py-20 px-4 overflow-hidden">
         <div className="max-w-3xl mx-auto text-center space-y-12">
           <div className="space-y-3">
-            <span className="inline-flex items-center gap-1 text-orange font-bold text-xs uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1 text-orange font-medium text-xs uppercase tracking-widest">
               <Quote className="w-4 h-4 text-orange" /> Customer Love Reviews
             </span>
-            <h2 className="text-3xl md:text-4xl font-serif font-black tracking-tight text-navy">The Amore Cakes Experience</h2>
+            <h2 className="text-3xl md:text-4xl font-serif font-medium tracking-tight text-navy">The Amore Cakes Experience</h2>
           </div>
 
           {/* Testimonial Active Slider Card */}
@@ -790,8 +790,8 @@ export default function HomePage() {
                   className="w-14 h-14 rounded-full border-2 border-orange object-cover"
                 />
                 <div>
-                  <h4 className="font-serif font-black text-navy text-base">{testimonials[testimonialIndex].name}</h4>
-                  <p className="text-[10px] uppercase font-bold text-navy/50">{testimonials[testimonialIndex].role}</p>
+                  <h4 className="font-serif font-medium text-navy text-base">{testimonials[testimonialIndex].name}</h4>
+                  <p className="text-[10px] uppercase font-medium text-navy/50">{testimonials[testimonialIndex].role}</p>
                 </div>
                 <div className="flex gap-1 text-gold">
                   {[...Array(testimonials[testimonialIndex].rating)].map((_, i) => (
@@ -819,19 +819,19 @@ export default function HomePage() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-2">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-orange bg-orange/10 px-3.5 py-1 rounded-full border border-orange/15">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-orange bg-orange/10 px-3.5 py-1 rounded-full border border-orange/15">
               <Sparkles className="w-3.5 h-3.5 animate-spin-slow" /> Interactive Showroom
             </span>
-            <h2 className="text-3xl md:text-4.5xl font-serif font-black text-navy flex items-center gap-2">
+            <h2 className="text-3xl md:text-4.5xl font-serif font-medium text-navy flex items-center gap-2">
               ✦ Special Moments ✦
             </h2>
-            <p className="text-sm md:text-base text-navy/60 font-semibold max-w-xl">
+            <p className="text-sm md:text-base text-navy/60 font-normal max-w-xl">
               Celebrations, behind the scenes, and sweet memories. See our cake artistry in motion.
             </p>
           </div>
           <button 
             onClick={() => setShowAllShortsModal(true)}
-            className="inline-flex items-center gap-2 border border-orange hover:bg-orange/5 text-orange font-black py-3 px-6 rounded-2xl text-xs transition-all tracking-wider self-start md:self-auto shadow-sm"
+            className="inline-flex items-center gap-2 border border-orange hover:bg-orange/5 text-orange font-medium py-3 px-6 rounded-2xl text-xs transition-all tracking-wider self-start md:self-auto shadow-sm"
           >
             <Tv className="w-4 h-4" />
             <span>View All Videos</span>
@@ -844,7 +844,7 @@ export default function HomePage() {
             <div className="flex justify-between items-center pr-2">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 bg-success rounded-full animate-pulse"></span>
-                <span className="text-[10px] font-extrabold uppercase text-navy/50 tracking-wider">Interactive Video Carousel</span>
+                <span className="text-[10px] font-medium uppercase text-navy/50 tracking-wider">Interactive Video Carousel</span>
               </div>
               <div className="flex gap-2">
                 <button 
@@ -907,7 +907,7 @@ export default function HomePage() {
                       
                       {/* Top action: Featured badge or Likes overlay */}
                       {item.isFeatured && (
-                        <span className="absolute top-3 left-3 bg-gold text-navy font-black text-[9px] px-2.5 py-1 rounded-full border border-gold-light/40 shadow-sm tracking-wider uppercase">
+                        <span className="absolute top-3 left-3 bg-gold text-navy font-medium text-[9px] px-2.5 py-1 rounded-full border border-gold-light/40 shadow-sm tracking-wider uppercase">
                           👑 Featured
                         </span>
                       )}
@@ -920,7 +920,7 @@ export default function HomePage() {
                       </div>
 
                       {/* Bottom Info inside thumb: Duration */}
-                      <span className="absolute bottom-3 left-3 bg-black/55 backdrop-blur-sm text-white font-extrabold text-[10px] px-2 py-0.5 rounded-full tracking-wider">
+                      <span className="absolute bottom-3 left-3 bg-black/55 backdrop-blur-sm text-white font-medium text-[10px] px-2 py-0.5 rounded-full tracking-wider">
                         {item.duration}
                       </span>
                     </div>
@@ -928,7 +928,7 @@ export default function HomePage() {
                     {/* Video Caption & Metadata Below Thumbnail */}
                     <div className="mt-3.5 space-y-1 px-1">
                       <div className="flex items-center justify-between">
-                        <h3 className="font-serif font-black text-navy text-sm group-hover:text-orange transition-colors cursor-pointer truncate flex-grow mr-2" onClick={() => handleOpenVideoPlayer(item)}>
+                        <h3 className="font-serif font-medium text-navy text-sm group-hover:text-orange transition-colors cursor-pointer truncate flex-grow mr-2" onClick={() => handleOpenVideoPlayer(item)}>
                           {item.title}
                         </h3>
                         <button 
@@ -939,10 +939,10 @@ export default function HomePage() {
                           <Heart className={`w-4 h-4 transition-transform active:scale-150 ${liked ? 'fill-red-500 text-red-500 scale-105' : ''}`} />
                         </button>
                       </div>
-                      <p className="text-[11px] text-navy/50 font-semibold line-clamp-2 leading-relaxed">
+                      <p className="text-[11px] text-navy/50 font-normal line-clamp-2 leading-relaxed">
                         {item.desc}
                       </p>
-                      <div className="flex items-center justify-between text-[9px] font-black uppercase text-navy/40 pt-1.5 border-t border-border-color/20">
+                      <div className="flex items-center justify-between text-[9px] font-medium uppercase text-navy/40 pt-1.5 border-t border-border-color/20">
                         <span>{item.views} Views</span>
                         <span>{likesVal} Likes</span>
                       </div>
@@ -982,17 +982,17 @@ export default function HomePage() {
       {/* 8. DETAILED FAQS SECTION */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center space-y-2">
-          <h2 className="text-2xl md:text-3.5xl font-serif font-black text-navy">Frequently Asked Questions</h2>
-          <p className="text-xs md:text-sm text-navy/60 font-semibold">Everything you need to know about custom cakes, delivery timetables, and freshness.</p>
+          <h2 className="text-2xl md:text-3.5xl font-serif font-medium text-navy">Frequently Asked Questions</h2>
+          <p className="text-xs md:text-sm text-navy/60 font-normal">Everything you need to know about custom cakes, delivery timetables, and freshness.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {faqs.map((faq, index) => (
             <div key={index} className="bg-card-bg p-6 rounded-3xl border border-border-color space-y-2.5 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="font-serif font-black text-navy text-base flex gap-2">
+              <h3 className="font-serif font-medium text-navy text-base flex gap-2">
                 <HelpCircle className="w-5 h-5 text-orange shrink-0" />
                 <span>{faq.q}</span>
               </h3>
-              <p className="text-navy/70 text-xs md:text-sm pl-7 leading-relaxed font-semibold">{faq.a}</p>
+              <p className="text-navy/70 text-xs md:text-sm pl-7 leading-relaxed font-normal">{faq.a}</p>
             </div>
           ))}
         </div>
@@ -1030,30 +1030,30 @@ export default function HomePage() {
             {/* Col Right: Customizations and Description */}
             <div className="flex-grow flex flex-col justify-between space-y-6">
               <div className="space-y-3">
-                <span className="text-[10px] font-black uppercase tracking-widest bg-orange/15 text-orange px-2.5 py-1 rounded-full border border-orange/25">Quick Customize Checkout</span>
-                <h2 className="text-xl md:text-2xl font-serif font-black text-navy leading-tight">{quickViewProduct.name}</h2>
+                <span className="text-[10px] font-medium uppercase tracking-widest bg-orange/15 text-orange px-2.5 py-1 rounded-full border border-orange/25">Quick Customize Checkout</span>
+                <h2 className="text-xl md:text-2xl font-serif font-medium text-navy leading-tight">{quickViewProduct.name}</h2>
                 
                 {/* Pricing row */}
                 <div className="flex items-baseline gap-2.5 pt-1">
-                  <span className="text-orange font-extrabold text-2xl">₹{quickViewProduct.discountPrice || quickViewProduct.price}</span>
+                  <span className="text-orange font-medium text-2xl">₹{quickViewProduct.discountPrice || quickViewProduct.price}</span>
                   {quickViewProduct.discountPrice && (
-                    <span className="text-navy/40 line-through text-sm font-bold">₹{quickViewProduct.price}</span>
+                    <span className="text-navy/40 line-through text-sm font-medium">₹{quickViewProduct.price}</span>
                   )}
                 </div>
 
-                <p className="text-navy/70 text-xs md:text-sm leading-relaxed font-semibold">{quickViewProduct.description}</p>
+                <p className="text-navy/70 text-xs md:text-sm leading-relaxed font-normal">{quickViewProduct.description}</p>
               </div>
 
               {/* Weight selection */}
               {quickViewProduct.weights && quickViewProduct.weights.length > 0 && (
                 <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-navy uppercase tracking-wider">Select Weight (kg)</h4>
+                  <h4 className="text-xs font-medium text-navy uppercase tracking-wider">Select Weight (kg)</h4>
                   <div className="flex flex-wrap gap-2">
                     {quickViewProduct.weights.map(w => (
                       <button 
                         key={w} 
                         onClick={() => setSelectedWeight(w)}
-                        className={`text-xs font-black px-4 py-2 rounded-full border transition-all ${selectedWeight === w ? 'bg-orange text-white border-orange shadow-sm' : 'border-border-color hover:border-orange bg-background text-navy'}`}
+                        className={`text-xs font-medium px-4 py-2 rounded-full border transition-all ${selectedWeight === w ? 'bg-orange text-white border-orange shadow-sm' : 'border-border-color hover:border-orange bg-background text-navy'}`}
                       >
                         {w}
                       </button>
@@ -1065,13 +1065,13 @@ export default function HomePage() {
               {/* Flavor selection */}
               {quickViewProduct.flavors && quickViewProduct.flavors.length > 0 && (
                 <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-navy uppercase tracking-wider">Select Flavor Option</h4>
+                  <h4 className="text-xs font-medium text-navy uppercase tracking-wider">Select Flavor Option</h4>
                   <div className="flex flex-wrap gap-2">
                     {quickViewProduct.flavors.map(f => (
                       <button 
                         key={f} 
                         onClick={() => setSelectedFlavor(f)}
-                        className={`text-xs font-black px-4 py-2 rounded-full border transition-all ${selectedFlavor === f ? 'bg-orange text-white border-orange shadow-sm' : 'border-border-color hover:border-orange bg-background text-navy'}`}
+                        className={`text-xs font-medium px-4 py-2 rounded-full border transition-all ${selectedFlavor === f ? 'bg-orange text-white border-orange shadow-sm' : 'border-border-color hover:border-orange bg-background text-navy'}`}
                       >
                         {f}
                       </button>
@@ -1082,9 +1082,9 @@ export default function HomePage() {
 
               {/* Custom message field */}
               <div className="space-y-2">
-                <h4 className="text-xs font-bold text-navy uppercase tracking-wider flex justify-between">
+                <h4 className="text-xs font-medium text-navy uppercase tracking-wider flex justify-between">
                   <span>Cake Inscription Message</span>
-                  <span className="text-[9px] text-navy/50 font-semibold">Max 25 chars</span>
+                  <span className="text-[9px] text-navy/50 font-normal">Max 25 chars</span>
                 </h4>
                 <input 
                   type="text" 
@@ -1092,13 +1092,13 @@ export default function HomePage() {
                   placeholder="E.g. Happy Birthday Aditya!" 
                   value={customMessage}
                   onChange={(e) => setCustomMessage(e.target.value)}
-                  className="w-full text-xs font-semibold border border-border-color p-3 rounded-xl outline-none focus:ring-1 focus:ring-orange focus:border-transparent bg-background text-navy"
+                  className="w-full text-xs font-normal border border-border-color p-3 rounded-xl outline-none focus:ring-1 focus:ring-orange focus:border-transparent bg-background text-navy"
                 />
               </div>
 
               {/* Eggless toggle checkbox */}
               {quickViewProduct.isEgglessOption && (
-                <label className="flex items-center gap-2 text-xs font-black text-navy cursor-pointer select-none">
+                <label className="flex items-center gap-2 text-xs font-medium text-navy cursor-pointer select-none">
                   <input 
                     type="checkbox" 
                     checked={isEggless} 
@@ -1113,13 +1113,13 @@ export default function HomePage() {
               <div className="pt-4 border-t border-border-color flex gap-4">
                 <button 
                   onClick={handleQuickViewAddToCart}
-                  className="flex-1 bg-orange hover:bg-orange-hover text-white font-black py-3 rounded-2xl text-xs transition-all flex justify-center items-center gap-1.5 shadow-md gold-glow"
+                  className="flex-1 bg-orange hover:bg-orange-hover text-white font-medium py-3 rounded-2xl text-xs transition-all flex justify-center items-center gap-1.5 shadow-md gold-glow"
                 >
                   <ShoppingBag className="w-4 h-4" /> Add to Shopping Cart
                 </button>
                 <button 
                   onClick={() => { handleQuickViewAddToCart(); router.push('/cart'); }}
-                  className="flex-1 bg-navy hover:bg-navy-dark text-white font-black py-3 rounded-2xl text-xs transition-all shadow-md"
+                  className="flex-1 bg-navy hover:bg-navy-dark text-white font-medium py-3 rounded-2xl text-xs transition-all shadow-md"
                 >
                   Buy Instantly Now
                 </button>
@@ -1182,8 +1182,8 @@ export default function HomePage() {
                     <div className="w-11 h-11 rounded-full bg-orange/15 text-orange flex items-center justify-center mx-auto border border-orange/20 animate-pulse">
                       <Sparkles className="w-5 h-5" />
                     </div>
-                    <p className="text-[11px] font-black text-white uppercase tracking-widest pt-1.5">Footage Loading...</p>
-                    <p className="text-[9px] text-white/60 font-semibold max-w-[210px] leading-relaxed mx-auto">We are preparing this vertical live preview. Quick Buy is active below!</p>
+                    <p className="text-[11px] font-medium text-white uppercase tracking-widest pt-1.5">Footage Loading...</p>
+                    <p className="text-[9px] text-white/60 font-normal max-w-[210px] leading-relaxed mx-auto">We are preparing this vertical live preview. Quick Buy is active below!</p>
                   </div>
                 </div>
               )}
@@ -1225,7 +1225,7 @@ export default function HomePage() {
                   >
                     <Heart className={`w-4.5 h-4.5 transition-colors ${liked ? 'fill-red-500 text-red-500' : 'text-white'}`} />
                   </button>
-                  <span className="text-[10px] font-extrabold text-white mt-1 drop-shadow-md">{likesVal}</span>
+                  <span className="text-[10px] font-medium text-white mt-1 drop-shadow-md">{likesVal}</span>
                 </div>
 
                 {/* Mute Button */}
@@ -1252,8 +1252,8 @@ export default function HomePage() {
                 
                 {/* Title & Description Overlay */}
                 <div className="space-y-1">
-                  <h4 className="text-sm font-serif font-black text-white leading-tight">{activeVideo.title}</h4>
-                  <p className="text-[10.5px] text-white/80 font-semibold leading-normal line-clamp-2">{activeVideo.desc}</p>
+                  <h4 className="text-sm font-serif font-medium text-white leading-tight">{activeVideo.title}</h4>
+                  <p className="text-[10.5px] text-white/80 font-normal leading-normal line-clamp-2">{activeVideo.desc}</p>
                 </div>
 
                 {/* Premium Connected Product Tag */}
@@ -1266,8 +1266,8 @@ export default function HomePage() {
                         className="w-10 h-10 object-cover rounded-xl border border-white/10 shrink-0"
                       />
                       <div className="min-w-0">
-                        <h4 className="text-[11px] font-bold text-white truncate w-24 sm:w-28 leading-none">{assocProduct.name}</h4>
-                        <p className="text-[10px] text-orange font-black mt-1 leading-none">₹{assocProduct.discountPrice || assocProduct.price}</p>
+                        <h4 className="text-[11px] font-medium text-white truncate w-24 sm:w-28 leading-none">{assocProduct.name}</h4>
+                        <p className="text-[10px] text-orange font-medium mt-1 leading-none">₹{assocProduct.discountPrice || assocProduct.price}</p>
                       </div>
                     </div>
                     <button 
@@ -1283,7 +1283,7 @@ export default function HomePage() {
                         );
                         showToast(`${assocProduct.name} added to cart! 🍰`, "success");
                       }}
-                      className="py-1.5 px-3 bg-orange hover:bg-orange-hover text-white rounded-xl text-[9px] font-black transition-all shadow-md shrink-0 uppercase tracking-wider"
+                      className="py-1.5 px-3 bg-orange hover:bg-orange-hover text-white rounded-xl text-[9px] font-medium transition-all shadow-md shrink-0 uppercase tracking-wider"
                     >
                       Quick Buy
                     </button>
@@ -1318,8 +1318,8 @@ export default function HomePage() {
             </button>
 
             <div className="border-b border-border-color pb-3">
-              <h2 className="font-serif font-black text-2xl text-navy">Special Moments Grid Showcase</h2>
-              <p className="text-xs text-navy/55 font-semibold">Our full library of live bake-offs, tutorials, and customer reactions</p>
+              <h2 className="font-serif font-medium text-2xl text-navy">Special Moments Grid Showcase</h2>
+              <p className="text-xs text-navy/55 font-normal">Our full library of live bake-offs, tutorials, and customer reactions</p>
             </div>
 
             {/* Video Shorts Grid */}
@@ -1337,11 +1337,11 @@ export default function HomePage() {
                         <Play className="w-3.5 h-3.5 fill-white text-white translate-x-[0.5px]" />
                       </div>
                     </div>
-                    <span className="absolute bottom-2 left-2 bg-black/60 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">{item.duration}</span>
+                    <span className="absolute bottom-2 left-2 bg-black/60 text-white text-[8px] font-medium px-1.5 py-0.5 rounded-full">{item.duration}</span>
                   </div>
                   <div className="mt-2.5 px-0.5 space-y-0.5">
-                    <h4 className="font-serif font-black text-xs text-navy truncate leading-tight group-hover:text-orange">{item.title}</h4>
-                    <p className="text-[9px] text-navy/50 font-semibold truncate">{item.views} Views</p>
+                    <h4 className="font-serif font-medium text-xs text-navy truncate leading-tight group-hover:text-orange">{item.title}</h4>
+                    <p className="text-[9px] text-navy/50 font-normal truncate">{item.views} Views</p>
                   </div>
                 </div>
               ))}
@@ -1350,7 +1350,7 @@ export default function HomePage() {
             <div className="pt-4 border-t border-border-color flex justify-end">
               <button 
                 onClick={() => setShowAllShortsModal(false)}
-                className="px-6 py-2.5 bg-navy text-white rounded-xl text-xs font-black hover:bg-navy-dark transition-all"
+                className="px-6 py-2.5 bg-navy text-white rounded-xl text-xs font-medium hover:bg-navy-dark transition-all"
               >
                 Close Library
               </button>
@@ -1392,8 +1392,8 @@ function ProductRow({ title, subtitle, items, onQuickView, addToCart, wishlist, 
     <div className="space-y-4 relative group/row">
       <div className="flex justify-between items-end pr-2">
         <div>
-          <h2 className="text-xl md:text-2.5xl font-serif font-black text-navy">{title}</h2>
-          <p className="text-xs md:text-sm text-navy/60 font-semibold">{subtitle}</p>
+          <h2 className="text-xl md:text-2.5xl font-serif font-medium text-navy">{title}</h2>
+          <p className="text-xs md:text-sm text-navy/60 font-normal">{subtitle}</p>
         </div>
         <div className="flex gap-1.5">
           <button 
@@ -1439,7 +1439,7 @@ function ProductRow({ title, subtitle, items, onQuickView, addToCart, wishlist, 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
                   />
                   {prod.isPremium && (
-                    <span className="absolute bottom-2 left-2 bg-orange text-white font-black text-[9px] px-2 py-0.5 rounded-full border border-orange/40">Premium</span>
+                    <span className="absolute bottom-2 left-2 bg-orange text-white font-medium text-[9px] px-2 py-0.5 rounded-full border border-orange/40">Premium</span>
                   )}
                 </div>
 
@@ -1448,18 +1448,18 @@ function ProductRow({ title, subtitle, items, onQuickView, addToCart, wishlist, 
                     <div className="flex text-gold">
                       <Star className="w-3.5 h-3.5 fill-gold text-gold" />
                     </div>
-                    <span className="text-[10px] font-black text-navy">{prod.rating} ({prod.reviewsCount} orders)</span>
+                    <span className="text-[10px] font-medium text-navy">{prod.rating} ({prod.reviewsCount} orders)</span>
                   </div>
-                  <h3 className="font-serif font-black text-navy text-sm truncate leading-tight group-hover:text-orange transition-colors">{prod.name}</h3>
+                  <h3 className="font-serif font-medium text-navy text-sm truncate leading-tight group-hover:text-orange transition-colors">{prod.name}</h3>
                 </div>
               </Link>
 
               {/* Lower Section: Price and Cart trigger */}
               <div className="mt-3 pt-3 border-t border-border-color flex items-center justify-between">
                 <div>
-                  <span className="text-orange font-black text-base">₹{prod.discountPrice || prod.price}</span>
+                  <span className="text-orange font-medium text-base">₹{prod.discountPrice || prod.price}</span>
                   {prod.discountPrice && (
-                    <span className="text-navy/40 line-through text-xs ml-1 font-bold">₹{prod.price}</span>
+                    <span className="text-navy/40 line-through text-xs ml-1 font-medium">₹{prod.price}</span>
                   )}
                 </div>
                 <div className="flex gap-1.5">
