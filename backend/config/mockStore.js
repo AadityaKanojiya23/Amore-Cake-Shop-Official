@@ -130,7 +130,7 @@ export let mockUsers = [
       { _id: 'a1', name: 'ShubhAdi', phone: '9876543210', street: 'Flat 405, Sweet Meadows', city: 'Mumbai', state: 'Maharashtra', zipCode: '400001', isDefault: true },
       { _id: 'a2', name: 'ShubhAdi Office', phone: '9876543211', street: 'Tech Hub, Bandra Kurla Complex', city: 'Mumbai', state: 'Maharashtra', zipCode: '400051', isDefault: false }
     ],
-    wishlist: [mockProducts[0]._id, mockProducts[5]._id],
+    wishlist: [],
     createdAt: new Date('2026-01-01')
   },
   {

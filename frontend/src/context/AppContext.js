@@ -150,6 +150,7 @@ export const AppProvider = ({ children }) => {
           };
           setToken(savedToken);
           setUser(upgradedUser);
+          setWishlist([]);
           localStorage.setItem('sweetcrave_user', JSON.stringify(upgradedUser));
         } else {
           setToken(savedToken);
