@@ -136,8 +136,25 @@ export const AppProvider = ({ children }) => {
       const savedUser = localStorage.getItem('sweetcrave_user');
       
       if (savedToken && savedUser) {
-        setToken(savedToken);
-        setUser(JSON.parse(savedUser));
+        const parsedUser = JSON.parse(savedUser);
+        // Instant Migration & Strict Cleanup: If user is still 'John Doe' or 'Alex Mercer', upgrade them to 'ShubhAdi' and clear old mock data
+        if (parsedUser.name === 'John Doe' || parsedUser.name === 'Alex Mercer' || parsedUser.email === 'user@sweetcrave.com' || parsedUser.email === 'alex.mercer@gmail.com') {
+          // Clear all old mock registration data to prevent conflicts
+          localStorage.removeItem('sweetcrave_registered_users');
+          
+          const upgradedUser = {
+            ...parsedUser,
+            name: 'ShubhAdi',
+            email: 'shubhadi2026@gmail.com',
+            avatar: 'https://i.ibb.co/k2WqSjyN/4cd54da7-aa9a-4555-9569-16d98e04b6b7.png'
+          };
+          setToken(savedToken);
+          setUser(upgradedUser);
+          localStorage.setItem('sweetcrave_user', JSON.stringify(upgradedUser));
+        } else {
+          setToken(savedToken);
+          setUser(parsedUser);
+        }
       }
 
       try {
@@ -449,10 +466,10 @@ export const AppProvider = ({ children }) => {
     setLoading(true);
     try {
       const googlePayload = customPayload || {
-        name: 'Alex Mercer',
-        email: 'alex.mercer@gmail.com',
-        avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=150',
-        googleId: 'g_123456789'
+        name: 'ShubhAdi',
+        email: 'shubhadi2026@gmail.com',
+        avatar: 'https://i.ibb.co/k2WqSjyN/4cd54da7-aa9a-4555-9569-16d98e04b6b7.png',
+        googleId: 'g_shubhadi_mock_123'
       };
 
       if (isBackendOnline) {

@@ -1,5 +1,4 @@
-// In-Memory Database fallback store with dynamic 100+ product generator and full CRUD capabilities.
-import mongoose from 'mongoose';
+const generateId = () => Math.random().toString(36).substring(2, 11);
 
 export const categories = [
   { name: 'Cakes', slug: 'cakes', image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=300' },
@@ -85,7 +84,7 @@ export const generateProducts = () => {
       const img3 = categoryImages[(idCounter + i + 2) % categoryImages.length];
 
       list.push({
-        _id: new mongoose.Types.ObjectId().toString(), // Generate a realistic MongoDB ObjectId
+        _id: generateId(), // Generate a realistic MongoDB ObjectId
         name,
         slug,
         category: cat.slug,
@@ -122,14 +121,14 @@ export let mockProducts = generateProducts();
 export let mockUsers = [
   {
     _id: 'u1',
-    name: 'John Doe',
-    email: 'user@sweetcrave.com',
+    name: 'ShubhAdi',
+    email: 'shubhadi2026@gmail.com',
     password: '$2a$10$tZre5b9yDkC7y3gH9m.JBeWfWeqYtV7r6A8l9S2k5bZ7x8D6g5D6y', // bcrypt for 'password123'
     role: 'user',
-    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200',
+    avatar: 'https://i.ibb.co/k2WqSjyN/4cd54da7-aa9a-4555-9569-16d98e04b6b7.png',
     addresses: [
-      { _id: 'a1', name: 'John Doe', phone: '9876543210', street: 'Flat 405, Sweet Meadows', city: 'Mumbai', state: 'Maharashtra', zipCode: '400001', isDefault: true },
-      { _id: 'a2', name: 'John Doe Office', phone: '9876543211', street: 'Tech Hub, Bandra Kurla Complex', city: 'Mumbai', state: 'Maharashtra', zipCode: '400051', isDefault: false }
+      { _id: 'a1', name: 'ShubhAdi', phone: '9876543210', street: 'Flat 405, Sweet Meadows', city: 'Mumbai', state: 'Maharashtra', zipCode: '400001', isDefault: true },
+      { _id: 'a2', name: 'ShubhAdi Office', phone: '9876543211', street: 'Tech Hub, Bandra Kurla Complex', city: 'Mumbai', state: 'Maharashtra', zipCode: '400051', isDefault: false }
     ],
     wishlist: [mockProducts[0]._id, mockProducts[5]._id],
     createdAt: new Date('2026-01-01')
@@ -140,7 +139,7 @@ export let mockUsers = [
     email: 'admin@sweetcrave.com',
     password: '$2a$10$tZre5b9yDkC7y3gH9m.JBeWfWeqYtV7r6A8l9S2k5bZ7x8D6g5D6y', // bcrypt for 'password123'
     role: 'admin',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200',
+    avatar: 'https://i.ibb.co/k2WqSjyN/4cd54da7-aa9a-4555-9569-16d98e04b6b7.png',
     addresses: [],
     wishlist: [],
     createdAt: new Date('2026-01-01')
@@ -162,14 +161,14 @@ export let mockOrders = [
         isEggless: true,
         quantity: 1,
         price: mockProducts[0].discountPrice || mockProducts[0].price,
-        cakeMessage: 'Happy Birthday John!',
+        cakeMessage: 'Happy Birthday ShubhAdi!',
         addCandles: true,
         addFlowers: false,
         addChocolates: true
       }
     ],
     shippingAddress: {
-      name: 'John Doe',
+      name: 'ShubhAdi',
       phone: '9876543210',
       street: 'Flat 405, Sweet Meadows',
       city: 'Mumbai',
@@ -225,7 +224,7 @@ export let mockOrders = [
       }
     ],
     shippingAddress: {
-      name: 'John Doe',
+      name: 'ShubhAdi',
       phone: '9876543210',
       street: 'Flat 405, Sweet Meadows',
       city: 'Mumbai',
@@ -262,8 +261,8 @@ export let mockOrders = [
 ];
 
 export let mockReviews = [
-  { _id: 'r1', product: mockProducts[0]._id, user: 'u1', userName: 'John Doe', userAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200', rating: 5, comment: 'Hands down the best cake I have ever had! The chocolate was so rich and the delivery was perfectly on time at midnight.', isApproved: true, createdAt: new Date() },
-  { _id: 'r2', product: mockProducts[1]._id, user: 'u1', userName: 'John Doe', userAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200', rating: 4, comment: 'Very soft and delicious. The red velvet layers were perfect. Highly recommend.', isApproved: true, createdAt: new Date() }
+  { _id: 'r1', product: mockProducts[0]._id, user: 'u1', userName: 'ShubhAdi', userAvatar: 'https://i.ibb.co/k2WqSjyN/4cd54da7-aa9a-4555-9569-16d98e04b6b7.png', rating: 5, comment: 'Hands down the best cake I have ever had! The chocolate was so rich and the delivery was perfectly on time at midnight.', isApproved: true, createdAt: new Date() },
+  { _id: 'r2', product: mockProducts[1]._id, user: 'u1', userName: 'ShubhAdi', userAvatar: 'https://i.ibb.co/k2WqSjyN/4cd54da7-aa9a-4555-9569-16d98e04b6b7.png', rating: 4, comment: 'Very soft and delicious. The red velvet layers were perfect. Highly recommend.', isApproved: true, createdAt: new Date() }
 ];
 
 // Fallback Controller Utilities that emulate DB queries
@@ -276,7 +275,7 @@ export const getCategoriesStore = () => categories;
 
 // MUTATORS
 export const addProductStore = (prod) => {
-  const newProd = { _id: new mongoose.Types.ObjectId().toString(), ...prod, createdAt: new Date() };
+  const newProd = { _id: generateId(), ...prod, createdAt: new Date() };
   mockProducts.unshift(newProd);
   return newProd;
 };
@@ -303,7 +302,7 @@ export const deleteProductStore = (id) => {
 export const addOrderStore = (order) => {
   const invoiceNumber = `INV-2026-${String(mockOrders.length + 1).padStart(3, '0')}`;
   const newOrder = {
-    _id: new mongoose.Types.ObjectId().toString(),
+    _id: generateId(),
     invoiceNumber,
     status: 'Confirmed',
     timeline: [{ status: 'Confirmed', timestamp: new Date(), note: 'Order created successfully.' }],
@@ -325,13 +324,13 @@ export const updateOrderStore = (id, status, note) => {
 };
 
 export const addUserStore = (user) => {
-  const newUser = { _id: new mongoose.Types.ObjectId().toString(), addresses: [], wishlist: [], role: 'user', createdAt: new Date(), ...user };
+  const newUser = { _id: generateId(), addresses: [], wishlist: [], role: 'user', createdAt: new Date(), ...user };
   mockUsers.push(newUser);
   return newUser;
 };
 
 export const addReviewStore = (review) => {
-  const newReview = { _id: new mongoose.Types.ObjectId().toString(), isApproved: true, createdAt: new Date(), ...review };
+  const newReview = { _id: generateId(), isApproved: true, createdAt: new Date(), ...review };
   mockReviews.unshift(newReview);
   return newReview;
 };
