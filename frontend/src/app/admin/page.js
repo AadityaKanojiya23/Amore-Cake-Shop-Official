@@ -105,16 +105,20 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // Filter lists in memory
-  const filteredProducts = products.filter(p => 
-    p.name.toLowerCase().includes(productSearch.toLowerCase()) ||
-    p.category.toLowerCase().includes(productSearch.toLowerCase())
-  );
+  // Filter and sort lists in memory (newest first)
+  const filteredProducts = [...products]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .filter(p => 
+      p.name.toLowerCase().includes(productSearch.toLowerCase()) ||
+      p.category.toLowerCase().includes(productSearch.toLowerCase())
+    );
 
-  const filteredOrders = orders.filter(o => 
-    o.invoiceNumber.toLowerCase().includes(orderSearch.toLowerCase()) ||
-    o.shippingAddress.name.toLowerCase().includes(orderSearch.toLowerCase())
-  );
+  const filteredOrders = [...orders]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .filter(o => 
+      o.invoiceNumber.toLowerCase().includes(orderSearch.toLowerCase()) ||
+      o.shippingAddress.name.toLowerCase().includes(orderSearch.toLowerCase())
+    );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 bg-background text-foreground animate-fade-in">

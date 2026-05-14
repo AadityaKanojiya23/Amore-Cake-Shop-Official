@@ -3,7 +3,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   CreditCard, ShieldCheck, Check, Info, MapPin, 
-  ArrowLeft, ArrowRight, Truck, QrCode, Phone, Download, Printer, Home
+  ArrowLeft, ArrowRight, Truck, QrCode, Phone, Download, Printer, Home, Calendar
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -65,10 +65,11 @@ function CheckoutContent() {
     if (!isInitialized) {
       // Set delivery details from cart
       if (cart.length > 0) {
-        // Use standard default slot
-        setDeliveryDate('2026-05-12');
-        setDeliverySlot('Standard (12 PM - 6 PM)');
-        setDeliveryType('Standard');
+        // Use the delivery date from the first item if it was selected in Product Page
+        const firstItem = cart[0];
+        setDeliveryDate(firstItem.deliveryDate || new Date().toISOString().split('T')[0]);
+        setDeliverySlot(firstItem.deliverySlot || 'Standard (12 PM - 6 PM)');
+        setDeliveryType(firstItem.deliveryType || 'Standard');
       }
 
       // Load temp coupon
@@ -349,6 +350,45 @@ function CheckoutContent() {
                     </button>
                   </form>
                 )}
+
+                {/* Delivery Schedule Section */}
+                <div className="bg-cream border border-border-color rounded-3xl p-6 space-y-4 shadow-sm">
+                  <h3 className="text-xs font-medium text-navy uppercase tracking-wider flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-orange" /> Scheduled Delivery Slot Details
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] uppercase font-medium text-navy/60">Preferred Date</label>
+                      <input 
+                        type="date" 
+                        min={new Date().toISOString().split('T')[0]}
+                        value={deliveryDate}
+                        onChange={(e) => setDeliveryDate(e.target.value)}
+                        className="w-full text-xs font-medium p-2.5 bg-card-bg border border-border-color rounded-xl outline-none focus:ring-1 focus:ring-orange text-navy cursor-pointer"
+                        required
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] uppercase font-medium text-navy/60">Delivery Hour Bracket</label>
+                      <select 
+                        value={deliverySlot}
+                        onChange={(e) => {
+                          setDeliverySlot(e.target.value);
+                          const isMidnight = e.target.value.includes('Midnight');
+                          const isExpress = e.target.value.includes('Express');
+                          setDeliveryType(isMidnight ? 'Midnight' : isExpress ? 'Express' : 'Standard');
+                        }}
+                        className="w-full text-xs font-medium p-2.5 bg-card-bg border border-border-color rounded-xl outline-none focus:ring-1 focus:ring-orange text-navy cursor-pointer"
+                      >
+                        <option value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM) [+ ₹50]</option>
+                        <option value="Standard (12 PM - 6 PM)">Standard (12 PM - 6 PM) [Free]</option>
+                        <option value="Express (6 PM - 9 PM)">Express (6 PM - 9 PM) [+ ₹100]</option>
+                        <option value="Midnight (11 PM - 12 AM)">Midnight (11 PM - 12 AM) [+ ₹150 Premium]</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
                 {/* Continue button */}
                 {selectedAddrId && (

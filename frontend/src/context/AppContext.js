@@ -22,6 +22,91 @@ export const AppProvider = ({ children }) => {
   const [toast, setToast] = useState(null);
   const [isBackendOnline, setIsBackendOnline] = useState(false);
   const [adminStats, setAdminStats] = useState(null);
+  
+  // 20 Cake Image Links from User
+  const cakeImageLinks = [
+    "https://whipped.in/cdn/shop/files/WhatsAppImage2023-12-12at11.29.28PM_1080x.jpg?v=1748459537",
+    "https://ocakes.in/storage/app/public/images/item/item-667ab251cac30.webp",
+    "https://www.warmoven.in/cdn/shop/files/duel-delight-chocolate_-cake.jpg?v=1749833568",
+    "https://ocakes.in/storage/app/public/images/item/item-642f5ad0783b8.jpg",
+    "https://bentocakesnoida.in/cdn/shop/files/WhatsAppImage2025-08-10at11.39.40AM.jpg?v=1754898360&width=1200",
+    "https://assets.winni.in/product/primary/2024/3/94564.jpeg?dpr=2&w=220",
+    "https://img.freepik.com/premium-photo/delicious-looking-brilliant-birthday-cake-design-with-ai-generative_1115174-2613.jpg",
+    "https://i.pinimg.com/736x/96/42/64/964264a52add5b3a4183c534ccfa801d.jpg",
+    "https://static.futureshareai.com/glb_features/ai_cake_generator_image_5.webp",
+    "https://img.freepik.com/free-photo/chocolate-cake-with-liquid-chocolate-coating-decorated-with-biscuits-blueberries-black-background-ai-generative_123827-24054.jpg?semt=ais_hybrid&w=740&q=80",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBNEIjlf51I3bRC-UU2maJ3aWD-ACBOrroEA&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE5m-tCkZcEVwt-V6k2ox6tgKi8d2gz27ZCw&s",
+    "https://img.freepik.com/premium-photo/happy-birthday-cakes-him-with-red-roses-chocolate_961875-87329.jpg",
+    "https://img.freepik.com/premium-photo/happy-birthday-cakes-him-with-red-roses-chocolate_961875-87329.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTohaWXnKneqjk65jJ6UQNfNY5X1w27rCy62g&s",
+    "https://tint.creativemarket.com/0V41bG8rbqk8CfawJOYJJI-EXxqL2PlrvF8-n3vF3z8/width:1820/height:1206/gravity:ce/rt:fill-down/el:1/preset:cm_watermark_retina/czM6Ly9maWxlcy5jcmVhdGl2ZW1hcmtldC5jb20vaW1hZ2VzL3NjcmVlbnNob3RzL3Byb2R1Y3RzLzIyMjkvMjIyOTIvMjIyOTI5OTIvYmlydGhkYXlfY2FrZV8yN18wNC1vLmpwZw?1711776242",
+    "https://www.biggerbolderbaking.com/wp-content/uploads/2025/06/Homemade-Ice-Cream-Cake-thumbnail-scaled.jpg",
+    "https://www.wearetateandlylesugars.com/wp-content/uploads/sites/2/2023/09/salted-caramel-chocolate-mini-cakes.png",
+    "https://assets.winni.in/c_limit,dpr_1,fl_progressive,q_80,w_1000/83221_yummylicious-chocolate-cake.jpeg",
+    "https://www.karachibakery.com/images/cakes/celebrations-cakes/celebrations-cakes2.jpg",
+    "https://img.freepik.com/premium-photo/three-layer-chocolate-cake-with-chocolate-decorations-top_662214-171053.jpg"
+  ];
+
+  // 8 Cupcake Image Links from User
+  const cupcakeImageLinks = [
+    "https://crm.lamara.in/products/galleryimages/1753104999item_Red_Velvet_Crunch_Cupcake_slice.jpeg",
+    "https://www.warmoven.in/cdn/shop/files/assorted_premium_cupcakes.jpg?v=1749823000",
+    "https://bkmedia.bakingo.com/sq-choco-decadence-cupcakes-cupc1636choc-aa.jpg",
+    "https://toujours.co.in/cdn/shop/files/assorted-cupcakes-box-online-mumbai-toujours-341944.jpg?v=1731924322&width=1100",
+    "https://www.warmoven.in/cdn/shop/files/assorted_classic_cupcakes.jpg?v=1749823006",
+    "https://crm.lamara.in/products/menuimgs/1753105206item_Best_Butterscotch_Caramel_Cupcake_in_bengaluru.jpeg",
+    "https://alpineella.com/wp-content/uploads/2026/01/featured-image-chocolate-cupcakes-vanilla-frosting-500x500.jpg",
+    "https://crm.lamara.in/products/galleryimages/1753104746item_slice_Vanilla_Bean_Cupcake_in_bengaluru.jpeg"
+  ];
+
+  // 7 Pastry Image Links from User
+  const pastryImageLinks = [
+    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/FOOD_CATALOG/IMAGES/CMS/2026/1/19/46646107-0ce8-42ee-8ce4-6b15e73eb406_4314cab6-32ab-4351-a4f9-ab5b87cc6e3f.JPG",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-MvxYOtZlmiX_V2rYgmg1f_GxFzcEub6yog&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyp2J81JpIQ4Ma8MBs34RjvMCfnmxiQAJYSw&s",
+    "https://theobroma.in/cdn/shop/files/FG0969_Strawberry_FreshCreamPastry_1Piece_1.jpg?v=1762427718",
+    "https://i.ytimg.com/vi/ZIqUHR3CvOw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBlLf9qVwCVvqqNroLuAWmQqXZtGA",
+    "https://doughandcream.com/cdn/shop/files/FreshFruitPastry_480x.jpg?v=1732737983",
+    "https://i.ytimg.com/vi/ELpmm4zk0Q8/maxresdefault.jpg"
+  ];
+
+  // Helper to alternate cake and cupcake images
+  const processProducts = (productList) => {
+    let cakeIdx = 0;
+    let cupcakeIdx = 0;
+    let pastryIdx = 0;
+    return productList.map(p => {
+      const isCupcake = p.category === 'cupcakes' || p.name.toLowerCase().includes('cupcake');
+      const isPastry = p.category === 'pastries' || p.name.toLowerCase().includes('pastry');
+      const isCake = !isCupcake && !isPastry && (p.category.toLowerCase().includes('cake') || p.name.toLowerCase().includes('cake'));
+
+      if (isCake) {
+        // Specific override for the user's requested Dark Chocolate Truffle image
+        if (p.name.toLowerCase().includes('dark chocolate truffle')) {
+          return { ...p, images: ["https://img.freepik.com/premium-photo/three-layer-chocolate-cake-with-chocolate-decorations-top_662214-171053.jpg", ...(p.images ? p.images.slice(1) : [])] };
+        }
+
+        const img = cakeImageLinks[cakeIdx % cakeImageLinks.length];
+        cakeIdx++;
+        return { ...p, images: [img, ...(p.images ? p.images.slice(1) : [])] };
+      }
+
+      if (isCupcake) {
+        const img = cupcakeImageLinks[cupcakeIdx % cupcakeImageLinks.length];
+        cupcakeIdx++;
+        return { ...p, images: [img, ...(p.images ? p.images.slice(1) : [])] };
+      }
+
+      if (isPastry) {
+        const img = pastryImageLinks[pastryIdx % pastryImageLinks.length];
+        pastryIdx++;
+        return { ...p, images: [img, ...(p.images ? p.images.slice(1) : [])] };
+      }
+
+      return p;
+    });
+  };
 
 
   // Show Toast Helper
@@ -72,7 +157,7 @@ export const AppProvider = ({ children }) => {
           // Fetch products
           const prodRes = await fetch(`${API_BASE}/products`);
           const prodData = await prodRes.json();
-          setProducts(prodData.products || []);
+          setProducts(processProducts(prodData.products || []));
 
           // Fetch active coupons
           const couponRes = await fetch(`${API_BASE}/coupons`);
@@ -114,7 +199,7 @@ export const AppProvider = ({ children }) => {
           
           setCategories(categories);
           setCoupons(coupons);
-          setProducts(generateProducts());
+          setProducts(processProducts(generateProducts()));
           setReviews(mockReviews);
 
           // LocalStorage fallback for offline transactions
@@ -127,7 +212,7 @@ export const AppProvider = ({ children }) => {
 
           const localProducts = localStorage.getItem('sweetcrave_products');
           if (localProducts) {
-            setProducts(JSON.parse(localProducts));
+            setProducts(processProducts(JSON.parse(localProducts)));
           }
 
           if (savedUser) {
@@ -503,7 +588,7 @@ export const AppProvider = ({ children }) => {
   };
 
   // CART FUNCTIONALITY
-  const addToCart = (product, qty, weight, flavor, eggless, message = '', candles = false, flowers = false, chocolates = false) => {
+  const addToCart = (product, qty, weight, flavor, eggless, message = '', candles = false, flowers = false, chocolates = false, deliveryDate = '', deliverySlot = '', deliveryType = 'Standard') => {
     const itemPrice = product.discountPrice || product.price;
     const cartItemId = `${product._id}_${weight}_${flavor.replace(/\s+/g, '')}_${eggless ? 'e' : 'n'}`;
 
@@ -528,7 +613,10 @@ export const AppProvider = ({ children }) => {
         cakeMessage: message,
         addCandles: candles,
         addFlowers: flowers,
-        addChocolates: chocolates
+        addChocolates: chocolates,
+        deliveryDate,
+        deliverySlot,
+        deliveryType
       };
       setCart([...cart, newItem]);
       showToast(`Added ${product.name} to cart!`, 'success');
@@ -747,7 +835,7 @@ export const AppProvider = ({ children }) => {
         });
         const data = await res.json();
         if (res.ok && data.success) {
-          setProducts([data.product, ...products]);
+          setProducts(processProducts([data.product, ...products]));
           showToast('Product added successfully', 'success');
           return true;
         } else {
@@ -764,7 +852,7 @@ export const AppProvider = ({ children }) => {
           ...prod
         };
         const updatedProducts = [newProduct, ...products];
-        setProducts(updatedProducts);
+        setProducts(processProducts(updatedProducts));
         localStorage.setItem('sweetcrave_products', JSON.stringify(updatedProducts));
         showToast('Product added to Demo store', 'success');
         return true;
@@ -788,13 +876,13 @@ export const AppProvider = ({ children }) => {
         });
         const data = await res.json();
         if (res.ok && data.success) {
-          setProducts(products.map(p => p._id === prodId ? data.product : p));
+          setProducts(processProducts(products.map(p => p._id === prodId ? data.product : p)));
           showToast('Product updated successfully', 'success');
           return true;
         }
       } else {
         const updatedProducts = products.map(p => p._id === prodId ? { ...p, ...updates } : p);
-        setProducts(updatedProducts);
+        setProducts(processProducts(updatedProducts));
         localStorage.setItem('sweetcrave_products', JSON.stringify(updatedProducts));
         showToast('Product updated in Demo store', 'success');
         return true;
@@ -814,13 +902,13 @@ export const AppProvider = ({ children }) => {
         });
         const data = await res.json();
         if (res.ok && data.success) {
-          setProducts(products.filter(p => p._id !== prodId));
+          setProducts(processProducts(products.filter(p => p._id !== prodId)));
           showToast('Product deleted', 'info');
           return true;
         }
       } else {
         const updatedProducts = products.filter(p => p._id !== prodId);
-        setProducts(updatedProducts);
+        setProducts(processProducts(updatedProducts));
         localStorage.setItem('sweetcrave_products', JSON.stringify(updatedProducts));
         showToast('Product deleted from Demo store', 'info');
         return true;

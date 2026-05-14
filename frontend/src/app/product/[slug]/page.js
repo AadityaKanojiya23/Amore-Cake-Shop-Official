@@ -91,7 +91,10 @@ export default function ProductDetailsPage({ params }) {
       customMessage,
       addCandles,
       addFlowers,
-      addChocolates
+      addChocolates,
+      deliveryDate,
+      deliverySlot,
+      deliveryType
     );
 
     if (redirect) {

@@ -36,12 +36,18 @@ function DashboardContent() {
     }
   }, [initialTab]);
 
-  // Load tracking details of first active order if exists
+  // Explicitly sort orders by date descending to ensure newest is always at top
+  const sortedOrders = [...orders].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  // Load tracking details of first active order if exists, or update if new order added
   useEffect(() => {
-    if (orders && orders.length > 0 && !trackingOrder) {
-      setTrackingOrder(orders[0]);
+    if (sortedOrders && sortedOrders.length > 0) {
+      // If we just got a new order or none is selected, auto-select the latest one
+      if (!trackingOrder || sortedOrders.length !== orders.length) {
+        setTrackingOrder(sortedOrders[0]);
+      }
     }
-  }, [orders]);
+  }, [sortedOrders.length]);
 
   const handleAddNewAddress = async (e) => {
     e.preventDefault();
@@ -281,13 +287,13 @@ function DashboardContent() {
               
               {/* Left Col: Previous Orders List */}
               <div className="lg:col-span-5 space-y-4 max-h-[500px] overflow-y-auto no-scrollbar pr-1">
-                {orders.length === 0 ? (
+                {sortedOrders.length === 0 ? (
                   <div className="bg-card-bg border border-border-color rounded-2xl p-8 text-center space-y-2 text-navy">
                     <p className="text-xs text-navy/40 italic font-normal">No checkout histories found.</p>
                     <Link href="/category/all" className="text-xs font-medium text-orange hover:underline block">Explore Confectioneries</Link>
                   </div>
                 ) : (
-                  orders.map(order => (
+                  sortedOrders.map(order => (
                     <div 
                       key={order._id}
                       onClick={() => setTrackingOrder(order)}

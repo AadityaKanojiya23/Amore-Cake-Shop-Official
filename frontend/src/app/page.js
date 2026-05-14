@@ -1,8 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { 
-  Sparkles, Heart, ShoppingBag, Eye, Star, ChevronLeft, ChevronRight, 
+import {
+  Sparkles, Heart, ShoppingBag, Eye, Star, ChevronLeft, ChevronRight,
   Clock, Award, Flame, Quote, Send, ArrowRight, ShieldCheck, HelpCircle, X,
   Play, Pause, Volume2, VolumeX, Smartphone, Tv, CheckCircle, Lightbulb, Code
 } from 'lucide-react';
@@ -245,8 +245,8 @@ const shortVideos = [
 ];
 
 export default function HomePage() {
-  const { 
-    products, categories, addToCart, toggleWishlist, wishlist, loading, showToast 
+  const {
+    products, categories, addToCart, toggleWishlist, wishlist, loading, showToast
   } = useApp();
 
   const router = useRouter();
@@ -255,7 +255,7 @@ export default function HomePage() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
-  
+
   // Customization states for Quick View
   const [selectedWeight, setSelectedWeight] = useState('0.5kg');
   const [selectedFlavor, setSelectedFlavor] = useState('');
@@ -322,14 +322,14 @@ export default function HomePage() {
   const handleAddComment = (e) => {
     e.preventDefault();
     if (!newCommentText.trim() || !activeVideo) return;
-    
+
     const videoId = activeVideo.id;
     const commentObj = {
       name: 'Aditya (You)',
       text: newCommentText.trim(),
       isChef: false
     };
-    
+
     setComments(prev => ({
       ...prev,
       [videoId]: [...(prev[videoId] || []), commentObj]
@@ -353,7 +353,7 @@ export default function HomePage() {
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
       const animationId = Date.now() + Math.random();
-      
+
       setHeartAnimations(prev => [...prev, { id: animationId, x, y }]);
       setTimeout(() => {
         setHeartAnimations(prev => prev.filter(h => h.id !== animationId));
@@ -370,7 +370,7 @@ export default function HomePage() {
       const x = rect.width / 2 + (Math.random() * 60 - 30);
       const y = rect.height / 2 + (Math.random() * 60 - 30);
       const animationId = Date.now() + Math.random();
-      
+
       setHeartAnimations(prev => [...prev, { id: animationId, x, y }]);
       setTimeout(() => {
         setHeartAnimations(prev => prev.filter(h => h.id !== animationId));
@@ -460,11 +460,11 @@ export default function HomePage() {
   // Pinterest Gallery data
   const galleryItems = [
     { img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=350', title: 'Belgian Chocolate Drizzle' },
-    { img: 'https://images.unsplash.com/photo-1533782654613-826a072dd6f3?auto=format&fit=crop&q=80&w=350', title: 'Magical Confetti Reveal' },
+    { img: 'https://thenymelrosefamily.com/wp-content/uploads/2024/12/baby-shower-cake-ideas-3-700x1050.jpg', title: 'Magical Confetti Reveal' },
     { img: 'https://images.unsplash.com/photo-1535254973040-607b474cb50d?auto=format&fit=crop&q=80&w=350', title: 'Golden Wedding Frost' },
-    { img: 'https://images.unsplash.com/photo-1562266648-a47af8e9e4f2?auto=format&fit=crop&q=80&w=350', title: 'Strawberry Dream Tower' },
+    { img: 'https://www.cakedeliverypathankot.com/wp-content/uploads/2025/03/58.jpg', title: 'Strawberry Dream Tower' },
     { img: 'https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&q=80&w=350', title: 'Chef Recommended Velvet' },
-    { img: 'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&q=80&w=350', title: 'Unicorn Swirl Cupcakes' }
+    { img: 'https://i.pinimg.com/736x/df/6b/d6/df6bd6ff14f72dcad222fda1f4f3f7ed.jpg', title: 'Unicorn Swirl Cupcakes' }
   ];
 
   // FAQs
@@ -555,11 +555,11 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16 pb-16 bg-background">
-      
+
       {/* 1. HERO SLIDER BANNER SECTION */}
       <section className="relative h-[440px] md:h-[580px] overflow-hidden bg-cream-light">
         {heroBanners.map((banner, index) => (
-          <div 
+          <div
             key={index}
             className={`absolute inset-0 flex flex-col justify-center transition-all duration-1000 ease-in-out ${index === heroIndex ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-12 scale-95 pointer-events-none'}`}
             style={{
@@ -578,8 +578,8 @@ export default function HomePage() {
               <p className="text-gold font-medium text-lg md:text-xl font-sans">{banner.subtitle}</p>
               <p className="text-white/70 max-w-md text-xs md:text-sm hidden sm:block font-medium">{banner.tagline}</p>
               <div className="pt-2">
-                <Link 
-                  href={banner.link} 
+                <Link
+                  href={banner.link}
                   className="inline-flex items-center gap-2 bg-orange hover:bg-orange-hover text-white font-medium py-3.5 px-8 rounded-full shadow-lg text-sm transition-all gold-glow"
                 >
                   <span>{banner.buttonText}</span>
@@ -593,8 +593,8 @@ export default function HomePage() {
         {/* Carousel Indicators */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
           {heroBanners.map((_, i) => (
-            <button 
-              key={i} 
+            <button
+              key={i}
               onClick={() => setHeroIndex(i)}
               className={`h-2.5 rounded-full transition-all ${i === heroIndex ? 'w-8 bg-orange' : 'w-2.5 bg-white/40'}`}
             />
@@ -606,8 +606,8 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {promoBanners.map((p) => (
-            <Link 
-              key={p.id} 
+            <Link
+              key={p.id}
               href={p.link}
               className={`p-6 rounded-3xl bg-gradient-to-br ${p.bg} text-white flex flex-col justify-between h-44 hover:scale-[1.03] transition-transform duration-300 shadow-md cursor-pointer relative overflow-hidden group`}
             >
@@ -624,35 +624,35 @@ export default function HomePage() {
 
       {/* 3. DYNAMIC PRODUCT ROW SHOWCASES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        
+
         {/* ROW 1: BEST SELLERS */}
-        <ProductRow 
-          title="Amore Cakes Best Sellers" 
-          subtitle="Our highly-rated recipes ordered daily across India." 
-          items={bestSellers} 
-          onQuickView={handleOpenQuickView} 
+        <ProductRow
+          title="Amore Cakes Best Sellers"
+          subtitle="Our highly-rated recipes ordered daily across India."
+          items={bestSellers}
+          onQuickView={handleOpenQuickView}
           addToCart={addToCart}
           wishlist={wishlist}
           toggleWishlist={toggleWishlist}
         />
 
         {/* ROW 2: TRENDING & DESIGNER CAKES */}
-        <ProductRow 
-          title="Trending Masterpieces" 
-          subtitle="Viral cake architectures sweeping celebrations this month." 
-          items={trending} 
-          onQuickView={handleOpenQuickView} 
+        <ProductRow
+          title="Trending Masterpieces"
+          subtitle="Viral cake architectures sweeping celebrations this month."
+          items={trending}
+          onQuickView={handleOpenQuickView}
           addToCart={addToCart}
           wishlist={wishlist}
           toggleWishlist={toggleWishlist}
         />
 
         {/* ROW 3: CHOCOLATE HEAVEN */}
-        <ProductRow 
-          title="Rich Chocolate Heaven" 
-          subtitle="Belgian truffles, dark ganaches, and chocolate fudges baked by hand." 
-          items={chocolateHeaven} 
-          onQuickView={handleOpenQuickView} 
+        <ProductRow
+          title="Rich Chocolate Heaven"
+          subtitle="Belgian truffles, dark ganaches, and chocolate fudges baked by hand."
+          items={chocolateHeaven}
+          onQuickView={handleOpenQuickView}
           addToCart={addToCart}
           wishlist={wishlist}
           toggleWishlist={toggleWishlist}
@@ -664,7 +664,7 @@ export default function HomePage() {
       <section className="bg-navy-dark text-background py-20 px-4 relative overflow-hidden border-y-2 border-orange/40 shadow-xl">
         <div className="absolute top-0 right-0 w-96 h-96 bg-orange/10 rounded-full blur-3xl"></div>
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-          
+
           <div className="lg:col-span-5 space-y-6">
             <span className="inline-flex items-center gap-1 text-gold font-medium text-xs uppercase tracking-widest">
               <Award className="w-4 h-4 text-gold" /> Chef Recommended Premium Selection
@@ -702,14 +702,14 @@ export default function HomePage() {
           {/* Floating Premium Cake Cards Row */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
             {premium.slice(0, 2).map((prod) => (
-              <div 
-                key={prod._id} 
+              <div
+                key={prod._id}
                 className="bg-white/5 border border-border-color/20 rounded-3xl p-6 relative group hover:border-orange transition-all gold-glow overflow-hidden"
               >
                 <div className="absolute top-4 right-4 bg-orange/15 text-orange text-[10px] font-medium uppercase px-2 py-0.5 rounded-full border border-orange/20">Elite Custom</div>
-                <img 
-                  src={prod.images[0]} 
-                  alt={prod.name} 
+                <img
+                  src={prod.images[0]}
+                  alt={prod.name}
                   className="w-full h-44 object-cover rounded-2xl transition-all duration-500 group-hover:scale-105 shadow-md border border-white/5"
                 />
                 <h3 className="font-serif font-medium text-white text-lg mt-4 group-hover:text-gold transition-colors">{prod.name}</h3>
@@ -718,7 +718,7 @@ export default function HomePage() {
                     <span className="text-orange font-medium text-xl">₹{prod.discountPrice || prod.price}</span>
                     <span className="text-background/40 line-through text-xs ml-1.5 font-medium">₹{prod.price}</span>
                   </div>
-                  <button 
+                  <button
                     onClick={() => handleOpenQuickView(prod)}
                     className="p-2.5 bg-orange hover:bg-orange-hover text-white rounded-full transition-all"
                   >
@@ -734,22 +734,22 @@ export default function HomePage() {
 
       {/* 5. ROW 4: CUPCAKES & ROW 5: PASTRIES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        
-        <ProductRow 
-          title="Artisanal Cream Cupcakes" 
-          subtitle="Petite single-serve cups perfect for customized table spreads." 
-          items={cupcakes} 
-          onQuickView={handleOpenQuickView} 
+
+        <ProductRow
+          title="Artisanal Cream Cupcakes"
+          subtitle="Petite single-serve cups perfect for customized table spreads."
+          items={cupcakes}
+          onQuickView={handleOpenQuickView}
           addToCart={addToCart}
           wishlist={wishlist}
           toggleWishlist={toggleWishlist}
         />
 
-        <ProductRow 
-          title="Fresh Cream Pastries" 
-          subtitle="Individually sliced layers of forest berry and chocolate truffles." 
-          items={pastries} 
-          onQuickView={handleOpenQuickView} 
+        <ProductRow
+          title="Fresh Cream Pastries"
+          subtitle="Individually sliced layers of forest berry and chocolate truffles."
+          items={pastries}
+          onQuickView={handleOpenQuickView}
           addToCart={addToCart}
           wishlist={wishlist}
           toggleWishlist={toggleWishlist}
@@ -768,7 +768,7 @@ export default function HomePage() {
           </div>
 
           {/* Testimonial Active Slider Card */}
-          <div 
+          <div
             onMouseMove={handleTestimonialMouseMove}
             onMouseLeave={handleTestimonialMouseLeave}
             style={tiltStyle}
@@ -777,16 +777,16 @@ export default function HomePage() {
             <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-orange/15 p-3 rounded-full border border-orange/30">
               <Quote className="w-6 h-6 text-orange fill-orange" />
             </div>
-            
+
             <div className="space-y-6 pt-2">
               <p className="text-navy/80 text-base md:text-lg italic font-medium leading-relaxed">
                 &ldquo;{testimonials[testimonialIndex].text}&rdquo;
               </p>
-              
+
               <div className="flex flex-col items-center gap-2">
-                <img 
-                  src={testimonials[testimonialIndex].avatar} 
-                  alt={testimonials[testimonialIndex].name} 
+                <img
+                  src={testimonials[testimonialIndex].avatar}
+                  alt={testimonials[testimonialIndex].name}
                   className="w-14 h-14 rounded-full border-2 border-orange object-cover"
                 />
                 <div>
@@ -804,8 +804,8 @@ export default function HomePage() {
 
           <div className="flex justify-center gap-3">
             {testimonials.map((_, i) => (
-              <button 
-                key={i} 
+              <button
+                key={i}
                 onClick={() => setTestimonialIndex(i)}
                 className={`h-2 transition-all rounded-full ${i === testimonialIndex ? 'w-8 bg-orange' : 'w-2 bg-orange/20'}`}
               />
@@ -829,7 +829,7 @@ export default function HomePage() {
               Celebrations, behind the scenes, and sweet memories. See our cake artistry in motion.
             </p>
           </div>
-          <button 
+          <button
             onClick={() => setShowAllShortsModal(true)}
             className="inline-flex items-center gap-2 border border-orange hover:bg-orange/5 text-orange font-medium py-3 px-6 rounded-2xl text-xs transition-all tracking-wider self-start md:self-auto shadow-sm"
           >
@@ -847,7 +847,7 @@ export default function HomePage() {
                 <span className="text-[10px] font-medium uppercase text-navy/50 tracking-wider">Interactive Video Carousel</span>
               </div>
               <div className="flex gap-2">
-                <button 
+                <button
                   onClick={() => {
                     if (shortsScrollRef.current) {
                       shortsScrollRef.current.scrollBy({ left: -260, behavior: 'smooth' });
@@ -858,7 +858,7 @@ export default function HomePage() {
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <button 
+                <button
                   onClick={() => {
                     if (shortsScrollRef.current) {
                       shortsScrollRef.current.scrollBy({ left: 260, behavior: 'smooth' });
@@ -873,7 +873,7 @@ export default function HomePage() {
             </div>
 
             {/* Horizontal Slider Row */}
-            <div 
+            <div
               ref={shortsScrollRef}
               onScroll={() => {
                 if (shortsScrollRef.current) {
@@ -891,20 +891,20 @@ export default function HomePage() {
                 const liked = !!isLiked[item.id];
                 const likesVal = likesCount[item.id] !== undefined ? likesCount[item.id] : item.likes;
                 return (
-                  <div 
+                  <div
                     key={item.id}
                     className="w-56 shrink-0 bg-white dark:bg-[#0D2A6B] border border-border-color/60 rounded-[28px] p-3 flex flex-col justify-between hover:scale-[1.02] hover:border-orange/60 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group"
                   >
                     {/* Video Thumbnail Container */}
                     <div className="rounded-[22px] overflow-hidden aspect-[9/14] border border-border-color/40 relative cursor-pointer" onClick={() => handleOpenVideoPlayer(item)}>
-                      <img 
-                        src={item.thumbnail} 
-                        alt={item.title} 
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       {/* Dark Vignette Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/35 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-                      
+
                       {/* Top action: Featured badge or Likes overlay */}
                       {item.isFeatured && (
                         <span className="absolute top-3 left-3 bg-gold text-navy font-medium text-[9px] px-2.5 py-1 rounded-full border border-gold-light/40 shadow-sm tracking-wider uppercase">
@@ -931,7 +931,7 @@ export default function HomePage() {
                         <h3 className="font-serif font-medium text-navy text-sm group-hover:text-orange transition-colors cursor-pointer truncate flex-grow mr-2" onClick={() => handleOpenVideoPlayer(item)}>
                           {item.title}
                         </h3>
-                        <button 
+                        <button
                           onClick={(e) => handleLikeShort(item.id, e)}
                           className="p-1 hover:bg-cream rounded-full text-navy/60 hover:text-red-500 transition-colors shrink-0"
                           title="Like moment"
@@ -955,8 +955,8 @@ export default function HomePage() {
             {/* Smooth Carousel Dots indicators */}
             <div className="flex justify-center gap-2.5 pt-2">
               {shortVideos.map((_, i) => (
-                <button 
-                  key={i} 
+                <button
+                  key={i}
                   onClick={() => {
                     if (shortsScrollRef.current) {
                       const { scrollWidth, clientWidth } = shortsScrollRef.current;
@@ -1002,9 +1002,9 @@ export default function HomePage() {
       {quickViewProduct && (
         <div className="fixed inset-0 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 z-50">
           <div className="bg-card-bg rounded-[32px] max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-border-color flex flex-col md:flex-row p-6 md:p-8 gap-8 shadow-2xl relative animate-float">
-            
+
             {/* Close Cross */}
-            <button 
+            <button
               onClick={() => setQuickViewProduct(null)}
               className="absolute top-4 right-4 p-2 hover:bg-cream rounded-full text-navy transition-colors"
             >
@@ -1014,9 +1014,9 @@ export default function HomePage() {
             {/* Col Left: Product Images Slider */}
             <div className="w-full md:w-1/2 space-y-4 shrink-0">
               <div className="rounded-2xl overflow-hidden aspect-square border border-border-color">
-                <img 
-                  src={quickViewProduct.images[0]} 
-                  alt={quickViewProduct.name} 
+                <img
+                  src={quickViewProduct.images[0]}
+                  alt={quickViewProduct.name}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -1032,7 +1032,7 @@ export default function HomePage() {
               <div className="space-y-3">
                 <span className="text-[10px] font-medium uppercase tracking-widest bg-orange/15 text-orange px-2.5 py-1 rounded-full border border-orange/25">Quick Customize Checkout</span>
                 <h2 className="text-xl md:text-2xl font-serif font-medium text-navy leading-tight">{quickViewProduct.name}</h2>
-                
+
                 {/* Pricing row */}
                 <div className="flex items-baseline gap-2.5 pt-1">
                   <span className="text-orange font-medium text-2xl">₹{quickViewProduct.discountPrice || quickViewProduct.price}</span>
@@ -1050,8 +1050,8 @@ export default function HomePage() {
                   <h4 className="text-xs font-medium text-navy uppercase tracking-wider">Select Weight (kg)</h4>
                   <div className="flex flex-wrap gap-2">
                     {quickViewProduct.weights.map(w => (
-                      <button 
-                        key={w} 
+                      <button
+                        key={w}
                         onClick={() => setSelectedWeight(w)}
                         className={`text-xs font-medium px-4 py-2 rounded-full border transition-all ${selectedWeight === w ? 'bg-orange text-white border-orange shadow-sm' : 'border-border-color hover:border-orange bg-background text-navy'}`}
                       >
@@ -1068,8 +1068,8 @@ export default function HomePage() {
                   <h4 className="text-xs font-medium text-navy uppercase tracking-wider">Select Flavor Option</h4>
                   <div className="flex flex-wrap gap-2">
                     {quickViewProduct.flavors.map(f => (
-                      <button 
-                        key={f} 
+                      <button
+                        key={f}
                         onClick={() => setSelectedFlavor(f)}
                         className={`text-xs font-medium px-4 py-2 rounded-full border transition-all ${selectedFlavor === f ? 'bg-orange text-white border-orange shadow-sm' : 'border-border-color hover:border-orange bg-background text-navy'}`}
                       >
@@ -1086,10 +1086,10 @@ export default function HomePage() {
                   <span>Cake Inscription Message</span>
                   <span className="text-[9px] text-navy/50 font-normal">Max 25 chars</span>
                 </h4>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   maxLength={25}
-                  placeholder="E.g. Happy Birthday Aditya!" 
+                  placeholder="E.g. Happy Birthday Aditya!"
                   value={customMessage}
                   onChange={(e) => setCustomMessage(e.target.value)}
                   className="w-full text-xs font-normal border border-border-color p-3 rounded-xl outline-none focus:ring-1 focus:ring-orange focus:border-transparent bg-background text-navy"
@@ -1099,9 +1099,9 @@ export default function HomePage() {
               {/* Eggless toggle checkbox */}
               {quickViewProduct.isEgglessOption && (
                 <label className="flex items-center gap-2 text-xs font-medium text-navy cursor-pointer select-none">
-                  <input 
-                    type="checkbox" 
-                    checked={isEggless} 
+                  <input
+                    type="checkbox"
+                    checked={isEggless}
                     onChange={(e) => setIsEggless(e.target.checked)}
                     className="accent-orange rounded w-4 h-4"
                   />
@@ -1111,13 +1111,13 @@ export default function HomePage() {
 
               {/* Drawer Button Panel */}
               <div className="pt-4 border-t border-border-color flex gap-4">
-                <button 
+                <button
                   onClick={handleQuickViewAddToCart}
                   className="flex-1 bg-orange hover:bg-orange-hover text-white font-medium py-3 rounded-2xl text-xs transition-all flex justify-center items-center gap-1.5 shadow-md gold-glow"
                 >
                   <ShoppingBag className="w-4 h-4" /> Add to Shopping Cart
                 </button>
-                <button 
+                <button
                   onClick={() => { handleQuickViewAddToCart(); router.push('/cart'); }}
                   className="flex-1 bg-navy hover:bg-navy-dark text-white font-medium py-3 rounded-2xl text-xs transition-all shadow-md"
                 >
@@ -1130,7 +1130,7 @@ export default function HomePage() {
         </div>
       )}
 
-                {/* 9. MINIMALIST PORTRAIT SHORTS VIDEO PLAYER MODAL */}
+      {/* 9. MINIMALIST PORTRAIT SHORTS VIDEO PLAYER MODAL */}
       {activeVideo && (() => {
         const liked = !!isLiked[activeVideo.id];
         const likesVal = likesCount[activeVideo.id] !== undefined ? likesCount[activeVideo.id] : activeVideo.likes;
@@ -1138,12 +1138,12 @@ export default function HomePage() {
 
         return (
           <div className="fixed inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in" onClick={() => setActiveVideo(null)}>
-            <div 
+            <div
               className="relative w-full max-w-[380px] aspect-[9/16] bg-black rounded-[32px] overflow-hidden border border-white/10 shadow-2xl animate-float"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
-              <button 
+              <button
                 onClick={() => setActiveVideo(null)}
                 className="absolute top-4 right-4 z-40 p-2 bg-black/40 hover:bg-black/60 rounded-full text-white border border-white/10 transition-all"
                 title="Close Player"
@@ -1173,9 +1173,9 @@ export default function HomePage() {
               {/* Graceful CDN / CORS Fallback UI */}
               {videoLoadError && (
                 <div className="absolute inset-0 w-full h-full z-10 bg-black flex flex-col items-center justify-center p-6 text-center select-none animate-fade-in">
-                  <img 
-                    src={activeVideo.thumbnail} 
-                    alt={activeVideo.title} 
+                  <img
+                    src={activeVideo.thumbnail}
+                    alt={activeVideo.title}
                     className="absolute inset-0 w-full h-full object-cover opacity-40 blur-[4px]"
                   />
                   <div className="relative z-20 space-y-2 px-4">
@@ -1189,7 +1189,7 @@ export default function HomePage() {
               )}
 
               {/* Play / Pause Tap Overlay */}
-              <div 
+              <div
                 className="absolute inset-0 z-20 cursor-pointer"
                 onClick={(e) => {
                   const videoEl = e.currentTarget.parentElement?.querySelector('video');
@@ -1206,9 +1206,9 @@ export default function HomePage() {
 
               {/* Floating Heart Elements */}
               {heartAnimations.map(h => (
-                <span 
-                  key={h.id} 
-                  style={{ left: h.x, top: h.y }} 
+                <span
+                  key={h.id}
+                  style={{ left: h.x, top: h.y }}
                   className="absolute z-30 text-red-500 animate-float-heart pointer-events-none"
                 >
                   <Heart className="w-10 h-10 fill-red-500 text-red-500 drop-shadow-lg" />
@@ -1219,7 +1219,7 @@ export default function HomePage() {
               <div className="absolute right-4 bottom-32 z-30 flex flex-col items-center gap-4 pointer-events-auto">
                 {/* Like Button */}
                 <div className="flex flex-col items-center">
-                  <button 
+                  <button
                     onClick={(e) => handleLikeShort(activeVideo.id, e)}
                     className="w-10 h-10 rounded-full bg-black/55 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:scale-105 active:scale-120 hover:bg-orange transition-all shadow"
                   >
@@ -1229,7 +1229,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Mute Button */}
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); setIsVideoMuted(!isVideoMuted); }}
                   className="w-10 h-10 rounded-full bg-black/55 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:scale-105 transition-all shadow hover:bg-orange"
                   title={isVideoMuted ? "Unmute" : "Mute"}
@@ -1238,7 +1238,7 @@ export default function HomePage() {
                 </button>
 
                 {/* Share Button */}
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); showToast("Reels link copied! 📋", "success"); }}
                   className="w-10 h-10 rounded-full bg-black/55 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:scale-105 transition-all shadow hover:bg-orange"
                   title="Copy Link"
@@ -1249,7 +1249,7 @@ export default function HomePage() {
 
               {/* Bottom Metadata & Shopping Pill */}
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-30 space-y-3 pointer-events-none">
-                
+
                 {/* Title & Description Overlay */}
                 <div className="space-y-1">
                   <h4 className="text-sm font-serif font-medium text-white leading-tight">{activeVideo.title}</h4>
@@ -1260,9 +1260,9 @@ export default function HomePage() {
                 {assocProduct && (
                   <div className="bg-white/10 backdrop-blur-md border border-white/10 p-2.5 rounded-2xl flex items-center justify-between gap-3 pointer-events-auto">
                     <div className="flex items-center gap-2">
-                      <img 
-                        src={assocProduct.images[0]} 
-                        alt={assocProduct.name} 
+                      <img
+                        src={assocProduct.images[0]}
+                        alt={assocProduct.name}
                         className="w-10 h-10 object-cover rounded-xl border border-white/10 shrink-0"
                       />
                       <div className="min-w-0">
@@ -1270,7 +1270,7 @@ export default function HomePage() {
                         <p className="text-[10px] text-orange font-medium mt-1 leading-none">₹{assocProduct.discountPrice || assocProduct.price}</p>
                       </div>
                     </div>
-                    <button 
+                    <button
                       onClick={(e) => {
                         e.stopPropagation();
                         addToCart(
@@ -1305,12 +1305,12 @@ export default function HomePage() {
       {/* 10. CATALOG SHOWCASE MODAL: VIEW ALL SHORT VIDEOS */}
       {showAllShortsModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in" onClick={() => setShowAllShortsModal(false)}>
-          <div 
+          <div
             className="bg-card-bg text-navy rounded-[32px] max-w-5xl w-full max-h-[85vh] overflow-y-auto border border-border-color p-6 md:p-8 space-y-6 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Cross button */}
-            <button 
+            <button
               onClick={() => setShowAllShortsModal(false)}
               className="absolute top-4 right-4 p-2 hover:bg-cream rounded-full text-navy transition-colors"
             >
@@ -1325,8 +1325,8 @@ export default function HomePage() {
             {/* Video Shorts Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
               {shortVideos.map((item) => (
-                <div 
-                  key={item.id} 
+                <div
+                  key={item.id}
                   onClick={() => { handleOpenVideoPlayer(item); setShowAllShortsModal(false); }}
                   className="bg-background border border-border-color/60 rounded-2xl p-2 cursor-pointer hover:border-orange hover:scale-102 transition-all group flex flex-col justify-between"
                 >
@@ -1348,7 +1348,7 @@ export default function HomePage() {
             </div>
 
             <div className="pt-4 border-t border-border-color flex justify-end">
-              <button 
+              <button
                 onClick={() => setShowAllShortsModal(false)}
                 className="px-6 py-2.5 bg-navy text-white rounded-xl text-xs font-medium hover:bg-navy-dark transition-all"
               >
@@ -1396,13 +1396,13 @@ function ProductRow({ title, subtitle, items, onQuickView, addToCart, wishlist, 
           <p className="text-xs md:text-sm text-navy/60 font-normal">{subtitle}</p>
         </div>
         <div className="flex gap-1.5">
-          <button 
+          <button
             onClick={() => scroll('left')}
             className="p-1.5 border border-border-color hover:bg-cream rounded-full text-navy transition-all"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
-          <button 
+          <button
             onClick={() => scroll('right')}
             className="p-1.5 border border-border-color hover:bg-cream rounded-full text-navy transition-all"
           >
@@ -1411,19 +1411,19 @@ function ProductRow({ title, subtitle, items, onQuickView, addToCart, wishlist, 
         </div>
       </div>
 
-      <div 
+      <div
         ref={scrollRef}
         className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth py-4 px-1"
       >
         {items.map((prod) => {
           const isWishlisted = wishlist.includes(prod._id);
           return (
-            <div 
+            <div
               key={prod._id}
               className="w-64 shrink-0 bg-card-bg border border-border-color rounded-3xl p-4 flex flex-col justify-between group hover:border-orange amore-card shadow-sm transition-all duration-300 relative overflow-hidden"
             >
               {/* Wishlist Button */}
-              <button 
+              <button
                 onClick={() => toggleWishlist(prod._id)}
                 className="absolute top-4 right-4 p-1.5 bg-card-bg hover:bg-cream border border-border-color rounded-full text-navy transition-colors z-20 shadow-sm"
               >
@@ -1433,9 +1433,9 @@ function ProductRow({ title, subtitle, items, onQuickView, addToCart, wishlist, 
               {/* Product Card Click leads to Details */}
               <Link href={`/product/${prod.slug}`} className="space-y-3 cursor-pointer relative block">
                 <div className="rounded-2xl overflow-hidden h-40 aspect-video border border-border-color relative">
-                  <img 
-                    src={prod.images[0]} 
-                    alt={prod.name} 
+                  <img
+                    src={prod.images[0]}
+                    alt={prod.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
                   />
                   {prod.isPremium && (
@@ -1463,14 +1463,14 @@ function ProductRow({ title, subtitle, items, onQuickView, addToCart, wishlist, 
                   )}
                 </div>
                 <div className="flex gap-1.5">
-                  <button 
+                  <button
                     onClick={() => onQuickView(prod)}
                     className="p-1.5 border border-border-color hover:bg-cream rounded-full text-navy transition-all"
                     title="Quick Customize View"
                   >
                     <Eye className="w-4 h-4" />
                   </button>
-                  <button 
+                  <button
                     onClick={() => handleSimpleAddToCart(prod)}
                     className="p-1.5 bg-orange hover:bg-orange-hover hover:scale-105 text-white rounded-full transition-all shadow-sm"
                     title="Add to Shopping Bag"

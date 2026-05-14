@@ -43,18 +43,33 @@ function CategoryContent({ slug }) {
 
   // Identify active category
   const activeCategory = categories.find(c => c.slug === slug);
-  const title = slug === 'all' ? 'All Confectioneries' : activeCategory ? activeCategory.name : 'Category Catalog';
-  const description = slug === 'all' 
-    ? 'Browse our complete catalog of signature cakes, designer desserts, accessories, and celebratory gift combos.' 
-    : activeCategory?.description || `Specially prepared recipe collections within ${title.toLowerCase()}.`;
+  
+  let title = activeCategory ? activeCategory.name : 'Category Catalog';
+  let description = activeCategory?.description || `Specially prepared recipe collections within ${title.toLowerCase()}.`;
+
+  if (slug === 'all') {
+    title = 'All Confectioneries';
+    description = 'Browse our complete catalog of signature cakes, designer desserts, accessories, and celebratory gift combos.';
+  } else if (slug === 'cakes') {
+    title = 'All Premium Cakes';
+    description = 'Explore our entire collection of artisanal cakes, from designer birthdays to royal weddings and chocolate masterpieces.';
+  }
 
   // Apply filters in-memory
   let filtered = products.filter(p => {
     // Category slug match
-    if (slug !== 'all' && p.category !== slug) {
-      // support eggless subcategories check
-      if (slug === 'eggless-cakes' && !p.isEgglessOption) return false;
-      else if (slug !== 'eggless-cakes') return false;
+    if (slug !== 'all') {
+      if (slug === 'cakes') {
+        // "All Cakes" special logic: include all subcategories that are cakes
+        const isCupcake = p.category === 'cupcakes' || p.name.toLowerCase().includes('cupcake');
+        const isPastry = p.category === 'pastries' || p.name.toLowerCase().includes('pastry');
+        const isCake = !isCupcake && !isPastry && (p.category?.toLowerCase().includes('cake') || p.name.toLowerCase().includes('cake'));
+        if (!isCake) return false;
+      } else if (p.category !== slug) {
+        // support eggless subcategories check
+        if (slug === 'eggless-cakes' && !p.isEgglessOption) return false;
+        else if (slug !== 'eggless-cakes') return false;
+      }
     }
     
     // Search query match

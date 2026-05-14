@@ -177,7 +177,7 @@ export let mockOrders = [
       zipCode: '400001'
     },
     deliveryDetails: {
-      date: '2026-05-11',
+      date: new Date(Date.now() - 24 * 3600000).toISOString().split('T')[0], // Yesterday
       timeSlot: 'Midnight (11 PM - 12 AM)',
       type: 'Midnight'
     },
@@ -233,7 +233,7 @@ export let mockOrders = [
       zipCode: '400001'
     },
     deliveryDetails: {
-      date: '2026-05-12',
+      date: new Date().toISOString().split('T')[0], // Today
       timeSlot: 'Standard (12 PM - 6 PM)',
       type: 'Standard'
     },
