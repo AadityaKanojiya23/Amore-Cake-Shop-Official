@@ -36,7 +36,7 @@ export const registerUser = async (req, res) => {
 
       const newUser = addUserStore({
         name,
-        email,
+        email, 
         password: hashedPassword,
         avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${name}`
       });
