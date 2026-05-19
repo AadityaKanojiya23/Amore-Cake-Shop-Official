@@ -12,7 +12,7 @@ const generateToken = (id, role) => {
     process.env.JWT_SECRET || 'sweetcrave_super_secret_jwt_key_123456789',
     { expiresIn: '30d' }
   );
-};
+}; 
 
 // @desc    Register new user
 // @route   POST /api/auth/register
