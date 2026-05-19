@@ -5,7 +5,7 @@ import User from '../models/User.js';
 import { getDBStatus } from '../config/db.js';
 import { getUsersStore, addUserStore } from '../config/mockStore.js';
 
-// Helper to generate JWT
+// Helper to generate JWT 
 const generateToken = (id, role) => {
   return jwt.sign(
     { id, role },
